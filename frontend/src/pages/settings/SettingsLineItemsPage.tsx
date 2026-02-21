@@ -30,14 +30,8 @@ export const SettingsLineItemsPage = () => {
   };
 
   return (
-    <div className="contents-pages container-column wrapper-box-edit scrolls">
-      <div className="wrapper-box-edit__content form-default">
-        <div className="page-wrapper bg-white line-items-page">
-          <div className="rows mb-5">
-            <h2 className="fs-18 fw-600">Line Items</h2>
-          </div>
-
-          <div className="table-container">
+    <div className="line-items-page">
+      <div className="table-container">
             <div className="table-actions">
               <div className="left-actions">
                 <span className="item-count">{selectedCount} {itemLabel}</span>
@@ -112,8 +106,6 @@ export const SettingsLineItemsPage = () => {
                 <button type="button" className="page-btn" aria-label="Last page">»</button>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     </div>
   );
