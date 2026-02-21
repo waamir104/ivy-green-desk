@@ -5404,3 +5404,157 @@ section p {
   background: rgb(10, 12, 13);
   border-top-color: rgba(255, 255, 255, 0.12);
 }
+
+/* Line Items page – dark table */
+.line-items-page .table-container {
+  width: 100%;
+  max-width: 1195px;
+  background: #111318;
+  border-radius: 8px;
+  padding: 15px;
+  box-sizing: border-box;
+  color: #e5e7eb;
+  font-family: Arial, sans-serif;
+}
+
+.line-items-page .table-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.line-items-page .left-actions,
+.line-items-page .right-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.line-items-page .item-count {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.line-items-page .btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid #2a2f3a;
+  background: #1a1d24;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.line-items-page .btn:hover {
+  background: #232733;
+}
+
+.line-items-page .btn-blue {
+  background: #1e40af;
+  border: none;
+}
+
+.line-items-page .btn-blue:hover {
+  background: #1d4ed8;
+}
+
+.line-items-page .btn-purple {
+  background: #7c3aed;
+  border: none;
+}
+
+.line-items-page .btn-purple:hover {
+  background: #6d28d9;
+}
+
+.line-items-page .export-text {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.line-items-page .table-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #2a2f3a;
+  border-radius: 6px;
+}
+
+.line-items-page .table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.line-items-page .table-wrapper thead {
+  background: #161a22;
+}
+
+.line-items-page .table-wrapper th,
+.line-items-page .table-wrapper td {
+  height: 36px;
+  padding: 0 12px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #2a2f3a;
+  white-space: nowrap;
+}
+
+.line-items-page .table-wrapper th {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.line-items-page .table-wrapper tbody tr:hover {
+  background: #1b1f27;
+}
+
+.line-items-page .table-wrapper .checkbox-col {
+  width: 40px;
+}
+
+.line-items-page .table-wrapper .link {
+  color: #a855f7;
+  cursor: pointer;
+}
+
+.line-items-page .table-wrapper .link:hover {
+  text-decoration: underline;
+}
+
+.line-items-page .table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.line-items-page .per-page select {
+  background: #1a1d24;
+  border: 1px solid #2a2f3a;
+  color: #e5e7eb;
+  height: 32px;
+  border-radius: 6px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.line-items-page .pagination {
+  display: flex;
+  gap: 6px;
+}
+
+.line-items-page .page-btn {
+  height: 32px;
+  min-width: 32px;
+  border-radius: 6px;
+  border: 1px solid #2a2f3a;
+  background: #1a1d24;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.line-items-page .page-btn.active {
+  background: #232733;
+}
