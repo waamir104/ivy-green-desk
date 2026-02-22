@@ -35,15 +35,34 @@ export const SettingsLineItemsPage = () => {
             <div className="table-actions">
               <div className="left-actions">
                 <span className="item-count">{selectedCount} {itemLabel}</span>
-                <button type="button" className="btn btn-dark">Delete</button>
-                <button type="button" className="btn btn-dark">Archive</button>
+                <button
+                  type="button"
+                  className={`btn btn-dark ${selectedCount === 0 ? "is-disable" : ""}`}
+                  disabled={selectedCount === 0}
+                >
+                  <span className="material-symbols-outlined">delete</span>
+                  Delete
+                </button>
+                <button
+                  type="button"
+                  className={`btn btn-dark ${selectedCount === 0 ? "is-disable" : ""}`}
+                  disabled={selectedCount === 0}
+                >
+                  <span className="material-symbols-outlined">schedule</span>
+                  Archive
+                </button>
               </div>
 
               <div className="right-actions">
                 <span className="export-text">Export {recordCount} records:</span>
-                <button type="button" className="btn btn-blue">CSV</button>
-                <button type="button" className="btn btn-blue">Excel</button>
-                <button type="button" className="btn btn-dark">Print</button>
+                <div className="export-options-group">
+                  <button type="button" className="export__option --blue --left">CSV</button>
+                  <button type="button" className="export__option --blue --right">Excel</button>
+                </div>
+                <button type="button" className="btn btn-dark">
+                  <span className="material-symbols-outlined">print</span>
+                  Print
+                </button>
                 <button type="button" className="btn btn-dark">Line Item Global Override</button>
                 <button type="button" className="btn btn-purple">+ Add Item</button>
               </div>
