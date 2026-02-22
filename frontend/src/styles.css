@@ -5437,11 +5437,12 @@ section p {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #111318;
+  background: #fff;
+  border: 1px solid #e5e7eb;
   border-radius: 4px;
   padding: 0;
   box-sizing: border-box;
-  color: #e5e7eb;
+  color: #374151;
   font-family: Arial, sans-serif;
 }
 
@@ -5484,7 +5485,7 @@ section p {
 }
 
 .line-items-page .item-count {
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 14px;
 }
 
@@ -5492,15 +5493,16 @@ section p {
   height: 32px;
   padding: 0 12px;
   border-radius: 6px;
-  border: 1px solid #2a2f3a;
-  background: #1a1d24;
-  color: #e5e7eb;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #374151;
   cursor: pointer;
   font-size: 13px;
 }
 
 .line-items-page .btn:hover {
-  background: #232733;
+  background: #f9fafb;
+  border-color: #d1d5db;
 }
 
 .line-items-page .btn-blue {
@@ -5515,10 +5517,12 @@ section p {
 .line-items-page .btn-purple {
   background: #7c3aed;
   border: none;
+  color: #fff;
 }
 
 .line-items-page .btn-purple:hover {
   background: #6d28d9;
+  color: #fff;
 }
 
 .line-items-page .table-actions .export__option {
@@ -5575,7 +5579,7 @@ section p {
 }
 
 .line-items-page .export-text {
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 14px;
 }
 
@@ -5584,8 +5588,9 @@ section p {
   min-height: 0;
   overflow-y: auto;
   overflow-x: auto;
-  border: 1px solid #2a2f3a;
+  border: 1px solid #e5e7eb;
   border-radius: 4px;
+  background: #fff;
 }
 
 .line-items-page .table-wrapper table {
@@ -5596,15 +5601,17 @@ section p {
 }
 
 .line-items-page .table-wrapper thead {
-  background: #161a22;
+  background: #f9fafb;
 }
 
 .line-items-page .table-wrapper thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #161a22;
-  border-bottom: 1px solid #2a2f3a;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-weight: 600;
 }
 
 .line-items-page .table-wrapper th,
@@ -5614,14 +5621,15 @@ section p {
   box-sizing: border-box;
   text-align: left;
   font-size: 13px;
-  border-bottom: 1px solid #2a2f3a;
+  border-bottom: 1px solid #f3f4f6;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #374151;
 }
 
 .line-items-page .table-wrapper th {
-  color: #9ca3af;
-  font-weight: 500;
+  color: #374151;
+  font-weight: 600;
 }
 
 .line-items-page .table-wrapper th:nth-child(1),
@@ -5638,7 +5646,7 @@ section p {
 .line-items-page .table-wrapper td:nth-child(6) { width: 14%; }
 
 .line-items-page .table-wrapper tbody tr:hover {
-  background: #1b1f27;
+  background: #f9fafb;
 }
 
 .line-items-page .table-wrapper .checkbox-col {
@@ -5647,12 +5655,13 @@ section p {
 }
 
 .line-items-page .table-wrapper .link {
-  color: #a855f7;
+  color: #2563eb;
   cursor: pointer;
 }
 
 .line-items-page .table-wrapper .link:hover {
   text-decoration: underline;
+  color: #1d4ed8;
 }
 
 .line-items-page .table-footer {
@@ -5665,9 +5674,9 @@ section p {
 }
 
 .line-items-page .per-page select {
-  background: #1a1d24;
-  border: 1px solid #2a2f3a;
-  color: #e5e7eb;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
   height: 32px;
   border-radius: 6px;
   padding: 0 8px;
@@ -5683,13 +5692,20 @@ section p {
   height: 32px;
   min-width: 32px;
   border-radius: 6px;
-  border: 1px solid #2a2f3a;
-  background: #1a1d24;
-  color: #e5e7eb;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #374151;
   cursor: pointer;
   font-size: 13px;
 }
 
+.line-items-page .page-btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
 .line-items-page .page-btn.active {
-  background: #232733;
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  font-weight: 600;
 }
