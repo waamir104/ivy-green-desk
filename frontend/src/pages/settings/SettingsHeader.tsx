@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { getSettingsItemByPath, SETTINGS_GROUPS } from "./settingsConfig";
+import { getSettingsItemByPath, SETTINGS_BASE, SETTINGS_GROUPS } from "./settingsConfig";
+import { useLineItemsContext } from "./LineItemsContext";
 
 /* Same as Header: default = hamburger, active = back arrow + menu lines */
 const SidebarIconDefault = () => (
@@ -27,6 +28,10 @@ export const SettingsHeader = ({ sidebarOpen = true, onToggleSidebar }: Settings
 
   const currentItem = getSettingsItemByPath(pathname);
   const currentLabel = currentItem?.label ?? "Company";
+  const isLineItemsPage = pathname === `${SETTINGS_BASE}/items` || pathname.startsWith(`${SETTINGS_BASE}/items/`);
+  const lineItemsCtx = useLineItemsContext();
+  const lineItemsFilter = lineItemsCtx?.filter ?? "archived";
+  const setLineItemsFilter = lineItemsCtx?.setFilter ?? (() => {});
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -141,6 +146,31 @@ export const SettingsHeader = ({ sidebarOpen = true, onToggleSidebar }: Settings
             </div>
           </div>
         </div>
+        {isLineItemsPage && lineItemsCtx && (
+          <div className="segmented-control header-items">
+            <button
+              type="button"
+              className={`tab${lineItemsFilter === "active" ? " active" : ""}`}
+              onClick={() => setLineItemsFilter("active")}
+            >
+              Active
+            </button>
+            <button
+              type="button"
+              className={`tab${lineItemsFilter === "archived" ? " active" : ""}`}
+              onClick={() => setLineItemsFilter("archived")}
+            >
+              Archived
+            </button>
+            <button
+              type="button"
+              className={`tab${lineItemsFilter === "deleted" ? " active" : ""}`}
+              onClick={() => setLineItemsFilter("deleted")}
+            >
+              Deleted
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

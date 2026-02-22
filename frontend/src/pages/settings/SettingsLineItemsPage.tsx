@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx-js-style";
+import { useLineItemsContext } from "./LineItemsContext";
 
 const LINE_ITEMS = [
   { id: 1, name: "BALES PINESTRAW FOR FRONTS PLANTS", description: "", tax1: "", tax2: "", cost: "$8.00" },
@@ -10,6 +11,8 @@ const LINE_ITEMS = [
 ];
 
 export const SettingsLineItemsPage = () => {
+  const lineItemsCtx = useLineItemsContext();
+  const loading = lineItemsCtx?.loading ?? false;
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const selectedCount = selectedIds.size;
   const recordCount = LINE_ITEMS.length;
@@ -182,23 +185,38 @@ export const SettingsLineItemsPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {LINE_ITEMS.map((row) => (
-                    <tr key={row.id}>
-                      <td>
-                        <input
-                          type="checkbox"
-                          checked={selectedIds.has(row.id)}
-                          onChange={() => toggleRow(row.id)}
-                          aria-label={`Select ${row.name}`}
-                        />
+                  {loading ? (
+                    <tr className="line-items-loading-row">
+                      <td colSpan={6} className="line-items-loading-cell">
+                        <div className="line-items-loading__inner">
+                          <img
+                            src="/shared/grass icon.png"
+                            alt=""
+                            className="line-items-loading__icon"
+                            aria-hidden
+                          />
+                        </div>
                       </td>
-                      <td className="link">{row.name}</td>
-                      <td>{row.description}</td>
-                      <td>{row.tax1}</td>
-                      <td>{row.tax2}</td>
-                      <td>{row.cost}</td>
                     </tr>
-                  ))}
+                  ) : (
+                    LINE_ITEMS.map((row) => (
+                      <tr key={row.id}>
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={selectedIds.has(row.id)}
+                            onChange={() => toggleRow(row.id)}
+                            aria-label={`Select ${row.name}`}
+                          />
+                        </td>
+                        <td className="link">{row.name}</td>
+                        <td>{row.description}</td>
+                        <td>{row.tax1}</td>
+                        <td>{row.tax2}</td>
+                        <td>{row.cost}</td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
