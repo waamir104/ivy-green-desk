@@ -5709,3 +5709,116 @@ section p {
   border-color: #d1d5db;
   font-weight: 600;
 }
+
+/* ========== Line Items page – Dark theme ========== */
+.theme-dark .line-items-page .table-container {
+  background: rgb(30, 33, 35);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .line-items-page .table-actions,
+.theme-dark .line-items-page .table-footer {
+  background: rgb(10, 12, 13);
+}
+
+.theme-dark .line-items-page .item-count,
+.theme-dark .line-items-page .export-text {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .line-items-page .btn {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .line-items-page .btn:hover:not(:disabled):not(.is-disable) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .line-items-page .table-wrapper {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgb(30, 33, 35);
+}
+
+.theme-dark .line-items-page .table-wrapper thead,
+.theme-dark .line-items-page .table-wrapper thead th {
+  background: rgb(10, 12, 13);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: rgb(176, 168, 181);
+  font-weight: 600;
+}
+
+.theme-dark .line-items-page .table-wrapper th,
+.theme-dark .line-items-page .table-wrapper td {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .line-items-page .table-wrapper tbody tr:nth-child(odd) {
+  background: rgb(14, 17, 18);
+}
+
+.theme-dark .line-items-page .table-wrapper tbody tr:nth-child(even) {
+  background: rgb(10, 12, 13);
+}
+
+.theme-dark .line-items-page .table-wrapper tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.theme-dark .line-items-page .table-wrapper .link {
+  color: #a78bfa;
+}
+
+.theme-dark .line-items-page .table-wrapper .link:hover {
+  color: #c4b5fd;
+}
+
+.theme-dark .line-items-page .table-actions .export__option.--blue.--left,
+.theme-dark .line-items-page .table-actions .export__option.--blue.--right {
+  background: rgba(30, 64, 175, 0.3);
+  border-color: rgba(96, 165, 250, 0.4);
+  color: #93c5fd;
+}
+
+.theme-dark .line-items-page .table-actions .export__option.--blue:hover {
+  background: rgba(30, 64, 175, 0.45);
+  border-color: rgba(147, 197, 253, 0.5);
+}
+
+.theme-dark .line-items-page .btn-purple {
+  background: rgb(124, 58, 237);
+  color: #fff;
+}
+
+.theme-dark .line-items-page .btn-purple:hover {
+  background: rgb(109, 40, 217);
+  color: #fff;
+}
+
+.theme-dark .line-items-page .per-page select {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .line-items-page .page-btn {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .line-items-page .page-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .line-items-page .page-btn.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgb(176, 168, 181);
+  font-weight: 600;
+}
