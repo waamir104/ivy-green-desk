@@ -5599,6 +5599,14 @@ section p {
   background: #161a22;
 }
 
+.line-items-page .table-wrapper thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #161a22;
+  border-bottom: 1px solid #2a2f3a;
+}
+
 .line-items-page .table-wrapper th,
 .line-items-page .table-wrapper td {
   height: 36px;

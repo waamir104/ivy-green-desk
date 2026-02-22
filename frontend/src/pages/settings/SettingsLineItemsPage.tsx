@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as XLSX from "xlsx-js-style";
 
 const LINE_ITEMS = [
   { id: 1, name: "BALES PINESTRAW FOR FRONTS PLANTS", description: "", tax1: "", tax2: "", cost: "$8.00" },
@@ -29,6 +30,99 @@ export const SettingsLineItemsPage = () => {
     else setSelectedIds(new Set(LINE_ITEMS.map((r) => r.id)));
   };
 
+  const escapeCsvCell = (value: string): string => {
+    const s = String(value ?? "").trim();
+    if (/[",\n\r]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
+    return s;
+  };
+
+  const exportToCsv = () => {
+    const headers = ["Name", "Description", "Tax 1", "Tax 2", "Cost"];
+    const rows = LINE_ITEMS.map((row) => [
+      escapeCsvCell(row.name),
+      escapeCsvCell(row.description),
+      escapeCsvCell(row.tax1),
+      escapeCsvCell(row.tax2),
+      escapeCsvCell(row.cost),
+    ]);
+    const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `line-items-export-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportToExcel = () => {
+    const headers = ["Name", "Description", "Tax 1", "Tax 2", "Cost"];
+    const data = [
+      headers,
+      ...LINE_ITEMS.map((row) => [
+        (row.name ?? "").trim(),
+        (row.description ?? "").trim(),
+        (row.tax1 ?? "").trim(),
+        (row.tax2 ?? "").trim(),
+        (row.cost ?? "").trim(),
+      ]),
+    ];
+    const ws = XLSX.utils.aoa_to_sheet(data);
+
+    const thinBorder = {
+      top: { style: "thin", color: { rgb: "FF000000" } },
+      bottom: { style: "thin", color: { rgb: "FF000000" } },
+      left: { style: "thin", color: { rgb: "FF000000" } },
+      right: { style: "thin", color: { rgb: "FF000000" } },
+    };
+
+    const headerStyle = {
+      fill: { fgColor: { rgb: "FF404040" }, patternType: "solid" },
+      font: { bold: true, color: { rgb: "FFFFFFFF" }, sz: 11 },
+      border: thinBorder,
+      alignment: { vertical: "center", horizontal: "left" },
+    };
+
+    const rowCount = data.length;
+    const colCount = headers.length;
+
+    for (let c = 0; c < colCount; c++) {
+      const cellRef = XLSX.utils.encode_cell({ r: 0, c });
+      if (!ws[cellRef]) continue;
+      ws[cellRef].s = headerStyle;
+    }
+
+    for (let r = 1; r < rowCount; r++) {
+      const isAlternate = (r - 1) % 2 === 1;
+      const fillRgb = isAlternate ? "FFF2F2F2" : "FFFFFFFF";
+      for (let c = 0; c < colCount; c++) {
+        const cellRef = XLSX.utils.encode_cell({ r, c });
+        if (!ws[cellRef]) continue;
+        const isCost = c === 4;
+        ws[cellRef].s = {
+          fill: { fgColor: { rgb: fillRgb }, patternType: "solid" },
+          border: thinBorder,
+          alignment: {
+            vertical: "center",
+            horizontal: isCost ? "right" : "left",
+          },
+        };
+      }
+    }
+
+    ws["!cols"] = [
+      { wch: 32 },
+      { wch: 40 },
+      { wch: 12 },
+      { wch: 12 },
+      { wch: 12 },
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Line Items");
+    XLSX.writeFile(wb, `line-items-export-${new Date().toISOString().slice(0, 10)}.xlsx`);
+  };
+
   return (
     <div className="line-items-page">
       <div className="table-container">
@@ -56,8 +150,8 @@ export const SettingsLineItemsPage = () => {
               <div className="right-actions">
                 <span className="export-text">Export {recordCount} records:</span>
                 <div className="export-options-group">
-                  <button type="button" className="export__option --blue --left">CSV</button>
-                  <button type="button" className="export__option --blue --right">Excel</button>
+                  <button type="button" className="export__option --blue --left" onClick={exportToCsv}>CSV</button>
+                  <button type="button" className="export__option --blue --right" onClick={exportToExcel}>Excel</button>
                 </div>
                 <button type="button" className="btn btn-dark">
                   <span className="material-symbols-outlined">print</span>
