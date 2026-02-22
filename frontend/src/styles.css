@@ -28,6 +28,49 @@ body {
   min-width: 1020px;
 }
 
+/* Scrollbars: solo la barra visible; sin flechas ni track
+   No usar scrollbar-width/scrollbar-color en * porque en Chrome activan el scrollbar
+   nativo (con flechas) y anulan los ::-webkit-scrollbar-*. Solo Firefox los usa abajo. */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+  border: none;
+  margin: 0;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #6a6a6a;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #7a7a7a;
+}
+
+*::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Solo Firefox: estilos estándar (así Chrome no usa scrollbar nativo con flechas) */
+@-moz-document url-prefix() {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #6a6a6a transparent;
+  }
+}
+
 /* Google Material Icons */
 .material-icons {
   font-family: "Material Icons";
