@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { NewUserForm } from "./NewUserForm";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,25 +14,11 @@ const AddUserIcon = () => (
   </svg>
 );
 
-const EditIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14.287 4.30252C14.9965 3.68271 15.9764 3.46038 16.8905 3.72147C18.5291 4.18978 19.8098 5.47059 20.2782 7.10916L20.3241 7.29276C20.5212 8.21402 20.2404 9.17817 19.5682 9.85037L12.5135 16.906C11.8425 17.5771 11.0366 18.0957 10.1512 18.4285L9.76644 18.5594L5.59359 19.8435C4.71136 20.1148 3.88476 19.2883 4.15609 18.406L5.44027 14.2332L5.57113 13.8484C5.90397 12.9631 6.4226 12.1571 7.09359 11.4861L14.1493 4.43143L14.287 4.30252Z" fill="rgba(var(--utility-color), 1)" />
-  </svg>
-);
-
 const DeviceIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fillRule="evenodd" clipRule="evenodd" d="M6.5 5.5H16.5C17.6046 5.5 18.5 6.39543 18.5 7.5V12.5C18.5 13.6046 17.6046 14.5 16.5 14.5H6.5C5.39543 14.5 4.5 13.6046 4.5 12.5V7.5C4.5 6.39543 5.39543 5.5 6.5 5.5Z" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M11.5 18.5V14.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" />
     <path d="M9.5 18.5H13.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" />
-  </svg>
-);
-
-const SignOutIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14.5 19.5H17.5C18.6046 19.5 19.5 18.6046 19.5 17.5V7.5C19.5 6.39543 18.6046 5.5 17.5 5.5H14.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" />
-    <path d="M14.5 12.5H5.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" />
-    <path d="M9 17L5.5 12.5L9 8" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -100,6 +87,7 @@ export const SettingsUsersPage = () => {
   const [selectedId, setSelectedId] = useState<string>(USERS[0].id);
   const [permissionsOpen, setPermissionsOpen] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [isAddingUser, setIsAddingUser] = useState(false);
 
   const selected = USERS.find((u) => u.id === selectedId) ?? USERS[0];
 
@@ -138,7 +126,7 @@ export const SettingsUsersPage = () => {
                 </div>
               </div>
             </div>
-            <button type="button" className="v2-btn-main has-icon svg-white btn-purple">
+            <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={() => setIsAddingUser(true)}>
               <div><AddUserIcon /></div>
               <span>Add User</span>
             </button>
@@ -154,12 +142,14 @@ export const SettingsUsersPage = () => {
                 onKeyDown={(e) => e.key === "Enter" && handleSelectUser(user.id)}
               >
                 <div className="username-header">
-                  <div className="avt-img">
-                    <img src={user.avatar} alt="" width={40} height={40} />
-                  </div>
-                  <div className="username-header__info flex-1">
-                    <p className="name fw-500">{user.name}</p>
-                    <span className="date">{user.date}</span>
+                  <div className="username-header__user">
+                    <div className="avt-img">
+                      <img src={user.avatar} alt="" width={40} height={40} />
+                    </div>
+                    <div className="username-header__info flex-1">
+                      <p className="name fw-500">{user.name}</p>
+                      <span className="date">{user.date}</span>
+                    </div>
                   </div>
                   <div className={`tag-label ${ROLE_CLASS[user.role]}`}>{user.role}</div>
                 </div>
@@ -171,7 +161,11 @@ export const SettingsUsersPage = () => {
           </div>
         </div>
         <div className="set-user-right wrapper-box-edit">
-          <div className={`wrapper-box-edit__content form-default${detailLoading ? " user-detail-loading" : ""}`}>
+          <div className={`wrapper-box-edit__content form-default${detailLoading && !isAddingUser ? " user-detail-loading" : ""}`}>
+            {isAddingUser ? (
+              <NewUserForm onClose={() => setIsAddingUser(false)} onSave={() => {}} />
+            ) : (
+              <>
             {detailLoading && (
               <div className="user-detail-loading__overlay" aria-hidden>
                 <div className="user-detail-loading__inner">
@@ -191,7 +185,7 @@ export const SettingsUsersPage = () => {
                     <img className="avatar-img" src={selected.avatar} alt="" width={40} height={40} />
                   </div>
                   <button type="button" className="v2-btn-default has-icon js-edit-form">
-                    <div className="mr-1"><EditIcon /></div>
+                    <span className="material-symbols-outlined">edit</span>
                     <span>Edit</span>
                   </button>
                 </div>
@@ -237,7 +231,7 @@ export const SettingsUsersPage = () => {
                         </div>
                       </div>
                       <button type="button" className="btn-modal v2-btn-default has-icon">
-                        <SignOutIcon />
+                        <span className="material-symbols-outlined">logout</span>
                         Sign Out
                       </button>
                     </div>
@@ -294,6 +288,8 @@ export const SettingsUsersPage = () => {
                 )}
               </div>
             </div>
+              </>
+            )}
           </div>
         </div>
       </div>
