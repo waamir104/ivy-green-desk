@@ -6366,6 +6366,28 @@ section p {
 .line-items-page .table-wrapper th:nth-child(6),
 .line-items-page .table-wrapper td:nth-child(6) { width: 14%; }
 
+/* Taxes page: 4 columns (checkbox, Name, Rate %, Description) */
+.line-items-page.taxes-page .table-wrapper th:nth-child(1),
+.line-items-page.taxes-page .table-wrapper td:nth-child(1) { width: 40px; }
+.line-items-page.taxes-page .table-wrapper th:nth-child(2),
+.line-items-page.taxes-page .table-wrapper td:nth-child(2) { width: 28%; min-width: 140px; }
+.line-items-page.taxes-page .table-wrapper th:nth-child(3),
+.line-items-page.taxes-page .table-wrapper td:nth-child(3) { width: 105px; max-width: 105px; }
+.line-items-page.taxes-page .table-wrapper th:nth-child(4),
+.line-items-page.taxes-page .table-wrapper td:nth-child(4) { width: auto; min-width: 180px; }
+
+/* Payment Methods page: 5 columns (checkbox, Name, Type, Status, Description) */
+.line-items-page.payment-methods-page .table-wrapper th:nth-child(1),
+.line-items-page.payment-methods-page .table-wrapper td:nth-child(1) { width: 40px; }
+.line-items-page.payment-methods-page .table-wrapper th:nth-child(2),
+.line-items-page.payment-methods-page .table-wrapper td:nth-child(2) { width: 22%; min-width: 120px; }
+.line-items-page.payment-methods-page .table-wrapper th:nth-child(3),
+.line-items-page.payment-methods-page .table-wrapper td:nth-child(3) { width: 105px; max-width: 105px; }
+.line-items-page.payment-methods-page .table-wrapper th:nth-child(4),
+.line-items-page.payment-methods-page .table-wrapper td:nth-child(4) { width: 105px; max-width: 105px; }
+.line-items-page.payment-methods-page .table-wrapper th:nth-child(5),
+.line-items-page.payment-methods-page .table-wrapper td:nth-child(5) { width: auto; min-width: 160px; }
+
 .line-items-page .table-wrapper tbody tr:hover {
   background: #f9fafb;
 }

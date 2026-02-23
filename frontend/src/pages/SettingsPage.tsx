@@ -4,6 +4,8 @@ import { SettingsCompanyPage } from "./settings/SettingsCompanyPage";
 import { SettingsUsersPage } from "./settings/SettingsUsersPage";
 import { SettingsPlaceholderPage } from "./settings/SettingsPlaceholderPage";
 import { SettingsLineItemsPage } from "./settings/SettingsLineItemsPage";
+import { SettingsTaxesPage } from "./settings/SettingsTaxesPage";
+import { SettingsPaymentMethodsPage } from "./settings/SettingsPaymentMethodsPage";
 
 export const SettingsPage = () => {
   return (
@@ -16,10 +18,10 @@ export const SettingsPage = () => {
         <Route path="invoices" element={<SettingsPlaceholderPage />} />
         <Route path="users" element={<SettingsUsersPage />} />
         <Route path="schedules" element={<SettingsPlaceholderPage />} />
-        <Route path="taxes" element={<SettingsPlaceholderPage />} />
+        <Route path="taxes" element={<SettingsTaxesPage />} />
         <Route path="items" element={<SettingsLineItemsPage />} />
         <Route path="paperwork" element={<SettingsPlaceholderPage />} />
-        <Route path="paymentmethods" element={<SettingsPlaceholderPage />} />
+        <Route path="paymentmethods" element={<SettingsPaymentMethodsPage />} />
         <Route path="service" element={<SettingsPlaceholderPage />} />
         <Route path="sources" element={<SettingsPlaceholderPage />} />
         <Route path="tags" element={<SettingsPlaceholderPage />} />
