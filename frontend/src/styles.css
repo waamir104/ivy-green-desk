@@ -4468,6 +4468,15 @@ section p {
   flex-direction: column;
 }
 
+.container-setting .wrapper-columns:has(.contents-user) {
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .container-setting .contents-pages.wrapper-box-edit {
   max-width: 720px;
 }
@@ -4475,15 +4484,21 @@ section p {
 .container-setting .contents-pages.contents-user {
   max-width: none;
   width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .container-setting .contents-user__details {
   display: flex;
   flex-direction: row;
   gap: 0;
+  flex: 1;
   min-height: 0;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .container-setting .wrap-list-items.set-user-left {
@@ -4493,7 +4508,7 @@ section p {
   flex-direction: column;
   border-right: 1px solid #e5e7eb;
   background: #fff;
-  border-radius: 8px 0 0 8px;
+  border-radius: 4px 0 0 4px;
   overflow: hidden;
 }
 
@@ -4502,9 +4517,11 @@ section p {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  padding: 1rem;
+  height: 56px;
+  padding: 10px 12px;
   flex-shrink: 0;
   border-bottom: 1px solid #e5e7eb;
+  box-sizing: border-box;
 }
 
 .container-setting .set-user-left .tabs .tab-items.active-tab-selector {
@@ -4514,23 +4531,55 @@ section p {
   border-radius: 6px;
   font-size: 0.875rem;
   font-weight: 500;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .container-setting .set-user-left .v2-btn-main.has-icon {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  height: 32px;
+  padding: 0 10px 0 4px;
+  width: fit-content;
   background: rgba(var(--utility-color), 1);
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 0.875rem;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+.container-setting .set-user-left .v2-btn-main.has-icon > div:first-child {
+  margin-right: 4px;
+}
+
+.container-setting .set-user-left .v2-btn-main.has-icon.btn-purple {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.container-setting .set-user-left .v2-btn-main.has-icon.btn-purple:hover {
+  background: #6d28d9;
+  color: #fff;
+  opacity: 1;
 }
 
 .container-setting .set-user-left .v2-btn-main.has-icon svg path { fill: currentColor; }
 .container-setting .set-user-left .v2-btn-main.has-icon:hover { opacity: 0.9; }
+.container-setting .set-user-left .v2-btn-main.has-icon.btn-purple:hover { opacity: 1; }
+
+.theme-dark .container-setting .set-user-left .v2-btn-main.has-icon.btn-purple {
+  background: rgb(124, 58, 237);
+  color: #fff;
+}
+
+.theme-dark .container-setting .set-user-left .v2-btn-main.has-icon.btn-purple:hover {
+  background: rgb(109, 40, 217);
+  color: #fff;
+}
 
 .container-setting .list-details {
   flex: 1;
@@ -4630,10 +4679,50 @@ section p {
 .container-setting .set-user-right.wrapper-box-edit {
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: #fff;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 4px 4px 0;
   border: 1px solid #e5e7eb;
   border-left: none;
+}
+
+.container-setting .set-user-right.wrapper-box-edit .wrapper-box-edit__content {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.container-setting .set-user-right .user-detail-loading__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 1);
+  z-index: 10;
+}
+
+.container-setting .set-user-right .user-detail-loading__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container-setting .set-user-right .user-detail-loading__icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  animation: customer-list-loading-spin 1s linear infinite;
+}
+
+.theme-dark .container-setting .set-user-right .user-detail-loading__overlay {
+  background: rgb(10, 12, 13);
 }
 
 .container-setting .page-wrapper.wrapbox-user {

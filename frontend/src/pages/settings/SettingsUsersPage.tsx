@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,8 +99,21 @@ const ROLE_CLASS: Record<UserRole, string> = {
 export const SettingsUsersPage = () => {
   const [selectedId, setSelectedId] = useState<string>(USERS[0].id);
   const [permissionsOpen, setPermissionsOpen] = useState(true);
+  const [detailLoading, setDetailLoading] = useState(false);
 
   const selected = USERS.find((u) => u.id === selectedId) ?? USERS[0];
+
+  useEffect(() => {
+    if (!detailLoading) return;
+    const t = setTimeout(() => setDetailLoading(false), 800);
+    return () => clearTimeout(t);
+  }, [detailLoading]);
+
+  const handleSelectUser = (userId: string) => {
+    if (userId === selectedId) return;
+    setDetailLoading(true);
+    setSelectedId(userId);
+  };
 
   return (
     <div className="contents-pages container-column contents-user">
@@ -125,7 +138,7 @@ export const SettingsUsersPage = () => {
                 </div>
               </div>
             </div>
-            <button type="button" className="v2-btn-main has-icon svg-white">
+            <button type="button" className="v2-btn-main has-icon svg-white btn-purple">
               <div><AddUserIcon /></div>
               <span>Add User</span>
             </button>
@@ -137,8 +150,8 @@ export const SettingsUsersPage = () => {
                 className={`list-details__items${selectedId === user.id ? " active" : ""}`}
                 role="button"
                 tabIndex={0}
-                onClick={() => setSelectedId(user.id)}
-                onKeyDown={(e) => e.key === "Enter" && setSelectedId(user.id)}
+                onClick={() => handleSelectUser(user.id)}
+                onKeyDown={(e) => e.key === "Enter" && handleSelectUser(user.id)}
               >
                 <div className="username-header">
                   <div className="avt-img">
@@ -158,7 +171,19 @@ export const SettingsUsersPage = () => {
           </div>
         </div>
         <div className="set-user-right wrapper-box-edit">
-          <div className="wrapper-box-edit__content form-default">
+          <div className={`wrapper-box-edit__content form-default${detailLoading ? " user-detail-loading" : ""}`}>
+            {detailLoading && (
+              <div className="user-detail-loading__overlay" aria-hidden>
+                <div className="user-detail-loading__inner">
+                  <img
+                    src="/shared/grass icon.png"
+                    alt=""
+                    className="user-detail-loading__icon"
+                    aria-hidden
+                  />
+                </div>
+              </div>
+            )}
             <div className="page-wrapper wrapbox-user p-0 border-none">
               <div className="wrapbox-user__frame">
                 <div className="rows mb-5">
