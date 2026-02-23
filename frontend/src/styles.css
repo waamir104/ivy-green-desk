@@ -5687,6 +5687,11 @@ section p {
   background: transparent;
 }
 
+.modal-newlineitem .field-textarea[data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+}
+
 .modal-newlineitem .wrap-content {
   background: var(--bg-soft);
   border: 1px solid var(--border);

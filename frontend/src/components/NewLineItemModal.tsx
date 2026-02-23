@@ -24,8 +24,33 @@ export const NewLineItemModal: React.FC<NewLineItemModalProps> = ({ isOpen, onCl
   const [openDropdown, setOpenDropdown] = useState<"tax1" | "tax2" | null>(null);
   const tax1Ref = useRef<HTMLDivElement>(null);
   const tax2Ref = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
 
   const canSave = name.trim().length > 0;
+
+  useEffect(() => {
+    if (!isOpen) {
+      setName("");
+      setDescription("");
+      setCost("0");
+      setTax1("");
+      setTax2("");
+      setOpenDropdown(null);
+      if (editorRef.current) editorRef.current.innerHTML = "";
+    }
+  }, [isOpen]);
+
+  const applyFormat = (command: "bold" | "italic" | "underline") => {
+    const el = editorRef.current;
+    if (!el) return;
+    el.focus();
+    document.execCommand(command, false);
+    setDescription(el.innerHTML);
+  };
+
+  const handleEditorInput = () => {
+    if (editorRef.current) setDescription(editorRef.current.innerHTML);
+  };
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -117,30 +142,78 @@ export const NewLineItemModal: React.FC<NewLineItemModalProps> = ({ isOpen, onCl
                 <div className="wrap-content">
                   <div className="wrapbox-editor">
                     <div className="wrapbox-editor__form">
-                      <textarea
+                      <div
+                        ref={editorRef}
                         className="content-editable field-textarea --no-resize --no-border"
+                        contentEditable
                         spellCheck
-                        placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        rows={5}
+                        data-placeholder="Description"
+                        role="textbox"
+                        aria-label="Description"
+                        onInput={handleEditorInput}
+                        onPaste={handleEditorInput}
                       />
                     </div>
                     <div className="wrapbox-editor__controls">
                       <div className="editor-controls">
-                        <span className="editor-controls__btn tooltip" title="Bold (CTRL+B)">
+                        <span
+                          className="editor-controls__btn tooltip"
+                          title="Bold (CTRL+B)"
+                          role="button"
+                          tabIndex={0}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            applyFormat("bold");
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              applyFormat("bold");
+                            }
+                          }}
+                        >
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M12.5 18.5C14.7091 18.5 16.5 17.9672 16.5 15C16.5 12.0346 14.7091 11.5 12.5 11.5C8.80101 11.5 8.5 10.5 8.5 15C8.5 18.5699 8.50456 18.5 12.5 18.5Z" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                             <path fillRule="evenodd" clipRule="evenodd" d="M11.5 11.5C13.1568 11.5 14.4999 11.0433 14.4999 8.5C14.4999 5.9582 13.1568 5.5 11.5 5.5C8.38294 5.5 8.49996 5.25994 8.49996 8.5C8.49996 12.4196 8.45647 11.5 11.5 11.5Z" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                             <path fillRule="evenodd" clipRule="evenodd" d="M8.49854 5.5V18.5L11.5 18.4994H8.49854V5.5Z" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </span>
-                        <span className="editor-controls__btn tooltip" title="Italic (CTRL+I)">
+                        <span
+                          className="editor-controls__btn tooltip"
+                          title="Italic (CTRL+I)"
+                          role="button"
+                          tabIndex={0}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            applyFormat("italic");
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              applyFormat("italic");
+                            }
+                          }}
+                        >
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M12.8305 18.4996L13.5 18.4994H7.5L8.78242 18.4997C9.76971 18.4999 10.6094 17.7796 10.7595 16.8038L12.1441 7.80411C12.3121 6.71239 11.5632 5.69121 10.4715 5.52326C10.3708 5.50777 10.2692 5.5 10.1674 5.5H9.5H15.5H14.2157C13.2286 5.5 12.3891 6.22011 12.2389 7.19568L10.8534 16.1952C10.6853 17.2869 11.4341 18.3082 12.5258 18.4763C12.6266 18.4918 12.7285 18.4996 12.8305 18.4996Z" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </span>
-                        <span className="editor-controls__btn tooltip" title="Underline (CTRL+U)">
+                        <span
+                          className="editor-controls__btn tooltip"
+                          title="Underline (CTRL+U)"
+                          role="button"
+                          tabIndex={0}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            applyFormat("underline");
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              applyFormat("underline");
+                            }
+                          }}
+                        >
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.5 18.5H18.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M7.5 5.5V11C7.5 13.4853 9.51472 15.5 12 15.5C14.4853 15.5 16.5 13.4853 16.5 11V5.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
