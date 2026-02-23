@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { NewCustomerModalProvider } from "../context/NewCustomerModalContext";
 import { NewLineItemModalProvider } from "../context/NewLineItemModalContext";
+import { EditLineItemModalProvider } from "../context/EditLineItemModalContext";
 
 export const AppPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -11,6 +12,7 @@ export const AppPage = () => {
   return (
     <NewCustomerModalProvider>
       <NewLineItemModalProvider>
+      <EditLineItemModalProvider>
       <div id="main-page">
         <Header
           isSidebarOpen={sidebarOpen}
@@ -25,6 +27,7 @@ export const AppPage = () => {
           </main>
         </div>
       </div>
+      </EditLineItemModalProvider>
       </NewLineItemModalProvider>
     </NewCustomerModalProvider>
   );

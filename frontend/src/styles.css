@@ -6365,6 +6365,22 @@ section p {
   color: #1d4ed8;
 }
 
+.line-items-page .table-wrapper .link .table-link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.line-items-page .table-wrapper .link:hover .table-link-button {
+  text-decoration: underline;
+  color: inherit;
+}
+
 .line-items-page .line-items-loading-row .line-items-loading-cell {
   vertical-align: middle;
   padding: 0;
@@ -6607,6 +6623,12 @@ section p {
 
 .theme-dark .line-items-page .table-wrapper .link:hover {
   color: #c4b5fd;
+}
+
+.theme-dark .line-items-page .table-wrapper .link .table-link-button {
+  background: none;
+  border: none;
+  color: inherit;
 }
 
 .theme-dark .line-items-page .table-actions .export__option.--blue.--left,

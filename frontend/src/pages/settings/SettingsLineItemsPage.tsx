@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx-js-style";
 import { useNewLineItemModal } from "../../context/NewLineItemModalContext";
+import { useEditLineItemModal } from "../../context/EditLineItemModalContext";
 import { useLineItemsContext } from "./LineItemsContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
@@ -36,7 +37,10 @@ const LINE_ITEMS = [
 export const SettingsLineItemsPage = () => {
   const lineItemsCtx = useLineItemsContext();
   const { openModal: openNewLineItemModal } = useNewLineItemModal();
-  const loading = lineItemsCtx?.loading ?? false;
+  const { openModal: openEditLineItemModal } = useEditLineItemModal();
+  const filterLoading = lineItemsCtx?.loading ?? false;
+  const [pageLoading, setPageLoading] = useState(false);
+  const loading = filterLoading || pageLoading;
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
   const [perPageOpen, setPerPageOpen] = useState(false);
@@ -60,6 +64,23 @@ export const SettingsLineItemsPage = () => {
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [perPage, totalPages, currentPage]);
+
+  useEffect(() => {
+    if (!pageLoading) return;
+    const t = setTimeout(() => setPageLoading(false), 800);
+    return () => clearTimeout(t);
+  }, [pageLoading]);
+
+  const handlePerPageChange = (n: number) => {
+    setPageLoading(true);
+    setPerPage(n);
+    setPerPageOpen(false);
+  };
+
+  const handlePageChange = (page: number) => {
+    setPageLoading(true);
+    setCurrentPage(page);
+  };
 
   const itemLabel = selectedCount === 1 ? "Item" : "Items";
 
@@ -271,7 +292,15 @@ export const SettingsLineItemsPage = () => {
                             aria-label={`Select ${row.name}`}
                           />
                         </td>
-                        <td className="link">{row.name}</td>
+                        <td className="link">
+                          <button
+                            type="button"
+                            className="table-link-button"
+                            onClick={() => openEditLineItemModal(row)}
+                          >
+                            {row.name}
+                          </button>
+                        </td>
                         <td>{row.description}</td>
                         <td>{row.tax1}</td>
                         <td>{row.tax2}</td>
@@ -308,10 +337,7 @@ export const SettingsLineItemsPage = () => {
                         role="option"
                         aria-selected={perPage === n}
                         className={`custom-select__option${perPage === n ? " is-selected" : ""}`}
-                        onClick={() => {
-                          setPerPage(n);
-                          setPerPageOpen(false);
-                        }}
+                        onClick={() => handlePerPageChange(n)}
                       >
                         {n} Per Page
                       </div>
@@ -326,7 +352,7 @@ export const SettingsLineItemsPage = () => {
                   className="page-btn"
                   aria-label="First page"
                   disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(1)}
+                  onClick={() => handlePageChange(1)}
                 >
                   «
                 </button>
@@ -335,7 +361,7 @@ export const SettingsLineItemsPage = () => {
                   className="page-btn"
                   aria-label="Previous"
                   disabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 >
                   ‹
                 </button>
@@ -346,7 +372,7 @@ export const SettingsLineItemsPage = () => {
                     className={`page-btn${currentPage === page ? " active" : ""}`}
                     aria-label={`Page ${page}`}
                     aria-current={currentPage === page ? "page" : undefined}
-                    onClick={() => setCurrentPage(page)}
+                    onClick={() => handlePageChange(page)}
                   >
                     {page}
                   </button>
@@ -356,7 +382,7 @@ export const SettingsLineItemsPage = () => {
                   className="page-btn"
                   aria-label="Next"
                   disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                 >
                   ›
                 </button>
@@ -365,7 +391,7 @@ export const SettingsLineItemsPage = () => {
                   className="page-btn"
                   aria-label="Last page"
                   disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(totalPages)}
+                  onClick={() => handlePageChange(totalPages)}
                 >
                   »
                 </button>
