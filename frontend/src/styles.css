@@ -4232,6 +4232,129 @@ section p {
   box-shadow: none;
 }
 
+/* ========== Settings page – Dark theme ========== */
+.theme-dark .app-main-content__inner:has(.container-setting) {
+  background: rgb(19, 22, 23);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .settings-header-full {
+  background: rgb(19, 22, 23);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .container-setting .sidebar-menu.sidebar-pages {
+  background: rgb(19, 22, 23);
+  border-right-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .container-setting .sidebar-pages .sub-title {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .sidebar-pages li a.items {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .sidebar-pages li a.items:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.theme-dark .container-setting .sidebar-pages li a.items.active {
+  background: rgba(176, 168, 181, 0.2);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .sidebar-pages li a.items.active span:first-child,
+.theme-dark .container-setting .sidebar-pages li a.items.active .material-symbols-outlined {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .sidebar-pages .items .material-symbols-outlined {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .settings-body {
+  background: rgb(19, 22, 23);
+}
+
+.theme-dark .container-setting .header.--main .header-items.items-collapse path {
+  fill: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .btn-bg-grey,
+.theme-dark .container-setting .header.--main .has-bg-grey {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .btn-bg-grey:hover,
+.theme-dark .container-setting .header.--main .has-bg-grey:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown .dropbtn {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown .dropbtn h2 {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown .arrow .material-symbols-outlined {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu {
+  background: rgb(30, 33, 35);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu .subtitle {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu .line {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu a.items.has-icon {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu a.items.has-icon:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu a.items.has-icon.active {
+  background: rgba(176, 168, 181, 0.2);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu a.items.has-icon.active span,
+.theme-dark .container-setting .header.--main .v2-dropdown__menu a.items.has-icon.active .material-symbols-outlined {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .container-setting .header.--main .v2-dropdown__menu .items-text {
+  color: inherit;
+}
+
+.theme-dark .container-setting .wrapper-columns {
+  background: rgb(19, 22, 23);
+}
+
+.theme-dark .container-setting .btn-tutorials .v2-btn-default.has-icon {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
 .container-setting .header.--main .v2-dropdown__menu .d-flex {
   display: flex;
   flex-wrap: wrap;
