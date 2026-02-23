@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx-js-style";
+import { useNewLineItemModal } from "../../context/NewLineItemModalContext";
 import { useLineItemsContext } from "./LineItemsContext";
 
 const LINE_ITEMS = [
@@ -12,6 +13,7 @@ const LINE_ITEMS = [
 
 export const SettingsLineItemsPage = () => {
   const lineItemsCtx = useLineItemsContext();
+  const { openModal: openNewLineItemModal } = useNewLineItemModal();
   const loading = lineItemsCtx?.loading ?? false;
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const selectedCount = selectedIds.size;
@@ -161,7 +163,7 @@ export const SettingsLineItemsPage = () => {
                   Print
                 </button>
                 <button type="button" className="btn btn-dark">Line Item Global Override</button>
-                <button type="button" className="btn btn-purple">+ Add Item</button>
+                <button type="button" className="btn btn-purple" onClick={openNewLineItemModal}>+ Add Item</button>
               </div>
             </div>
 

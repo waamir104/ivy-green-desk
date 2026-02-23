@@ -5524,6 +5524,340 @@ section p {
   white-space: nowrap;
 }
 
+/* ========== New Line Item Modal (modal-newlineitem) ========== */
+.modal.container-modal.modal-newlineitem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  width: 100%;
+  max-width: 720px;
+  overflow: hidden;
+}
+
+.modal-newlineitem .modal__container.large {
+  --bg-modal: #0f1115;
+  --bg-soft: #151821;
+  --border: #262a34;
+  --text: #e6e8ee;
+  --text-muted: #9aa0aa;
+  --primary: #6d4aff;
+  --primary-hover: #7c5cff;
+  --radius: 4px;
+  --transition: 0.2s ease;
+  width: 100%;
+  background: var(--bg-modal);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.modal-newlineitem .header-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-newlineitem .header-modal__label {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.modal-newlineitem .header-modal .v2-btn-default.--icon-lg {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: var(--transition);
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.modal-newlineitem .header-modal .v2-btn-default.--icon-lg:hover {
+  opacity: 1;
+}
+
+.modal-newlineitem .header-modal .v2-btn-default.--icon-lg svg {
+  --color-icon: var(--text);
+}
+
+.modal-newlineitem .body-modal {
+  padding: 24px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.modal-newlineitem .body-modal.scrolls {
+  overflow-y: auto;
+}
+
+.modal-newlineitem .row {
+  margin-bottom: 20px;
+}
+
+.modal-newlineitem .row-multi {
+  display: flex;
+  gap: 16px;
+}
+
+.modal-newlineitem .row-multi .col {
+  flex: 1;
+}
+
+.modal-newlineitem .has-form .txt,
+.modal-newlineitem .txt {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.modal-newlineitem .field-input {
+  width: 100%;
+  height: 32px;
+  padding: 0 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.modal-newlineitem .field-input:focus {
+  border-color: var(--primary);
+}
+
+.modal-newlineitem .field-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+  box-sizing: border-box;
+  height: 140px;
+  resize: none;
+  min-height: 120px;
+}
+
+.modal-newlineitem .field-textarea:focus {
+  border-color: var(--primary);
+}
+
+.modal-newlineitem .field-textarea.--no-resize {
+  resize: none;
+}
+
+.modal-newlineitem .field-textarea.--no-border {
+  border: none;
+  background: transparent;
+}
+
+.modal-newlineitem .wrap-content {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.modal-newlineitem .wrapbox-editor__form {
+  padding: 12px;
+  min-height: 120px;
+}
+
+.modal-newlineitem .wrapbox-editor__form .field-textarea {
+  height: auto;
+  min-height: 100px;
+}
+
+.modal-newlineitem .wrapbox-editor__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  background: #12141b;
+}
+
+.modal-newlineitem .editor-controls__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: var(--transition);
+  color: var(--text-muted);
+}
+
+.modal-newlineitem .editor-controls__btn:hover {
+  background: #1c1f29;
+  opacity: 1;
+}
+
+.modal-newlineitem .editor-controls__btn svg {
+  --color-icon: var(--text-muted);
+}
+
+.modal-newlineitem .cost-input {
+  position: relative;
+}
+
+.modal-newlineitem .cost-input input {
+  padding-right: 40px;
+}
+
+.modal-newlineitem .cost-input::after {
+  content: attr(data-currency-unit);
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.modal-newlineitem .v2-dropdown .dropbtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-newlineitem .v2-dropdown .dropbtn:hover {
+  border-color: var(--primary);
+}
+
+.modal-newlineitem .v2-dropdown {
+  position: relative;
+}
+
+.modal-newlineitem .v2-dropdown .v2-dropdown__menu {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-newlineitem .v2-dropdown.is-open .v2-dropdown__menu {
+  display: block;
+}
+
+.modal-newlineitem .v2-dropdown__menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.modal-newlineitem .v2-dropdown__menu .items {
+  padding: 8px 14px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.modal-newlineitem .v2-dropdown__menu .items:hover,
+.modal-newlineitem .v2-dropdown__menu .items.active {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.modal-newlineitem .v2-dropdown .dropbtn .arrow svg {
+  --color-icon: var(--text-muted);
+}
+
+.modal-newlineitem .footer-modal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-newlineitem .footer-modal .v2-btn-default.--transparent {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 14px;
+}
+
+.modal-newlineitem .footer-modal .v2-btn-default.--transparent:hover {
+  color: var(--text);
+  background: #1a1d26;
+}
+
+.modal-newlineitem .footer-modal .v2-btn-main {
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+}
+
+.modal-newlineitem .footer-modal .v2-btn-main:hover {
+  background: var(--primary-hover);
+}
+
+.modal-newlineitem .footer-modal .v2-btn-main.is-disable {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.modal-newlineitem .ml-n2 {
+  margin-left: -0.5rem;
+}
+
 /* ========== Dark theme – New Customer Modal (modal-addcustomer) ========== */
 .theme-dark .modal.container-modal.modal-addcustomer,
 .theme-dark .modal-addcustomer .modal__container.--preview-r {
