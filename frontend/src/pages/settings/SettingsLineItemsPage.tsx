@@ -11,6 +11,26 @@ const LINE_ITEMS = [
   { id: 3, name: "Call Back Service", description: "Retreating for areas of concern.", tax1: "", tax2: "", cost: "$0.00" },
   { id: 4, name: "CUBIC YARDS SOIL", description: "TO RISE AREA WHERE PLANTS WILL BE PLANTED", tax1: "", tax2: "", cost: "$0.50" },
   { id: 5, name: "Every 21 Days", description: "Exterior service every 21 days.", tax1: "", tax2: "", cost: "$60.00" },
+  { id: 6, name: "Fertilizer Application", description: "Standard lawn fertilizer treatment.", tax1: "", tax2: "", cost: "$45.00" },
+  { id: 7, name: "Weed Control", description: "Pre and post-emergent weed treatment.", tax1: "", tax2: "", cost: "$35.00" },
+  { id: 8, name: "Mulch Installation", description: "Premium mulch per cubic yard.", tax1: "", tax2: "", cost: "$4.50" },
+  { id: 9, name: "Tree Trimming", description: "Professional tree pruning and shaping.", tax1: "", tax2: "", cost: "$125.00" },
+  { id: 10, name: "Hedge Maintenance", description: "Hedge trimming and shaping.", tax1: "", tax2: "", cost: "$55.00" },
+  { id: 11, name: "Seasonal Cleanup", description: "Leaf removal and debris cleanup.", tax1: "", tax2: "", cost: "$85.00" },
+  { id: 12, name: "Aeration Service", description: "Lawn aeration per 1000 sq ft.", tax1: "", tax2: "", cost: "$75.00" },
+  { id: 13, name: "Overseeding", description: "Grass seed application.", tax1: "", tax2: "", cost: "$95.00" },
+  { id: 14, name: "Irrigation Repair", description: "Sprinkler head and line repair.", tax1: "", tax2: "", cost: "$65.00" },
+  { id: 15, name: "Pest Control", description: "Outdoor pest treatment.", tax1: "", tax2: "", cost: "$90.00" },
+  { id: 16, name: "Gutter Cleaning", description: "Residential gutter cleaning.", tax1: "", tax2: "", cost: "$150.00" },
+  { id: 17, name: "Pressure Washing", description: "Driveway and walkway cleaning.", tax1: "", tax2: "", cost: "$0.15" },
+  { id: 18, name: "Landscape Design", description: "Consultation and design fee.", tax1: "", tax2: "", cost: "$200.00" },
+  { id: 19, name: "Plant Installation", description: "Per plant installation labor.", tax1: "", tax2: "", cost: "$25.00" },
+  { id: 20, name: "Sod Installation", description: "Sod per square foot.", tax1: "", tax2: "", cost: "$0.45" },
+  { id: 21, name: "Edging Service", description: "Bed and walkway edging.", tax1: "", tax2: "", cost: "$2.50" },
+  { id: 22, name: "Snow Removal", description: "Per visit snow plow.", tax1: "", tax2: "", cost: "$75.00" },
+  { id: 23, name: "Emergency Call-Out", description: "After-hours service fee.", tax1: "", tax2: "", cost: "$125.00" },
+  { id: 24, name: "Soil Amendment", description: "Compost and soil mix per yard.", tax1: "", tax2: "", cost: "$55.00" },
+  { id: 25, name: "Drainage Solution", description: "French drain and grading.", tax1: "", tax2: "", cost: "$0.00" },
 ];
 
 export const SettingsLineItemsPage = () => {
@@ -20,8 +40,13 @@ export const SettingsLineItemsPage = () => {
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
   const [perPageOpen, setPerPageOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
+  const recordCount = LINE_ITEMS.length;
+  const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
+  const startIndex = (currentPage - 1) * perPage;
+  const paginatedItems = LINE_ITEMS.slice(startIndex, startIndex + perPage);
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -31,7 +56,11 @@ export const SettingsLineItemsPage = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [perPageOpen]);
-  const recordCount = LINE_ITEMS.length;
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [perPage, totalPages, currentPage]);
+
   const itemLabel = selectedCount === 1 ? "Item" : "Items";
 
   const toggleRow = (id: number) => {
@@ -43,10 +72,21 @@ export const SettingsLineItemsPage = () => {
     });
   };
 
-  const selectAll = LINE_ITEMS.length > 0 && LINE_ITEMS.every((row) => selectedIds.has(row.id));
+  const selectAll = paginatedItems.length > 0 && paginatedItems.every((row) => selectedIds.has(row.id));
   const toggleSelectAll = () => {
-    if (selectAll) setSelectedIds(new Set());
-    else setSelectedIds(new Set(LINE_ITEMS.map((r) => r.id)));
+    if (selectAll) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        paginatedItems.forEach((r) => next.delete(r.id));
+        return next;
+      });
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        paginatedItems.forEach((r) => next.add(r.id));
+        return next;
+      });
+    }
   };
 
   const escapeCsvCell = (value: string): string => {
@@ -214,8 +254,14 @@ export const SettingsLineItemsPage = () => {
                         </div>
                       </td>
                     </tr>
+                  ) : recordCount === 0 ? (
+                    <tr className="line-items-empty-row">
+                      <td colSpan={6} className="line-items-empty-cell">
+                        <div className="line-items-empty-msg">There is no data to display.</div>
+                      </td>
+                    </tr>
                   ) : (
-                    LINE_ITEMS.map((row) => (
+                    paginatedItems.map((row) => (
                       <tr key={row.id}>
                         <td>
                           <input
@@ -275,12 +321,54 @@ export const SettingsLineItemsPage = () => {
               </div>
 
               <div className="pagination">
-                <button type="button" className="page-btn" aria-label="First page">«</button>
-                <button type="button" className="page-btn" aria-label="Previous">‹</button>
-                <button type="button" className="page-btn active">1</button>
-                <button type="button" className="page-btn">2</button>
-                <button type="button" className="page-btn" aria-label="Next">›</button>
-                <button type="button" className="page-btn" aria-label="Last page">»</button>
+                <button
+                  type="button"
+                  className="page-btn"
+                  aria-label="First page"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(1)}
+                >
+                  «
+                </button>
+                <button
+                  type="button"
+                  className="page-btn"
+                  aria-label="Previous"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                >
+                  ‹
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    type="button"
+                    className={`page-btn${currentPage === page ? " active" : ""}`}
+                    aria-label={`Page ${page}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className="page-btn"
+                  aria-label="Next"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                >
+                  ›
+                </button>
+                <button
+                  type="button"
+                  className="page-btn"
+                  aria-label="Last page"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(totalPages)}
+                >
+                  »
+                </button>
               </div>
             </div>
       </div>

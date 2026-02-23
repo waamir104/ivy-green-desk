@@ -6386,6 +6386,25 @@ section p {
   animation: customer-list-loading-spin 1s linear infinite;
 }
 
+.line-items-page .line-items-empty-row .line-items-empty-cell {
+  vertical-align: middle;
+  padding: 0;
+  border-bottom: none;
+}
+
+.line-items-page .line-items-empty-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 2rem;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 14px;
+  border-radius: 8px;
+  margin: 0 1px;
+}
+
 .line-items-page .table-footer {
   flex-shrink: 0;
   display: flex;
@@ -6512,6 +6531,12 @@ section p {
   font-weight: 600;
 }
 
+.line-items-page .page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* ========== Line Items page – Dark theme ========== */
 .theme-dark .line-items-page .table-container {
   background: rgb(30, 33, 35);
@@ -6569,6 +6594,11 @@ section p {
 
 .theme-dark .line-items-page .table-wrapper tbody tr:hover {
   background: rgba(255, 255, 255, 0.04);
+}
+
+.theme-dark .line-items-page .line-items-empty-msg {
+  background: rgb(30, 33, 35);
+  color: rgb(176, 168, 181);
 }
 
 .theme-dark .line-items-page .table-wrapper .link {
@@ -6652,4 +6682,10 @@ section p {
   border-color: rgba(255, 255, 255, 0.15);
   color: rgb(176, 168, 181);
   font-weight: 600;
+}
+
+.theme-dark .line-items-page .page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
