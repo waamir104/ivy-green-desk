@@ -5060,14 +5060,12 @@ section p {
   padding: 0;
 }
 
-/* New User form (add user module) */
+/* New User form (add user module) - layout (shared) */
 .new-user-form__page {
   height: 100%;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background: rgb(10, 12, 13);
-  color: #fff;
 }
 
 .new-user-form__container {
@@ -5114,7 +5112,6 @@ section p {
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  border: 1px solid #2a2f3a;
 }
 
 .new-user-form__avatar-caret {
@@ -5123,7 +5120,6 @@ section p {
   left: 50%;
   transform: translateX(-50%);
   font-size: 20px;
-  color: #aaa;
   pointer-events: none;
 }
 
@@ -5131,22 +5127,14 @@ section p {
   height: 32px;
   padding: 0 18px;
   border-radius: 4px;
-  border: 1px solid #2a2f3a;
-  background: rgb(10, 12, 13);
-  color: #fff;
   font-size: 14px;
   cursor: pointer;
   box-sizing: border-box;
 }
 
-.new-user-form__btn-upload:hover {
-  background: #252a33;
-  border-color: #3a4150;
-}
-
 .new-user-form__row {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   margin: 16px 0;
 }
 
@@ -5163,24 +5151,16 @@ section p {
 .new-user-form__field label {
   margin-bottom: 6px;
   font-size: 14px;
-  color: #aaa;
 }
 
 .new-user-form__field input {
-  width: 261px;
-  max-width: 261px;
+  width: 257px;
+  max-width: 257px;
   height: 32px;
   padding: 0 12px;
   box-sizing: border-box;
-  background: rgb(10, 12, 13);
-  border: 1px solid #2a2f3a;
   border-radius: 4px;
-  color: #fff;
   font-size: 14px;
-}
-
-.new-user-form__field input::placeholder {
-  color: #6b7280;
 }
 
 .new-user-form__field input:focus {
@@ -5204,8 +5184,6 @@ section p {
   height: 52px;
   padding: 14px 16px;
   box-sizing: border-box;
-  background: rgb(10, 12, 13);
-  border: 1px solid #2a2f3a;
   border-radius: 8px;
   margin-bottom: 12px;
 }
@@ -5221,7 +5199,6 @@ section p {
 .new-user-form__permission-label {
   flex: 1;
   font-size: 14px;
-  color: #e5e7eb;
 }
 
 .new-user-form__toggle {
@@ -5229,7 +5206,6 @@ section p {
   height: 24px;
   border-radius: 12px;
   border: none;
-  background: #374151;
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
@@ -5265,14 +5241,8 @@ section p {
   padding: 0;
   border: none;
   background: transparent;
-  color: #9ca3af;
   cursor: pointer;
   border-radius: 6px;
-}
-
-.new-user-form__collapse:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
 }
 
 .new-user-form__collapse .material-symbols-outlined {
@@ -5283,12 +5253,10 @@ section p {
   flex-shrink: 0;
   position: sticky;
   bottom: 0;
-  background: rgb(10, 12, 13);
   padding: 20px 30px;
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  border-top: 1px solid #2a2f3a;
 }
 
 .new-user-form__btn {
@@ -5297,17 +5265,6 @@ section p {
   font-size: 14px;
   cursor: pointer;
   border: none;
-}
-
-.new-user-form__btn--secondary {
-  background: transparent;
-  border: 1px solid #444;
-  color: #fff;
-}
-
-.new-user-form__btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: #555;
 }
 
 .new-user-form__btn--primary {
@@ -5319,99 +5276,207 @@ section p {
   background: #6d28d9;
 }
 
-/* New user form in light theme */
+/* New User form - dark theme */
+.theme-dark .new-user-form__page {
+  background: rgb(10, 12, 13);
+  color: #fff;
+}
+
+.theme-dark .new-user-form__avatar {
+  border: 1px solid #2a2f3a;
+}
+
+.theme-dark .new-user-form__avatar-caret {
+  color: #aaa;
+}
+
+.theme-dark .new-user-form__btn-upload {
+  border: 1px solid #2a2f3a;
+  background: rgb(10, 12, 13);
+  color: #fff;
+}
+
+.theme-dark .new-user-form__btn-upload:hover {
+  background: #252a33;
+  border-color: #3a4150;
+}
+
+.theme-dark .new-user-form__field label {
+  color: #aaa;
+}
+
+.theme-dark .new-user-form__field input {
+  background: rgb(10, 12, 13);
+  border: 1px solid #2a2f3a;
+  color: #fff;
+}
+
+.theme-dark .new-user-form__field input::placeholder {
+  color: #6b7280;
+}
+
+.theme-dark .new-user-form__permission-row {
+  background: rgb(10, 12, 13);
+  border: 1px solid #2a2f3a;
+}
+
+.theme-dark .new-user-form__permission-label {
+  color: #e5e7eb;
+}
+
+.theme-dark .new-user-form__toggle {
+  background: #374151;
+}
+
+.theme-dark .new-user-form__collapse {
+  color: #9ca3af;
+}
+
+.theme-dark .new-user-form__collapse:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.theme-dark .new-user-form__footer {
+  background: rgb(10, 12, 13);
+  border-top: 1px solid #2a2f3a;
+}
+
+.theme-dark .new-user-form__btn--secondary {
+  background: transparent;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+.theme-dark .new-user-form__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #555;
+}
+
+/* New user form in light theme (when .theme-light is present or when .theme-dark is not) */
+html:not(.theme-dark) .new-user-form__page,
 .theme-light .new-user-form__page,
 .theme-light .container-setting .new-user-form__page {
   background: #fff;
   color: #1f2933;
 }
 
+html:not(.theme-dark) .new-user-form__avatar,
 .theme-light .new-user-form__avatar {
-  border-color: #e5e7eb;
+  border: 1px solid #e5e7eb;
 }
 
+html:not(.theme-dark) .new-user-form__avatar-caret,
 .theme-light .new-user-form__avatar-caret {
   color: #6b7280;
 }
 
+html:not(.theme-dark) .new-user-form__btn-upload,
 .theme-light .new-user-form__btn-upload {
   height: 32px;
   border-radius: 4px;
+  border: 1px solid #e5e7eb;
   background: #f9fafb;
-  border-color: #e5e7eb;
   color: #1f2933;
 }
 
+html:not(.theme-dark) .new-user-form__btn-upload:hover,
 .theme-light .new-user-form__btn-upload:hover {
   background: #f3f4f6;
   border-color: #d1d5db;
 }
 
+html:not(.theme-dark) .new-user-form__field label,
 .theme-light .new-user-form__field label {
   color: #6b7280;
 }
 
+html:not(.theme-dark) .new-user-form__field input,
 .theme-light .new-user-form__field input {
-  width: 261px;
-  max-width: 261px;
+  width: 257px;
+  max-width: 257px;
   height: 32px;
   border-radius: 4px;
+  border: 1px solid #e5e7eb;
   background: #f9fafb;
-  border-color: #e5e7eb;
   color: #1f2933;
 }
 
+html:not(.theme-dark) .new-user-form__field input::placeholder,
 .theme-light .new-user-form__field input::placeholder {
   color: #9ca3af;
 }
 
+html:not(.theme-dark) .new-user-form__field input:focus,
 .theme-light .new-user-form__field input:focus {
   border-color: #7c3aed;
   background: #fff;
 }
 
+html:not(.theme-dark) .new-user-form__field--full input,
 .theme-light .new-user-form__field--full input {
   max-width: none;
   width: 100%;
 }
 
+html:not(.theme-dark) .new-user-form__permission-row,
 .theme-light .new-user-form__permission-row {
   background: #f9fafb;
-  border-color: #e5e7eb;
+  border: 1px solid #e5e7eb;
 }
 
+html:not(.theme-dark) .new-user-form__permission-row:focus-within,
 .theme-light .new-user-form__permission-row:focus-within {
   border-color: #7c3aed;
 }
 
+html:not(.theme-dark) .new-user-form__permission-label,
 .theme-light .new-user-form__permission-label {
   color: #374151;
 }
 
+html:not(.theme-dark) .new-user-form__toggle,
 .theme-light .new-user-form__toggle {
   background: #d1d5db;
 }
 
-.theme-light .new-user-form__footer {
-  background: #fff;
-  border-top-color: #e5e7eb;
+html:not(.theme-dark) .new-user-form__collapse,
+.theme-light .new-user-form__collapse {
+  color: #6b7280;
 }
 
+html:not(.theme-dark) .new-user-form__collapse:hover,
+.theme-light .new-user-form__collapse:hover {
+  color: #1f2933;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+html:not(.theme-dark) .new-user-form__footer,
+.theme-light .new-user-form__footer {
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+}
+
+html:not(.theme-dark) .new-user-form__btn--secondary,
 .theme-light .new-user-form__btn--secondary {
-  border-color: #d1d5db;
+  background: transparent;
+  border: 1px solid #d1d5db;
   color: #374151;
 }
 
+html:not(.theme-dark) .new-user-form__btn--secondary:hover,
 .theme-light .new-user-form__btn--secondary:hover {
   background: #f3f4f6;
   border-color: #9ca3af;
 }
 
+html:not(.theme-dark) .new-user-form__btn--primary,
 .theme-light .new-user-form__btn--primary {
   background: #7c3aed;
   color: #fff;
 }
 
+html:not(.theme-dark) .new-user-form__btn--primary:hover,
 .theme-light .new-user-form__btn--primary:hover {
   background: #6d28d9;
 }
