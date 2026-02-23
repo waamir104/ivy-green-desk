@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx-js-style";
 import { useNewLineItemModal } from "../../context/NewLineItemModalContext";
 import { useLineItemsContext } from "./LineItemsContext";
+
+const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
 const LINE_ITEMS = [
   { id: 1, name: "BALES PINESTRAW FOR FRONTS PLANTS", description: "", tax1: "", tax2: "", cost: "$8.00" },
@@ -16,7 +18,19 @@ export const SettingsLineItemsPage = () => {
   const { openModal: openNewLineItemModal } = useNewLineItemModal();
   const loading = lineItemsCtx?.loading ?? false;
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [perPage, setPerPage] = useState(15);
+  const [perPageOpen, setPerPageOpen] = useState(false);
+  const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
+
+  useEffect(() => {
+    if (!perPageOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (perPageRef.current && !perPageRef.current.contains(e.target as Node)) setPerPageOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [perPageOpen]);
   const recordCount = LINE_ITEMS.length;
   const itemLabel = selectedCount === 1 ? "Item" : "Items";
 
@@ -225,9 +239,39 @@ export const SettingsLineItemsPage = () => {
 
             <div className="table-footer">
               <div className="per-page">
-                <select aria-label="Per page">
-                  <option>15 Per Page</option>
-                </select>
+                <div ref={perPageRef} className={`custom-select${perPageOpen ? " is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="custom-select__trigger"
+                    aria-label="Per page"
+                    aria-expanded={perPageOpen}
+                    aria-haspopup="listbox"
+                    onClick={() => setPerPageOpen((o) => !o)}
+                  >
+                    <span className="custom-select__value">{perPage} Per Page</span>
+                    <span className="custom-select__arrow" aria-hidden />
+                  </button>
+                  <div
+                    className="custom-select__menu"
+                    role="listbox"
+                    aria-label="Per page options"
+                  >
+                    {PER_PAGE_OPTIONS.map((n) => (
+                      <div
+                        key={n}
+                        role="option"
+                        aria-selected={perPage === n}
+                        className={`custom-select__option${perPage === n ? " is-selected" : ""}`}
+                        onClick={() => {
+                          setPerPage(n);
+                          setPerPageOpen(false);
+                        }}
+                      >
+                        {n} Per Page
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div className="pagination">
