@@ -10,7 +10,7 @@ export const SettingsSidebar = ({ ariaHidden }: SettingsSidebarProps) => {
   const { pathname } = useLocation();
 
   return (
-    <div className="sidebar-menu sidebar-pages scrolls pb-4" aria-hidden={ariaHidden}>
+    <div className="sidebar-menu sidebar-pages scrolls pb-4 settings-page-bg" aria-hidden={ariaHidden}>
       <ul>
         {SETTINGS_GROUPS.map((group) => (
           <Fragment key={group.title}>

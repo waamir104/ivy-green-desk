@@ -44,7 +44,7 @@ export const SettingsHeader = ({ sidebarOpen = true, onToggleSidebar }: Settings
   }, []);
 
   return (
-    <div className="header --main">
+    <div className="header --main settings-page-bg">
       <div className="header__left flex-1">
         {onToggleSidebar ? (
           <button
