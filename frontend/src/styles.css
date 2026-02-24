@@ -3075,60 +3075,95 @@ section p {
   overflow: hidden;
 }
 
-.container-wrap.calendar .calendar-layout__header {
+.container-wrap.calendar .calendar-layout__header.calendar-header {
   height: 60px;
   background: #111318;
   border-bottom: 1px solid #2b2e36;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 1rem;
+  gap: 1rem;
 }
 
-.container-wrap.calendar .calendar-layout__header button,
-.container-wrap.calendar .calendar-layout__header select {
+.container-wrap.calendar .calendar-header .v2-btn-default {
+  height: 32px;
+  border-radius: 4px;
   background: #1c1f26;
   border: 1px solid #2b2e36;
   color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  margin-right: 5px;
-  font-size: 0.875rem;
-  cursor: pointer;
 }
 
-.container-wrap.calendar .calendar-layout__header .header__btn-map.active {
+.container-wrap.calendar .calendar-header .v2-btn-default:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #2b2e36;
+}
+
+.container-wrap.calendar .calendar-header .v2-btn-default.active {
   background: #3a3f48;
   border-color: #3a3f48;
-}
-
-.container-wrap.calendar .calendar-layout__header .header__select {
-  cursor: pointer;
-  min-width: 90px;
-}
-
-.container-wrap.calendar .calendar-layout__header .header__center {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.container-wrap.calendar .calendar-layout__header .header__nav {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
   color: #fff;
 }
 
-.container-wrap.calendar .calendar-layout__header .header__nav:hover {
-  opacity: 0.8;
+.container-wrap.calendar .calendar-header .btn-action {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 4px;
+  color: #fff;
 }
 
-.container-wrap.calendar .calendar-layout__header .header__title {
-  font-size: 1rem;
+.container-wrap.calendar .calendar-header .btn-action:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.container-wrap.calendar .calendar-header .action__items.time {
+  color: #fff;
+  font-size: 0.9375rem;
   font-weight: 500;
+}
+
+.container-wrap.calendar .calendar-header .wrap-schedule-picker__btn {
+  height: 32px;
+  border-radius: 4px;
+  background: #1c1f26;
+  border: 1px solid #2b2e36;
+}
+
+.container-wrap.calendar .calendar-header .v2-dropdown__menu--actions {
+  position: absolute;
+  right: 0;
+  left: auto;
+  background: #1c1f26;
+  border: 1px solid #2b2e36;
+  border-radius: 4px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.container-wrap.calendar .calendar-header .v2-dropdown__menu--actions .list-items {
+  background: transparent;
+  border: none;
   color: #fff;
+}
+
+.container-wrap.calendar .calendar-header .v2-dropdown__menu--actions .list-items:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.container-wrap.calendar .calendar-header .btn-today.active {
+  background: #3a3f48;
+  border-color: #3a3f48;
+  color: #fff;
+}
+
+.container-wrap.calendar .calendar-header .wrap-action__btn {
+  background: #1c1f26;
+  border: 1px solid #2b2e36;
+  color: #fff;
+}
+
+.container-wrap.calendar .calendar-header .wrap-action__btn:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .container-wrap.calendar .calendar-layout__map {
@@ -3468,10 +3503,49 @@ section p {
   object-fit: cover;
 }
 
+.calendar-header .wrap-action {
+  position: relative;
+}
+
+.calendar-header .wrap-action__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  padding: 0;
+  border-radius: 4px;
+}
+
 .calendar-header .wrap-action__list {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+.calendar-header .v2-dropdown__menu--actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 200px;
+  padding: 0.35rem;
+}
+
+.calendar-header .v2-dropdown__menu--actions .list-items {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.calendar-header .v2-dropdown__menu--actions .list-items p {
+  margin: 0;
+  flex: 1;
 }
 
 .calendar-header .wrap-action__list .list-items {
