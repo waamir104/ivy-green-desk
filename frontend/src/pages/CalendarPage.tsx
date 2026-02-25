@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IconSearch, IconCalendar } from "../components/header/HeaderIcons";
 
 const ArrowDown = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -217,7 +218,7 @@ export const CalendarPage = () => {
                   <button type="button" className="btn-action tooltip" onClick={goPrev} title="Previous">
                     <ChevronLeft />
                   </button>
-                  <button type="button" className="action__items v2-btn-default btn-today mr-0 active" onClick={() => setCurrentDate(new Date())}>
+                  <button type="button" className="action__items v2-btn-default btn-today mr-0" onClick={() => setCurrentDate(new Date())}>
                     Today
                   </button>
                   <span id="title-calendar-time" className="action__items time text-capitalize" title={formatMonthTitle(currentDate)}>
@@ -412,9 +413,26 @@ export const CalendarPage = () => {
               </button>
             </div>
 
-            <input type="text" placeholder="Search" className="workpool__search" />
+            <div className="workpool__search-wrap">
+              <span className="svg-search-absolute">
+                <IconSearch />
+              </span>
+              <input type="text" placeholder="Search" className="workpool__search" />
+            </div>
 
-            <div className="job-status">Job Status</div>
+            <div className="job-status">
+              <span className="material-symbols-outlined">card_travel</span>
+              Job Status
+            </div>
+
+            <div className="react-datepicker-wrapper select-list filter-date">
+              <div className="react-datepicker__input-container">
+                <div className="field-input field-date" role="button" tabIndex={0} onClick={() => {}} onKeyDown={() => {}}>
+                  <IconCalendar />
+                  <p className="field-date__select">Select Date Range...</p>
+                </div>
+              </div>
+            </div>
 
             <div className="drop-zone">Drag a job to the work pool</div>
           </div>
