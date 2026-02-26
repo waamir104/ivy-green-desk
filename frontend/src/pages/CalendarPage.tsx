@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IconSearch, IconCalendar } from "../components/header/HeaderIcons";
+import { ScheduleListModal } from "../components/ScheduleListModal";
 
 const ArrowDown = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,6 +121,7 @@ export const CalendarPage = () => {
   const [viewMode, setViewMode] = useState<"rows" | "columns">("columns");
   const [workpoolTab, setWorkpoolTab] = useState<"pool" | "missed">("pool");
   const [actionsMenuOpen, setActionsMenuOpen] = useState(false);
+  const [scheduleListModalOpen, setScheduleListModalOpen] = useState(false);
 
   const goPrev = () =>
     setCurrentDate((d) => {
@@ -201,7 +203,19 @@ export const CalendarPage = () => {
                   </button>
                 </div>
                 <div className="wrap-schedule-picker">
-                  <div className="wrap-schedule-picker__btn" title="Schedule">
+                  <div
+                    className="wrap-schedule-picker__btn cursor-pointer"
+                    title="Schedule"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setScheduleListModalOpen(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setScheduleListModalOpen(true);
+                      }
+                    }}
+                  >
                     <div className="avt-img tooltip">
                       <img src="https://d10lkxv225q7z2.cloudfront.net/avatars%2Fstatic%2Favatar_1.jpg" width={24} height={24} alt="" />
                     </div>
@@ -438,6 +452,8 @@ export const CalendarPage = () => {
           </div>
         </aside>
       </div>
+
+      <ScheduleListModal isOpen={scheduleListModalOpen} onClose={() => setScheduleListModalOpen(false)} />
     </div>
   );
 };
