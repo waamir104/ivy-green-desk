@@ -320,17 +320,32 @@ export const CalendarPage = () => {
             {Array.from({ length: 7 }, (_, i) => {
               const { empty, dayNum } = getDayInfo(i);
               if (empty)
-                return <div key={`r1-${i}`} className="day" />;
+                return (
+                  <div key={`r1-${i}`} className="day">
+                    <div className="day-date-wrap" />
+                    <div className="day-cards" />
+                    <div className="day-footer" />
+                  </div>
+                );
               if (dayNum === 2)
                 return (
                   <div key={`r1-${i}`} className="day event">
-                    <span className="date">2</span>
-                    <div className="card red">ZELLER BILL</div>
+                    <div className="day-date-wrap">
+                      <span className="date">2</span>
+                    </div>
+                    <div className="day-cards">
+                      <div className="card red">ZELLER BILL</div>
+                    </div>
+                    <div className="day-footer" />
                   </div>
                 );
               return (
                 <div key={`r1-${i}`} className="day">
-                  <span className="date">{dayNum}</span>
+                  <div className="day-date-wrap">
+                    <span className="date">{dayNum}</span>
+                  </div>
+                  <div className="day-cards" />
+                  <div className="day-footer" />
                 </div>
               );
             })}
@@ -338,25 +353,45 @@ export const CalendarPage = () => {
             {Array.from({ length: 7 }, (_, i) => {
               const { empty, dayNum } = getDayInfo(7 + i);
               if (empty)
-                return <div key={`r2-${i}`} className="day" />;
+                return (
+                  <div key={`r2-${i}`} className="day">
+                    <div className="day-date-wrap" />
+                    <div className="day-cards" />
+                    <div className="day-footer" />
+                  </div>
+                );
               if (dayNum === 9)
                 return (
                   <div key={`r2-${i}`} className="day">
-                    <span className="date">9</span>
-                    <div className="card">EDGEWOOD SUBDI</div>
-                    <div className="card">GAMBILL BARBARA</div>
+                    <div className="day-date-wrap">
+                      <span className="date">9</span>
+                    </div>
+                    <div className="day-cards">
+                      <div className="card">EDGEWOOD SUBDI</div>
+                      <div className="card">GAMBILL BARBARA</div>
+                    </div>
+                    <div className="day-footer" />
                   </div>
                 );
               if (dayNum === 14)
                 return (
                   <div key={`r2-${i}`} className="day holiday">
-                    <span className="date">14</span>
-                    <div className="holiday-label">Valentine&apos;s Day</div>
+                    <div className="day-date-wrap">
+                      <span className="date">14</span>
+                    </div>
+                    <div className="day-cards">
+                      <div className="holiday-label">Valentine&apos;s Day</div>
+                    </div>
+                    <div className="day-footer" />
                   </div>
                 );
               return (
                 <div key={`r2-${i}`} className="day">
-                  <span className="date">{dayNum}</span>
+                  <div className="day-date-wrap">
+                    <span className="date">{dayNum}</span>
+                  </div>
+                  <div className="day-cards" />
+                  <div className="day-footer" />
                 </div>
               );
             })}
@@ -364,27 +399,47 @@ export const CalendarPage = () => {
             {Array.from({ length: 7 }, (_, i) => {
               const { empty, dayNum } = getDayInfo(14 + i);
               if (empty)
-                return <div key={`r3-${i}`} className="day" />;
+                return (
+                  <div key={`r3-${i}`} className="day">
+                    <div className="day-date-wrap" />
+                    <div className="day-cards" />
+                    <div className="day-footer" />
+                  </div>
+                );
               if (dayNum === 16)
                 return (
                   <div key={`r3-${i}`} className="day holiday">
-                    <span className="date">16</span>
-                    <div className="holiday-label">Presidents Day</div>
-                    <div className="card">ACOSTA MIKE</div>
-                    <div className="card">TILLMAN BRETT</div>
+                    <div className="day-date-wrap">
+                      <span className="date">16</span>
+                    </div>
+                    <div className="day-cards">
+                      <div className="holiday-label">Presidents Day</div>
+                      <div className="card">ACOSTA MIKE</div>
+                      <div className="card">TILLMAN BRETT</div>
+                    </div>
+                    <div className="day-footer" />
                   </div>
                 );
               if (dayNum === 17)
                 return (
                   <div key={`r3-${i}`} className="day">
-                    <span className="date">17</span>
-                    <div className="card">LAKLY ANDREA</div>
-                    <div className="card">Dan Fielder</div>
+                    <div className="day-date-wrap">
+                      <span className="date">17</span>
+                    </div>
+                    <div className="day-cards">
+                      <div className="card">LAKLY ANDREA</div>
+                      <div className="card">Dan Fielder</div>
+                    </div>
+                    <div className="day-footer" />
                   </div>
                 );
               return (
                 <div key={`r3-${i}`} className="day">
-                  <span className="date">{dayNum}</span>
+                  <div className="day-date-wrap">
+                    <span className="date">{dayNum}</span>
+                  </div>
+                  <div className="day-cards" />
+                  <div className="day-footer" />
                 </div>
               );
             })}
@@ -393,10 +448,20 @@ export const CalendarPage = () => {
               const i = 21 + idx;
               const { empty, dayNum } = getDayInfo(i);
               if (empty)
-                return <div key={`ex-${i}`} className="day" />;
+                return (
+                  <div key={`ex-${i}`} className="day">
+                    <div className="day-date-wrap" />
+                    <div className="day-cards" />
+                    <div className="day-footer" />
+                  </div>
+                );
               return (
                 <div key={`ex-${i}`} className="day">
-                  <span className="date">{dayNum}</span>
+                  <div className="day-date-wrap">
+                    <span className="date">{dayNum}</span>
+                  </div>
+                  <div className="day-cards" />
+                  <div className="day-footer" />
                 </div>
               );
             })}
