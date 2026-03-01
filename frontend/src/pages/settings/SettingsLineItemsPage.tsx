@@ -203,8 +203,40 @@ export const SettingsLineItemsPage = () => {
     XLSX.writeFile(wb, `line-items-export-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
+  const lineItemsFilter = lineItemsCtx?.filter ?? "archived";
+  const setLineItemsFilter = lineItemsCtx?.setFilter ?? (() => {});
+
   return (
     <div className="line-items-page">
+      <div className="segmented-control segmented-control-inline" role="tablist" aria-label="Filter line items">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={lineItemsFilter === "active"}
+          className={`tab${lineItemsFilter === "active" ? " active" : ""}`}
+          onClick={() => setLineItemsFilter("active")}
+        >
+          Active
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={lineItemsFilter === "archived"}
+          className={`tab${lineItemsFilter === "archived" ? " active" : ""}`}
+          onClick={() => setLineItemsFilter("archived")}
+        >
+          Archived
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={lineItemsFilter === "deleted"}
+          className={`tab${lineItemsFilter === "deleted" ? " active" : ""}`}
+          onClick={() => setLineItemsFilter("deleted")}
+        >
+          Deleted
+        </button>
+      </div>
       <div className="table-container">
             <div className="table-actions">
               <div className="left-actions">

@@ -94,7 +94,7 @@ export const SettingsSchedulesPage = () => {
   };
 
   return (
-    <div className="line-items-page taxes-page">
+    <div className="line-items-page schedules-page">
       <div className="table-container">
         <div className="table-actions">
           <div className="left-actions">
