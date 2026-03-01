@@ -5,7 +5,6 @@ import { App } from "./App";
 import { LabelsProvider } from "./shared/LabelsContext";
 
 import "./styles.css";
-import "./styles/new_customer_modal.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
