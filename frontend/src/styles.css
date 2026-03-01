@@ -14,7 +14,7 @@
   --black-darker6: rgba(0, 0, 0, 0.45);
 }
 
-/* Light theme: New Customer Modal uses the block "Light theme – New Customer Modal" below (same as new_customer_modal.css). */
+/* Light theme: New Customer Modal (modal-addcustomer) – estilos en bloque "New Customer Modal" más abajo. */
 
 html,
 body {
@@ -3287,7 +3287,7 @@ section p {
   min-width: 0;
   min-height: 0;
   height: 100%;
-  padding: 12px;
+  padding: 0 0 12px 0;
   overflow: auto;
   background: #f4f5fb;
   box-sizing: border-box;
@@ -3413,7 +3413,6 @@ section p {
   min-width: 0;
   max-width: 280px;
   overflow: hidden;
-  border-left: 1px solid #e5e7eb;
 }
 
 .container-wrap.calendar .calendar-layout__sidebar .tab-selectors {
