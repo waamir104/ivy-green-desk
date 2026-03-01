@@ -8347,6 +8347,67 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   pointer-events: none;
 }
 
+/* ========== Dark theme – New Source Modal (modal-newsource) ========== */
+.theme-dark .modal.container-modal.modal-newsource,
+.theme-dark .modal-newsource .modal__container {
+  background: rgb(10, 12, 13);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newsource .header-modal {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .modal-newsource .header-modal__label {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newsource .header-modal .v2-btn-default.--transparent:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+.theme-dark .modal-newsource .body-modal .txt-label {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newsource .body-modal .field-input {
+  background: rgb(10, 12, 13);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newsource .body-modal .field-input::placeholder {
+  color: rgba(176, 168, 181, 0.6);
+}
+
+.theme-dark .modal-newsource .body-modal .field-input:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .modal-newsource .footer-modal {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .modal-newsource .footer-modal .v2-btn-default.--transparent {
+  color: rgba(176, 168, 181, 0.8);
+}
+
+.theme-dark .modal-newsource .footer-modal .v2-btn-default.--transparent:hover {
+  color: rgb(176, 168, 181);
+  background: #1a1d26;
+}
+
+.theme-dark .modal-newsource .footer-modal .v2-btn-main {
+  background: rgb(142, 72, 247);
+  color: #fff;
+}
+
+.theme-dark .modal-newsource .footer-modal .v2-btn-main:hover:not(.is-disable) {
+  background: rgb(122, 52, 227);
+}
+
 /* ========== Dark theme – New Line Item Modal (modal-newlineitem) ========== */
 .theme-dark .modal-newlineitem .modal__container.large {
   --bg-modal: rgb(10, 12, 13);
