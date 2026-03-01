@@ -8097,6 +8097,106 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
 .line-items-page.taxes-page .table-wrapper th:nth-child(4),
 .line-items-page.taxes-page .table-wrapper td:nth-child(4) { width: auto; min-width: 180px; }
 
+/* Taxes page – responsive breakpoints */
+@media (max-width: 1296px) {
+  .line-items-page.taxes-page .table-wrapper th:nth-child(2),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(2) { width: 26%; min-width: 120px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(3),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(3) { width: 90px; max-width: 90px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(4),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(4) { min-width: 140px; }
+  .line-items-page.taxes-page .table-actions { padding: 8px 12px; }
+  .line-items-page.taxes-page .table-footer { padding: 8px 12px; }
+}
+
+@media (max-width: 990px) {
+  .line-items-page.taxes-page .table-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  .line-items-page.taxes-page .table-actions .left-actions,
+  .line-items-page.taxes-page .table-actions .right-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(2),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(2) { width: 24%; min-width: 100px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(3),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(3) { width: 80px; max-width: 80px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(4),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(4) { min-width: 120px; }
+  .line-items-page.taxes-page .table-wrapper th,
+  .line-items-page.taxes-page .table-wrapper td { padding: 4px 8px; font-size: 13px; }
+  .line-items-page.taxes-page .table-footer {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+  .line-items-page.taxes-page .pagination { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (max-width: 672px) {
+  .line-items-page.taxes-page .table-container { padding: 0; border-radius: 0; }
+  .line-items-page.taxes-page .table-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 8px 10px;
+    min-height: auto;
+  }
+  .line-items-page.taxes-page .table-actions .right-actions .export-text {
+    display: none;
+  }
+  .line-items-page.taxes-page .table-actions .btn,
+  .line-items-page.taxes-page .table-actions .export__option {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+  .line-items-page.taxes-page .table-actions .btn .material-symbols-outlined,
+  .line-items-page.taxes-page .table-actions .export__option + .btn .material-symbols-outlined {
+    font-size: 16px;
+  }
+  .line-items-page.taxes-page .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .line-items-page.taxes-page .table-wrapper table { min-width: 520px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(1),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(1) { width: 36px; padding: 4px 6px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(2),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(2) { width: 22%; min-width: 90px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(3),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(3) { width: 70px; max-width: 70px; }
+  .line-items-page.taxes-page .table-wrapper th:nth-child(4),
+  .line-items-page.taxes-page .table-wrapper td:nth-child(4) { min-width: 100px; }
+  .line-items-page.taxes-page .table-wrapper th,
+  .line-items-page.taxes-page .table-wrapper td {
+    padding: 6px 8px;
+    font-size: 12px;
+    height: 32px;
+  }
+  .line-items-page.taxes-page .table-footer {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .line-items-page.taxes-page .per-page .custom-select { width: 100%; max-width: 140px; margin: 0 auto; }
+  .line-items-page.taxes-page .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+  .line-items-page.taxes-page .page-btn {
+    min-width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}
+
 /* Payment Methods page: 5 columns (checkbox, Name, Type, Status, Description) */
 .line-items-page.payment-methods-page .table-wrapper th:nth-child(1),
 .line-items-page.payment-methods-page .table-wrapper td:nth-child(1) { width: 40px; }
