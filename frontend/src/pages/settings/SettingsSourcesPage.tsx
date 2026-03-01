@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNewSourceModal } from "../../context/NewSourceModalContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
@@ -12,6 +13,7 @@ const SOURCES = [
 ];
 
 export const SettingsSourcesPage = () => {
+  const { openModal: openNewSourceModal } = useNewSourceModal();
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -116,7 +118,7 @@ export const SettingsSourcesPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple">+ Add Source</button>
+            <button type="button" className="btn btn-purple" onClick={openNewSourceModal}>+ Add Source</button>
           </div>
         </div>
 

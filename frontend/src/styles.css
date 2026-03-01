@@ -8253,6 +8253,100 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   margin-left: -0.5rem;
 }
 
+/* ========== New Source Modal (modal-newsource) ========== */
+.modal-newsource .modal__container {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.modal-newsource .header-modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+.modal-newsource .header-modal__label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+}
+.modal-newsource .header-modal .v2-btn-default.--transparent {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.modal-newsource .header-modal .v2-btn-default.--transparent:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+}
+.modal-newsource .body-modal {
+  flex: 1;
+  min-height: 0;
+  padding: 1rem 1.25rem;
+}
+.modal-newsource .body-modal .txt-label {
+  display: block;
+  margin: 0 0 0.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text, #374151);
+}
+.modal-newsource .body-modal .field-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 6px;
+  color: var(--color-text, #1f2937);
+  background: var(--bg-body, #fff);
+}
+.modal-newsource .body-modal .field-input::placeholder {
+  color: var(--text-muted, #9ca3af);
+}
+.modal-newsource .footer-modal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  flex-shrink: 0;
+}
+.modal-newsource .footer-modal .v2-btn-default.--transparent {
+  background: transparent;
+  color: var(--text-muted, #6b7280);
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.modal-newsource .footer-modal .v2-btn-default.--transparent:hover {
+  color: var(--color-text, #1f2937);
+  background: #f3f4f6;
+}
+.modal-newsource .footer-modal .v2-btn-main {
+  background: var(--primary, #7c3aed);
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.modal-newsource .footer-modal .v2-btn-main:hover:not(.is-disable) {
+  background: var(--primary-hover, #6d28d9);
+}
+.modal-newsource .footer-modal .v2-btn-main.is-disable {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* ========== Dark theme – New Line Item Modal (modal-newlineitem) ========== */
 .theme-dark .modal-newlineitem .modal__container.large {
   --bg-modal: rgb(10, 12, 13);
