@@ -3254,13 +3254,13 @@ section p {
 }
 
 .container-wrap.calendar .calendar-header .wrap-action__btn {
-  background: #fff;
-  border: 1px solid #d1d5db;
+  background: transparent;
+  border: none;
   color: #374151;
 }
 
 .container-wrap.calendar .calendar-header .wrap-action__btn:hover {
-  background: #f3f4f6;
+  background: transparent;
 }
 
 .container-wrap.calendar .calendar-layout__map {
@@ -3338,6 +3338,13 @@ section p {
   position: initial;
 }
 
+.container-wrap.calendar .calendar-grid .day .day-date-wrap,
+.container-wrap.calendar .calendar-grid .day .day-cards,
+.container-wrap.calendar .calendar-grid .day .day-footer {
+  background: transparent;
+  border: none;
+}
+
 .container-wrap.calendar .calendar-grid .day .day-cards {
   flex: 1;
   min-height: 0;
@@ -3347,8 +3354,6 @@ section p {
   width: 100%;
   height: 24px;
   flex-shrink: 0;
-  background: #fafafa;
-  border-top: 1px solid #f3f4f6;
 }
 
 .container-wrap.calendar .calendar-grid .day .day-date-wrap {
@@ -3359,7 +3364,6 @@ section p {
   box-sizing: border-box;
   padding: 1px 4px 0 4px;
   flex-shrink: 0;
-  border-bottom: 1px solid #f3f4f6;
 }
 
 .container-wrap.calendar .calendar-grid .day .date {
@@ -3391,12 +3395,14 @@ section p {
 }
 
 .container-wrap.calendar .holiday-label {
+  width: 100%;
+  box-sizing: border-box;
   background: #5cc244;
   color: #fff;
   font-size: 12px;
   padding: 4px;
   border-radius: 4px;
-  display: inline-block;
+  display: block;
   margin-top: 8px;
 }
 
@@ -3554,17 +3560,19 @@ section p {
 }
 
 .container-wrap.calendar .job-status {
+  height: 32px;
+  min-height: 32px;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  box-sizing: border-box;
   background: #fff;
   border: 1px solid #d1d5db;
   padding: 0 6px;
   border-radius: 4px;
   color: #374151;
   font-size: 0.875rem;
-  height: 32px;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
   gap: 0.5rem;
 }
 
@@ -4396,13 +4404,13 @@ section p {
 }
 
 .theme-dark .container-wrap.calendar .calendar-header .wrap-action__btn {
-  background: rgb(10, 12, 13);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: transparent;
+  border: none;
   color: rgb(176, 168, 181);
 }
 
 .theme-dark .container-wrap.calendar .calendar-header .wrap-action__btn:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: transparent;
 }
 
 .theme-dark .container-wrap.calendar .calendar-layout__map {
@@ -4442,13 +4450,11 @@ section p {
   line-height: 22px;
 }
 
-.theme-dark .container-wrap.calendar .calendar-grid .day .day-date-wrap {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-}
-
+.theme-dark .container-wrap.calendar .calendar-grid .day .day-date-wrap,
+.theme-dark .container-wrap.calendar .calendar-grid .day .day-cards,
 .theme-dark .container-wrap.calendar .calendar-grid .day .day-footer {
-  background: rgb(15, 18, 20);
-  border-top-color: rgba(255, 255, 255, 0.06);
+  background: transparent;
+  border: none;
 }
 
 .theme-dark .container-wrap.calendar .calendar-grid .card {
@@ -4539,6 +4545,13 @@ section p {
 }
 
 .theme-dark .container-wrap.calendar .job-status {
+  height: 32px;
+  min-height: 32px;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  box-sizing: border-box;
   background: rgb(10, 12, 13);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgb(176, 168, 181);
@@ -4873,6 +4886,19 @@ section p {
 
 .container-setting.settings-sidebar-hidden .settings-body {
   left: 64px;
+}
+
+/* Cuando el sidebar principal (#sidebar) está oculto, settings usa todo el ancho */
+.app-body.sidebar-hidden .container-setting .sidebar-menu.sidebar-pages {
+  left: 0;
+}
+
+.app-body.sidebar-hidden .container-setting .settings-body {
+  left: 240px;
+}
+
+.app-body.sidebar-hidden .container-setting.settings-sidebar-hidden .settings-body {
+  left: 0;
 }
 
 .container-setting.settings-sidebar-hidden .sidebar-menu.sidebar-pages {
