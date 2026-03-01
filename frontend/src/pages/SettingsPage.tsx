@@ -6,6 +6,7 @@ import { SettingsPlaceholderPage } from "./settings/SettingsPlaceholderPage";
 import { SettingsLineItemsPage } from "./settings/SettingsLineItemsPage";
 import { SettingsTaxesPage } from "./settings/SettingsTaxesPage";
 import { SettingsPaymentMethodsPage } from "./settings/SettingsPaymentMethodsPage";
+import { SettingsSourcesPage } from "./settings/SettingsSourcesPage";
 import { SettingsSchedulesPage } from "./settings/SettingsSchedulesPage";
 
 export const SettingsPage = () => {
@@ -24,7 +25,7 @@ export const SettingsPage = () => {
         <Route path="paperwork" element={<SettingsPlaceholderPage />} />
         <Route path="paymentmethods" element={<SettingsPaymentMethodsPage />} />
         <Route path="service" element={<SettingsPlaceholderPage />} />
-        <Route path="sources" element={<SettingsPlaceholderPage />} />
+        <Route path="sources" element={<SettingsSourcesPage />} />
         <Route path="tags" element={<SettingsPlaceholderPage />} />
         <Route path="tiles" element={<SettingsPlaceholderPage />} />
         <Route path="templates" element={<SettingsPlaceholderPage />} />
