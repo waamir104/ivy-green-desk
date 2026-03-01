@@ -8137,7 +8137,31 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
 }
 
 @media (max-width: 672px) {
-  .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-container { padding: 0; border-radius: 0; }
+  /* Mobile: page scroll for table body; table container grows with content; horizontal scroll kept */
+  .container-setting .wrapper-columns:has(.line-items-page:not(.taxes-page):not(.payment-methods-page)) {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page) {
+    height: auto;
+    min-height: 0;
+  }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-container {
+    padding: 0;
+    border-radius: 0;
+    height: auto;
+    min-height: 0;
+    flex: none;
+  }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-wrapper {
+    flex: none;
+    height: auto;
+    min-height: 0;
+    overflow-y: visible;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-actions {
     flex-direction: column;
     align-items: stretch;
@@ -8155,10 +8179,6 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   }
   .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-actions .btn .material-symbols-outlined {
     font-size: 16px;
-  }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
   .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-wrapper table { min-width: 580px; }
   .line-items-page:not(.taxes-page):not(.payment-methods-page) .table-wrapper th:nth-child(1),
