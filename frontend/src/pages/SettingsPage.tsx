@@ -4,7 +4,6 @@ import { SettingsCompanyPage } from "./settings/SettingsCompanyPage";
 import { SettingsUsersPage } from "./settings/SettingsUsersPage";
 import { SettingsPlaceholderPage } from "./settings/SettingsPlaceholderPage";
 import { SettingsLineItemsPage } from "./settings/SettingsLineItemsPage";
-import { SettingsTaxesPage } from "./settings/SettingsTaxesPage";
 import { SettingsPaymentMethodsPage } from "./settings/SettingsPaymentMethodsPage";
 import { SettingsSourcesPage } from "./settings/SettingsSourcesPage";
 import { SettingsSchedulesPage } from "./settings/SettingsSchedulesPage";
@@ -20,7 +19,6 @@ export const SettingsPage = () => {
         <Route path="invoices" element={<SettingsPlaceholderPage />} />
         <Route path="users" element={<SettingsUsersPage />} />
         <Route path="schedules" element={<SettingsSchedulesPage />} />
-        <Route path="taxes" element={<SettingsTaxesPage />} />
         <Route path="items" element={<SettingsLineItemsPage />} />
         <Route path="paperwork" element={<SettingsPlaceholderPage />} />
         <Route path="paymentmethods" element={<SettingsPaymentMethodsPage />} />

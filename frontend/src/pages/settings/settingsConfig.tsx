@@ -33,9 +33,6 @@ const IconUsers = () => (
 const IconSchedules = () => (
   <span className="material-symbols-outlined" style={{ fontSize: 24 }}>schedule</span>
 );
-const IconTaxes = () => (
-  <span className="material-symbols-outlined" style={{ fontSize: 24 }}>percent</span>
-);
 const IconItems = () => (
   <span className="material-symbols-outlined" style={{ fontSize: 24 }}>list_alt</span>
 );
@@ -88,7 +85,6 @@ export const SETTINGS_GROUPS: SettingsGroup[] = [
       { path: `${SETTINGS_BASE}/company`, label: "Company", title: "Company", icon: <IconCompany /> },
       { path: `${SETTINGS_BASE}/users`, label: "Users", title: "Users", icon: <IconUsers /> },
       { path: `${SETTINGS_BASE}/schedules`, label: "Schedules", title: "Schedules", icon: <IconSchedules /> },
-      { path: `${SETTINGS_BASE}/taxes`, label: "Taxes", title: "Taxes", icon: <IconTaxes /> },
       { path: `${SETTINGS_BASE}/items`, label: "Line Items", title: "Line Items", icon: <IconItems /> },
       { path: `${SETTINGS_BASE}/paperwork`, label: "Paperwork", title: "Paperwork", icon: <IconPaperwork /> },
       { path: `${SETTINGS_BASE}/paymentmethods`, label: "Payment Methods", title: "Payment Methods", icon: <IconPayment /> },
