@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNewScheduleModal } from "../../context/NewScheduleModalContext";
+import { ScheduleColorInput } from "../../components/ScheduleColorInput";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
@@ -14,7 +15,7 @@ interface ScheduleRow {
   endAddress: string;
 }
 
-const SCHEDULES: ScheduleRow[] = [
+const SCHEDULES_INITIAL: ScheduleRow[] = [
   { id: 1, name: "Schedule 1", color: "#045AF9", nickname: "Crew A", assignTo: "John Smith", jobsActive: 24, startAddress: "123 Main St", endAddress: "456 Oak Ave" },
   { id: 2, name: "Schedule 2", color: "#85B501", nickname: "Crew B", assignTo: "Jane Doe", jobsActive: 18, startAddress: "789 Pine Rd", endAddress: "321 Elm St" },
   { id: 3, name: "Schedule 3", color: "#FA6601", nickname: "Crew C", assignTo: "Bob Wilson", jobsActive: 31, startAddress: "555 Cedar Ln", endAddress: "777 Maple Dr" },
@@ -24,6 +25,7 @@ const SCHEDULES: ScheduleRow[] = [
 
 export const SettingsSchedulesPage = () => {
   const { openModal: openNewScheduleModal } = useNewScheduleModal();
+  const [schedules, setSchedules] = useState<ScheduleRow[]>(SCHEDULES_INITIAL);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -31,10 +33,18 @@ export const SettingsSchedulesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
-  const recordCount = SCHEDULES.length;
+  const recordCount = schedules.length;
   const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
   const startIndex = (currentPage - 1) * perPage;
-  const paginatedItems = SCHEDULES.slice(startIndex, startIndex + perPage);
+  const paginatedItems = schedules.slice(startIndex, startIndex + perPage);
+
+  const handleScheduleColorChange = (id: number, color: string) => {
+    setSchedules((prev) => prev.map((r) => (r.id === id ? { ...r, color } : r)));
+  };
+
+  const handleScheduleNicknameChange = (id: number, nickname: string) => {
+    setSchedules((prev) => prev.map((r) => (r.id === id ? { ...r, nickname } : r)));
+  };
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -187,19 +197,21 @@ export const SettingsSchedulesPage = () => {
                       <span className="table-link-button">{row.name}</span>
                     </td>
                     <td>
-                      <span
-                        className="schedule-color-dot"
-                        style={{
-                          display: "inline-block",
-                          width: 12,
-                          height: 12,
-                          borderRadius: "50%",
-                          backgroundColor: row.color,
-                        }}
-                        title={row.color}
+                      <ScheduleColorInput
+                        value={row.color}
+                        onChange={(color) => handleScheduleColorChange(row.id, color)}
+                        aria-label={`Color for ${row.name}`}
                       />
                     </td>
-                    <td>{row.nickname}</td>
+                    <td>
+                      <input
+                        type="text"
+                        className="schedules-page__nickname-input"
+                        value={row.nickname}
+                        onChange={(e) => handleScheduleNicknameChange(row.id, e.target.value)}
+                        aria-label={`Nickname for ${row.name}`}
+                      />
+                    </td>
                     <td>{row.assignTo}</td>
                     <td>{row.jobsActive}</td>
                     <td>{row.startAddress} / {row.endAddress}</td>

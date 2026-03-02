@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { ScheduleColorInput } from "./ScheduleColorInput";
 
 /** Same users as Settings → Users (id + name for Assign to select) */
 const SCHEDULE_USER_OPTIONS: { id: string; name: string }[] = [
@@ -151,12 +152,13 @@ export const NewScheduleModal: React.FC<NewScheduleModalProps> = ({ isOpen, onCl
                   <div className="new-schedule-form__row new-schedule-form__row--gap">
                     <div className="new-schedule-form__field">
                       <label>Color</label>
-                      <input
-                        type="color"
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                        className="new-schedule-form__color"
-                      />
+                      <div className="new-schedule-form__color-wrap">
+                        <ScheduleColorInput
+                          value={color}
+                          onChange={setColor}
+                          aria-label="Schedule color"
+                        />
+                      </div>
                     </div>
                     <div className="new-schedule-form__field">
                       <label>Nickname</label>
@@ -170,17 +172,26 @@ export const NewScheduleModal: React.FC<NewScheduleModalProps> = ({ isOpen, onCl
                   </div>
                   <div className="new-schedule-form__field new-schedule-form__field--full">
                     <label>Assign to</label>
-                    <select
-                      value={assignTo}
-                      onChange={(e) => setAssignTo(e.target.value)}
-                      className="new-schedule-form__select"
-                    >
-                      {SCHEDULE_USER_OPTIONS.map((u) => (
-                        <option key={u.id} value={u.id}>
-                          {u.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="new-schedule-form__assign-to-wrap">
+                      <img
+                        src="/login/logo icon.png"
+                        alt=""
+                        className="new-schedule-form__assign-to-logo"
+                        width={22}
+                        height={22}
+                      />
+                      <select
+                        value={assignTo}
+                        onChange={(e) => setAssignTo(e.target.value)}
+                        className="new-schedule-form__assign-to-select"
+                      >
+                        {SCHEDULE_USER_OPTIONS.map((u) => (
+                          <option key={u.id} value={u.id}>
+                            {u.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                   <div className="new-schedule-form__field new-schedule-form__field--full">
                     <label>Start address</label>

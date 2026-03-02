@@ -6563,6 +6563,10 @@ section p {
   max-width: 550px;
 }
 
+.modal-newschedule .new-schedule-form__field--full {
+  width: 100%;
+}
+
 .modal-newschedule .new-schedule-form__row {
   margin-bottom: 1rem;
 }
@@ -6589,19 +6593,145 @@ section p {
   margin-bottom: 0;
 }
 
-.modal-newschedule .new-schedule-form__color {
-  width: 100%;
-  height: 38px;
-  padding: 4px;
+/* Schedule color input: pill with circular swatch, no arrow; native picker on click */
+.schedule-color-input {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 10px;
+  background: var(--schedule-color-input-bg, #2a2f3a);
+  border: 1px solid var(--schedule-color-input-border, rgba(255, 255, 255, 0.12));
+  border-radius: 999px;
   cursor: pointer;
-  border-radius: 6px;
+}
+
+.schedule-color-input__swatch {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Schedule color input in table: 44×24, radius 4px, swatch 12×12 centered */
+.schedules-page .schedule-color-input {
+  width: 37px;
+  height: 24px;
+  min-height: 24px;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.schedules-page .schedule-color-input__swatch {
+  width: 12px;
+  height: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.schedules-page .table-wrapper th,
+.schedules-page .table-wrapper td {
+  white-space: nowrap;
+}
+
+.schedules-page .table-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.schedules-page .table-wrapper table {
+  table-layout: fixed;
+  width: 910px;
+  min-width: 910px;
+}
+
+.schedules-page .table-wrapper th:nth-child(1),
+.schedules-page .table-wrapper td:nth-child(1) { width: 40px; min-width: 40px; max-width: 40px; }
+.schedules-page .table-wrapper th:nth-child(2),
+.schedules-page .table-wrapper td:nth-child(2) { width: 105px; min-width: 105px; max-width: 105px; }
+.schedules-page .table-wrapper th:nth-child(3),
+.schedules-page .table-wrapper td:nth-child(3) { width: 105px; min-width: 105px; max-width: 105px; }
+.schedules-page .table-wrapper th:nth-child(4),
+.schedules-page .table-wrapper td:nth-child(4) { width: 185px; min-width: 185px; }
+.schedules-page .table-wrapper th:nth-child(5),
+.schedules-page .table-wrapper td:nth-child(5) { width: 170px; min-width: 170px; max-width: 170px; }
+.schedules-page .table-wrapper th:nth-child(6),
+.schedules-page .table-wrapper td:nth-child(6) { width: 105px; min-width: 105px; max-width: 105px; }
+.schedules-page .table-wrapper th:nth-child(7),
+.schedules-page .table-wrapper td:nth-child(7) { width: 230px; min-width: 230px; }
+
+.schedules-page .table-wrapper td {
+  padding-right: 15px;
+}
+
+.schedules-page__nickname-input {
+  width: 155px;
+  height: 24px;
+  padding: 0 5px 0 10px;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--color-text, #374151);
+  background: var(--bg-body, #fff);
+}
+
+.schedules-page__nickname-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+}
+
+.theme-dark .schedules-page__nickname-input {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #1a1d26;
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .schedules-page__nickname-input:focus {
+  border-color: rgb(142, 72, 247);
+}
+
+.schedule-color-input__native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.modal-newschedule .new-schedule-form__color-wrap {
+  width: 100%;
+}
+
+.modal-newschedule .new-schedule-form__color-wrap .schedule-color-input {
+  width: 100%;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-radius: 4px;
   border: 1px solid var(--border-color, #e5e7eb);
   background: var(--bg-body, #fff);
 }
 
+.modal-newschedule .new-schedule-form__color-wrap .schedule-color-input__swatch {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  border: none;
+  flex-shrink: 0;
+}
+
 .modal-newschedule .new-schedule-form__field label {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--color-text, #1f2937);
   margin-bottom: 6px;
@@ -6610,17 +6740,74 @@ section p {
 .modal-newschedule .new-schedule-form__field input,
 .modal-newschedule .new-schedule-form__select {
   width: 100%;
-  padding: 8px 12px;
+  height: 32px;
+  padding: 0 12px;
+  box-sizing: border-box;
   font-size: 14px;
   border: 1px solid var(--border-color, #e5e7eb);
-  border-radius: 6px;
+  border-radius: 4px;
   background: var(--bg-body, #fff);
   color: var(--color-text, #1f2937);
+}
+
+.modal-newschedule .new-schedule-form__field input:focus {
+  outline: none;
+  border-color: #7c3aed;
 }
 
 .modal-newschedule .new-schedule-form__select {
   cursor: pointer;
   appearance: auto;
+}
+
+.modal-newschedule .new-schedule-form__row.new-schedule-form__row--gap .new-schedule-form__field input {
+  width: 100%;
+}
+
+/* Assign to select: 32×160, padding 0 6 0 4, logo 22×22, font 13px uppercase */
+.modal-newschedule .new-schedule-form__assign-to-wrap {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  width: 100%;
+  padding: 0 6px 0 4px;
+  background: var(--assign-to-bg, #2a2f3a);
+  border: 1px solid var(--assign-to-border, rgba(255, 255, 255, 0.12));
+  border-radius: 6px;
+}
+
+.modal-newschedule .new-schedule-form__assign-to-logo {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-right: 6px;
+  object-fit: contain;
+}
+
+.modal-newschedule .new-schedule-form__assign-to-select {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--assign-to-color, #fff);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-newschedule .new-schedule-form__assign-to-select option {
+  background: var(--bg-body, #fff);
+  color: var(--color-text, #1f2937);
 }
 
 .modal-newschedule .footer-modal {
@@ -6685,11 +6872,39 @@ section p {
 }
 
 .theme-dark .modal-newschedule .new-schedule-form__field input,
-.theme-dark .modal-newschedule .new-schedule-form__select,
-.theme-dark .modal-newschedule .new-schedule-form__color {
+.theme-dark .modal-newschedule .new-schedule-form__select {
   border-color: rgba(255, 255, 255, 0.2);
   background: #1a1d26;
   color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__field input:focus {
+  outline: none;
+  border-color: rgb(142, 72, 247);
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__color-wrap .schedule-color-input {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #1a1d26;
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__assign-to-wrap {
+  --assign-to-bg: #1a1d26;
+  --assign-to-border: rgba(255, 255, 255, 0.2);
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__assign-to-select {
+  --assign-to-color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__assign-to-select option {
+  background: #1a1d26;
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .schedule-color-input {
+  --schedule-color-input-bg: #1a1d26;
+  --schedule-color-input-border: rgba(255, 255, 255, 0.2);
 }
 
 .theme-dark .modal-newschedule .footer-modal {
@@ -9277,16 +9492,6 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
 
 .line-items-page .table-wrapper th:nth-child(1),
 .line-items-page .table-wrapper td:nth-child(1) { width: 40px; }
-.line-items-page .table-wrapper th:nth-child(2),
-.line-items-page .table-wrapper td:nth-child(2) { width: 298px; }
-.line-items-page .table-wrapper th:nth-child(3),
-.line-items-page .table-wrapper td:nth-child(3) { width: 36%; }
-.line-items-page .table-wrapper th:nth-child(4),
-.line-items-page .table-wrapper td:nth-child(4) { width: 14%; }
-.line-items-page .table-wrapper th:nth-child(5),
-.line-items-page .table-wrapper td:nth-child(5) { width: 14%; }
-.line-items-page .table-wrapper th:nth-child(6),
-.line-items-page .table-wrapper td:nth-child(6) { width: 14%; }
 
 /* Sources page: single column "Sources", left-aligned */
 .line-items-page.sources-page .table-wrapper th.col-sources,
@@ -9303,72 +9508,72 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
 
 /* Line Items page (6 cols: checkbox, Name, Description, Tax 1, Tax 2, Cost) – responsive */
 @media (max-width: 1296px) {
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(2),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(2) { width: 24%; min-width: 160px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(3),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(3) { width: 28%; min-width: 120px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(6),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(6) { width: 12%; min-width: 70px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions { padding: 8px 12px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-footer { padding: 8px 12px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(2),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 24%; min-width: 160px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(3),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 28%; min-width: 120px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(6),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 12%; min-width: 70px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions { padding: 8px 12px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-footer { padding: 8px 12px; }
 }
 
 @media (max-width: 990px) {
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
     padding: 10px 12px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions .left-actions,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions .right-actions {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .left-actions,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .right-actions {
     flex-wrap: wrap;
     justify-content: flex-start;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(2),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(2) { width: 22%; min-width: 120px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(3),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(3) { width: 24%; min-width: 90px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(6),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 60px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td { padding: 4px 8px; font-size: 13px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-footer {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(2),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 22%; min-width: 120px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(3),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 24%; min-width: 90px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(6),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 60px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td { padding: 4px 8px; font-size: 13px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-footer {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
     padding: 8px 12px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .pagination { flex-wrap: wrap; justify-content: center; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .pagination { flex-wrap: wrap; justify-content: center; }
 }
 
 @media (max-width: 672px) {
   /* Mobile: page scroll for table body; table container grows with content; horizontal scroll kept */
-  .container-setting .wrapper-columns:has(.line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page)) {
+  .container-setting .wrapper-columns:has(.line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page)) {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) {
     height: auto;
     min-height: 0;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-container {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-container {
     padding: 0;
     border-radius: 0;
     height: auto;
     min-height: 0;
     flex: none;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper {
     flex: none;
     height: auto;
     min-height: 0;
@@ -9376,56 +9581,56 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
     padding: 8px 10px;
     min-height: auto;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions .right-actions .export-text {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .right-actions .export-text {
     display: none;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions .btn,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions .export__option {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .btn,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .export__option {
     padding: 0 10px;
     font-size: 12px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-actions .btn .material-symbols-outlined {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .btn .material-symbols-outlined {
     font-size: 16px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper table { min-width: 580px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(1),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(1) { width: 36px; padding: 4px 6px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(2),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(2) { width: 20%; min-width: 80px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(3),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(3) { width: 22%; min-width: 70px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th:nth-child(6),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 50px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper th,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-wrapper td {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper table { min-width: 580px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(1),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(1) { width: 36px; padding: 4px 6px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(2),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 20%; min-width: 80px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(3),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 22%; min-width: 70px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(6),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 50px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td {
     padding: 6px 8px;
     font-size: 12px;
     height: 32px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .table-footer {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-footer {
     flex-direction: column;
     align-items: stretch;
     padding: 8px 10px;
     gap: 8px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .per-page .custom-select { width: 100%; max-width: 140px; margin: 0 auto; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .pagination {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .per-page .custom-select { width: 100%; max-width: 140px; margin: 0 auto; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .pagination {
     flex-wrap: wrap;
     justify-content: center;
     gap: 4px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page) .page-btn {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .page-btn {
     min-width: 28px;
     height: 28px;
     font-size: 12px;
@@ -9853,7 +10058,7 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
 
 .theme-dark .line-items-page .table-wrapper {
   border-color: rgba(255, 255, 255, 0.08);
-  background: rgb(30, 33, 35);
+  background: rgb(10, 12, 13);
 }
 
 .theme-dark .line-items-page .table-wrapper thead,
