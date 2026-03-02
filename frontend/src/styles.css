@@ -5027,6 +5027,20 @@ section p {
   opacity: 1;
 }
 
+/* Ocultar ítems extra del sidebar de Settings (reversible: quitar la clase .settings-sidebar-hide-extra del div del sidebar) */
+.settings-sidebar-hide-extra li.sub-title[data-settings-group="Your Account"],
+.settings-sidebar-hide-extra li.sub-title[data-settings-group="Email & Sms Templates"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/account"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/plans"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/invoices"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/tiles"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/emails"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/customs"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/broadcast"],
+.settings-sidebar-hide-extra li[data-settings-path="/app/settings/emailinbox"] {
+  display: none;
+}
+
 .container-setting .sidebar-pages ul {
   list-style: none;
   margin: 0;
