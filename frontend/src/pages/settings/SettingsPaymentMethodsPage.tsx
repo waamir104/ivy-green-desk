@@ -1,19 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNewPaymentMethodModal } from "../../context/NewPaymentMethodModalContext";
+import { useEditPaymentMethodModal } from "../../context/EditPaymentMethodModalContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
-const PAYMENT_METHODS = [
-  { id: 1, name: "Credit Card", type: "Card", status: "Active", description: "Visa, Mastercard, Amex" },
-  { id: 2, name: "Debit Card", type: "Card", status: "Active", description: "Debit card payments" },
-  { id: 3, name: "ACH Bank Transfer", type: "ACH", status: "Active", description: "Direct bank transfer" },
-  { id: 4, name: "Check", type: "Check", status: "Active", description: "Check or money order" },
-  { id: 5, name: "Cash", type: "Cash", status: "Active", description: "Cash payments" },
-  { id: 6, name: "PayPal", type: "Online", status: "Active", description: "PayPal integration" },
-  { id: 7, name: "Stripe", type: "Online", status: "Active", description: "Stripe payment gateway" },
-  { id: 8, name: "Wire Transfer", type: "Transfer", status: "Active", description: "Wire or bank transfer" },
+const PAYMENT_METHODS_INITIAL = [
+  { id: 1, name: "Bank Account ACH" },
+  { id: 2, name: "Cash" },
+  { id: 3, name: "Check" },
+  { id: 4, name: "Credit" },
+  { id: 5, name: "Opening Credit" },
+  { id: 6, name: "Stripe" },
 ];
 
 export const SettingsPaymentMethodsPage = () => {
+  const { openModal: openNewPaymentMethodModal, setOnSave: setNewPaymentMethodOnSave } = useNewPaymentMethodModal();
+  const { openModal: openEditPaymentMethodModal, setOnSave: setEditPaymentMethodOnSave } = useEditPaymentMethodModal();
+  const [paymentMethods, setPaymentMethods] = useState(PAYMENT_METHODS_INITIAL);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -21,10 +24,27 @@ export const SettingsPaymentMethodsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
-  const recordCount = PAYMENT_METHODS.length;
+  const recordCount = paymentMethods.length;
   const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
   const startIndex = (currentPage - 1) * perPage;
-  const paginatedItems = PAYMENT_METHODS.slice(startIndex, startIndex + perPage);
+  const paginatedItems = paymentMethods.slice(startIndex, startIndex + perPage);
+
+  useEffect(() => {
+    setNewPaymentMethodOnSave((name: string) => {
+      setPaymentMethods((prev) => {
+        const nextId = prev.length > 0 ? Math.max(...prev.map((m) => m.id)) + 1 : 1;
+        return [...prev, { id: nextId, name }];
+      });
+    });
+    return () => setNewPaymentMethodOnSave(null);
+  }, [setNewPaymentMethodOnSave]);
+
+  useEffect(() => {
+    setEditPaymentMethodOnSave((id: number, name: string) => {
+      setPaymentMethods((prev) => prev.map((m) => (m.id === id ? { ...m, name } : m)));
+    });
+    return () => setEditPaymentMethodOnSave(null);
+  }, [setEditPaymentMethodOnSave]);
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -118,7 +138,7 @@ export const SettingsPaymentMethodsPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple">+ Add Payment Method</button>
+            <button type="button" className="btn btn-purple" onClick={openNewPaymentMethodModal}>+ Add Payment Method</button>
           </div>
         </div>
 
@@ -134,16 +154,13 @@ export const SettingsPaymentMethodsPage = () => {
                     aria-label="Select all"
                   />
                 </th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Description</th>
+                <th className="col-payment-methods">Payment Methods</th>
               </tr>
             </thead>
             <tbody>
               {pageLoading ? (
                 <tr className="line-items-loading-row">
-                  <td colSpan={5} className="line-items-loading-cell">
+                  <td colSpan={2} className="line-items-loading-cell">
                     <div className="line-items-loading__inner">
                       <img
                         src="/shared/grass icon.png"
@@ -156,7 +173,7 @@ export const SettingsPaymentMethodsPage = () => {
                 </tr>
               ) : recordCount === 0 ? (
                 <tr className="line-items-empty-row">
-                  <td colSpan={5} className="line-items-empty-cell">
+                  <td colSpan={2} className="line-items-empty-cell">
                     <div className="line-items-empty-msg">There is no data to display.</div>
                   </td>
                 </tr>
@@ -171,12 +188,15 @@ export const SettingsPaymentMethodsPage = () => {
                         aria-label={`Select ${row.name}`}
                       />
                     </td>
-                    <td className="link">
+                    <td
+                      className="col-payment-methods link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openEditPaymentMethodModal(row.id, row.name)}
+                      onKeyDown={(e) => e.key === "Enter" && openEditPaymentMethodModal(row.id, row.name)}
+                    >
                       <span className="table-link-button">{row.name}</span>
                     </td>
-                    <td>{row.type}</td>
-                    <td>{row.status}</td>
-                    <td>{row.description}</td>
                   </tr>
                 ))
               )}

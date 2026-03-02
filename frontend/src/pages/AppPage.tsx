@@ -6,6 +6,8 @@ import { NewCustomerModalProvider } from "../context/NewCustomerModalContext";
 import { NewLineItemModalProvider } from "../context/NewLineItemModalContext";
 import { EditLineItemModalProvider } from "../context/EditLineItemModalContext";
 import { NewSourceModalProvider } from "../context/NewSourceModalContext";
+import { NewPaymentMethodModalProvider } from "../context/NewPaymentMethodModalContext";
+import { EditPaymentMethodModalProvider } from "../context/EditPaymentMethodModalContext";
 import { NewUserModalProvider } from "../context/NewUserModalContext";
 import { EditUserModalProvider } from "../context/EditUserModalContext";
 import { NewScheduleModalProvider } from "../context/NewScheduleModalContext";
@@ -21,6 +23,8 @@ export const AppPage = () => {
       <EditUserModalProvider>
       <NewScheduleModalProvider>
       <NewSourceModalProvider>
+      <NewPaymentMethodModalProvider>
+      <EditPaymentMethodModalProvider>
       <div id="main-page">
         <Header
           isSidebarOpen={sidebarOpen}
@@ -35,6 +39,8 @@ export const AppPage = () => {
           </main>
         </div>
       </div>
+      </EditPaymentMethodModalProvider>
+      </NewPaymentMethodModalProvider>
       </NewSourceModalProvider>
       </NewScheduleModalProvider>
       </EditUserModalProvider>
