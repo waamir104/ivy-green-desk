@@ -80,13 +80,14 @@ export const NewUserModal: React.FC<NewUserModalProps> = ({ isOpen, onClose, onS
           onClick={(e) => e.stopPropagation()}
           style={{
             position: "relative",
+            height: "auto",
             maxHeight: "90vh",
             width: "100%",
             maxWidth: "600px",
             background: "var(--bg-body, #fff)",
             borderRadius: "8px",
             boxShadow: "0 4px 24px rgba(0, 0, 0, 0.15)",
-            overflow: "hidden",
+            overflowY: "auto",
           }}
         >
           <div className="modal__container">

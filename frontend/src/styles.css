@@ -6882,19 +6882,44 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   background: rgba(10, 12, 13, 0.9) !important;
 }
 
+/* ========== All modals – common (height auto, scroll when needed, close icon visible) ========== */
+.modal.container-modal {
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal.container-modal .header-modal .v2-btn-default.--transparent {
+  --color-icon: #374151;
+  color: #374151;
+}
+
+.modal.container-modal .header-modal .v2-btn-default.--transparent svg path,
+.modal.container-modal .header-modal .v2-btn-default.--transparent svg {
+  stroke: var(--color-icon);
+}
+
+.theme-dark .modal.container-modal .header-modal .v2-btn-default.--transparent {
+  --color-icon: rgb(176, 168, 181);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal.container-modal .header-modal .v2-btn-default.--transparent svg path,
+.theme-dark .modal.container-modal .header-modal .v2-btn-default.--transparent svg {
+  stroke: var(--color-icon);
+}
+
 /* ========== New Customer Modal (modal-addcustomer) ========== */
 
 .modal.container-modal.modal-addcustomer {
   position: relative;
   display: flex;
   flex-direction: column;
-  max-height: 90vh;
   width: 100%;
   max-width: 560px;
   background: var(--bg-body, #fff);
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
 }
 
 .modal-addcustomer .modal__overlay.bg-fixed {
@@ -7510,13 +7535,11 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   position: relative;
   display: flex;
   flex-direction: column;
-  max-height: 90vh;
   width: 100%;
   max-width: 560px;
   background: var(--bg-body, #fff);
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
 }
 
 .modal-edit-company .modal__container {
@@ -8035,10 +8058,8 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   position: relative;
   display: flex;
   flex-direction: column;
-  max-height: 90vh;
   width: 100%;
   max-width: 720px;
-  overflow: hidden;
 }
 
 .modal-newlineitem .modal__container.large {
