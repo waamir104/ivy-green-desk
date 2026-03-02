@@ -1388,6 +1388,49 @@ section p {
   flex: 1;
 }
 
+/* Customer detail page (/app/customers/:id) */
+.customer-detail-page {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  min-height: 0;
+}
+
+.customer-detail-page__header {
+  margin-bottom: 1.5rem;
+}
+
+.customer-detail-page__header .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text, #374151);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.customer-detail-page__header .back-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.customer-detail-page__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+}
+
+.customer-detail-page__subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted, #6b7280);
+}
+
 /* Menú interno (sidebar izquierdo) – estático, sin scroll */
 .container-customer-list .sidebar-menu.sidebar-left {
   background: #fff;
