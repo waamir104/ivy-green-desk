@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNewScheduleModal } from "../../context/NewScheduleModalContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
@@ -11,18 +12,18 @@ interface ScheduleRow {
   jobsActive: number;
   startAddress: string;
   endAddress: string;
-  group: string;
 }
 
 const SCHEDULES: ScheduleRow[] = [
-  { id: 1, name: "Schedule 1", color: "#045AF9", nickname: "Crew A", assignTo: "John Smith", jobsActive: 24, startAddress: "123 Main St", endAddress: "456 Oak Ave", group: "North" },
-  { id: 2, name: "Schedule 2", color: "#85B501", nickname: "Crew B", assignTo: "Jane Doe", jobsActive: 18, startAddress: "789 Pine Rd", endAddress: "321 Elm St", group: "South" },
-  { id: 3, name: "Schedule 3", color: "#FA6601", nickname: "Crew C", assignTo: "Bob Wilson", jobsActive: 31, startAddress: "555 Cedar Ln", endAddress: "777 Maple Dr", group: "East" },
-  { id: 4, name: "Schedule 4", color: "#7651A8", nickname: "Crew D", assignTo: "Alice Brown", jobsActive: 12, startAddress: "100 First Ave", endAddress: "200 Second Blvd", group: "West" },
-  { id: 5, name: "Schedule 5", color: "#9DA5B3", nickname: "Crew E", assignTo: "Charlie Davis", jobsActive: 22, startAddress: "300 Third St", endAddress: "400 Fourth Rd", group: "" },
+  { id: 1, name: "Schedule 1", color: "#045AF9", nickname: "Crew A", assignTo: "John Smith", jobsActive: 24, startAddress: "123 Main St", endAddress: "456 Oak Ave" },
+  { id: 2, name: "Schedule 2", color: "#85B501", nickname: "Crew B", assignTo: "Jane Doe", jobsActive: 18, startAddress: "789 Pine Rd", endAddress: "321 Elm St" },
+  { id: 3, name: "Schedule 3", color: "#FA6601", nickname: "Crew C", assignTo: "Bob Wilson", jobsActive: 31, startAddress: "555 Cedar Ln", endAddress: "777 Maple Dr" },
+  { id: 4, name: "Schedule 4", color: "#7651A8", nickname: "Crew D", assignTo: "Alice Brown", jobsActive: 12, startAddress: "100 First Ave", endAddress: "200 Second Blvd" },
+  { id: 5, name: "Schedule 5", color: "#9DA5B3", nickname: "Crew E", assignTo: "Charlie Davis", jobsActive: 22, startAddress: "300 Third St", endAddress: "400 Fourth Rd" },
 ];
 
 export const SettingsSchedulesPage = () => {
+  const { openModal: openNewScheduleModal } = useNewScheduleModal();
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -127,7 +128,7 @@ export const SettingsSchedulesPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple">+ Add Schedule</button>
+            <button type="button" className="btn btn-purple" onClick={openNewScheduleModal}>+ Add Schedule</button>
           </div>
         </div>
 
@@ -149,13 +150,12 @@ export const SettingsSchedulesPage = () => {
                 <th>Assign To</th>
                 <th>Jobs Active</th>
                 <th>Start/End Address</th>
-                <th>Group</th>
               </tr>
             </thead>
             <tbody>
               {pageLoading ? (
                 <tr className="line-items-loading-row">
-                  <td colSpan={8} className="line-items-loading-cell">
+                  <td colSpan={7} className="line-items-loading-cell">
                     <div className="line-items-loading__inner">
                       <img
                         src="/shared/grass icon.png"
@@ -168,7 +168,7 @@ export const SettingsSchedulesPage = () => {
                 </tr>
               ) : recordCount === 0 ? (
                 <tr className="line-items-empty-row">
-                  <td colSpan={8} className="line-items-empty-cell">
+                  <td colSpan={7} className="line-items-empty-cell">
                     <div className="line-items-empty-msg">There is no data to display.</div>
                   </td>
                 </tr>
@@ -203,7 +203,6 @@ export const SettingsSchedulesPage = () => {
                     <td>{row.assignTo}</td>
                     <td>{row.jobsActive}</td>
                     <td>{row.startAddress} / {row.endAddress}</td>
-                    <td>{row.group || "—"}</td>
                   </tr>
                 ))
               )}

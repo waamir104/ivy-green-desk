@@ -250,15 +250,6 @@ export const Header = ({ isSidebarOpen = true, onToggleSidebar }: HeaderProps) =
             </div>
           </div>
           <div className="is-divider ml-1" />
-          <div className="nav-help v2-dropdown">
-            <div className="dropbtn v2-btn-default --sm --icon-r fs-13" tabIndex={0}>
-              <span className="txt-ellipsis">Help</span>
-              <span className="arrow">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 7.5L8 11L11.5 7.5" stroke="var(--color-icon)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </span>
-            </div>
-            <div className="v2-dropdown__menu --right" />
-          </div>
           <div
             ref={modeDropdownRef}
             className={`v2-dropdown dropdown-dark-mode ml-1 mode-dropdown${isModeMenuOpen ? " is-open" : ""}`}

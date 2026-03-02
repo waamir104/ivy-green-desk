@@ -829,7 +829,7 @@ section p {
   gap: 0.5rem;
   padding: 0.25rem 0.5rem 0.25rem 0.25rem;
   border: 1px solid #e5e7eb;
-  border-radius: 4px;
+  border-radius: 55px;
   background: #fff;
   cursor: pointer;
 }
@@ -5821,8 +5821,12 @@ section p {
 }
 
 /* ========== Users page – Dark theme ========== */
+.theme-dark body:has(.contents-user) {
+  background: rgb(10, 12, 13);
+}
+
 .theme-dark .container-setting .wrap-list-items.set-user-left {
-  background: rgb(19, 22, 23);
+  background: rgb(10, 12, 13);
   border-right-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -5880,7 +5884,7 @@ section p {
 }
 
 .theme-dark .container-setting .set-user-right.wrapper-box-edit {
-  background: rgb(19, 22, 23);
+  background: rgb(10, 12, 13);
   border-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -6501,6 +6505,212 @@ section p {
 
 .theme-dark .modal-newuser .footer-modal .v2-btn-main:hover,
 .theme-dark .modal-edituser .footer-modal .v2-btn-main:hover {
+  background: rgb(122, 52, 227);
+}
+
+/* New Schedule Modal (modal-newschedule) */
+.modal-newschedule .modal__container {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.modal-newschedule .header-modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.modal-newschedule .header-modal__label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+}
+
+.modal-newschedule .header-modal .v2-btn-default.--transparent {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.modal-newschedule .header-modal .v2-btn-default.--transparent:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+}
+
+.modal-newschedule form.new-schedule-form__container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.modal-newschedule .body-modal.new-schedule-form__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.modal-newschedule .body-modal .new-schedule-form__content {
+  padding: 1rem 1.25rem;
+  margin: 0 auto;
+  max-width: 550px;
+}
+
+.modal-newschedule .new-schedule-form__row {
+  margin-bottom: 1rem;
+}
+
+.modal-newschedule .new-schedule-form__row.new-schedule-form__row--gap {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-newschedule .new-schedule-form__row.new-schedule-form__row--gap .new-schedule-form__field {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-newschedule .new-schedule-form__row .new-schedule-form__field {
+  margin-bottom: 0;
+}
+
+.modal-newschedule .new-schedule-form__field {
+  margin-bottom: 1rem;
+}
+
+.modal-newschedule .new-schedule-form__field:last-child {
+  margin-bottom: 0;
+}
+
+.modal-newschedule .new-schedule-form__color {
+  width: 100%;
+  height: 38px;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  background: var(--bg-body, #fff);
+}
+
+.modal-newschedule .new-schedule-form__field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text, #1f2937);
+  margin-bottom: 6px;
+}
+
+.modal-newschedule .new-schedule-form__field input,
+.modal-newschedule .new-schedule-form__select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 6px;
+  background: var(--bg-body, #fff);
+  color: var(--color-text, #1f2937);
+}
+
+.modal-newschedule .new-schedule-form__select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.modal-newschedule .footer-modal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  flex-shrink: 0;
+}
+
+.modal-newschedule .footer-modal .v2-btn-default.--transparent,
+.modal-newschedule .footer-modal .v2-btn-main {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-newschedule .footer-modal .v2-btn-default.--transparent {
+  background: transparent;
+  color: var(--text-muted, #6b7280);
+}
+
+.modal-newschedule .footer-modal .v2-btn-default.--transparent:hover {
+  color: var(--color-text, #1f2937);
+  background: #f3f4f6;
+}
+
+.modal-newschedule .footer-modal .v2-btn-main {
+  background: var(--primary, #7c3aed);
+  color: #fff;
+  padding: 8px 18px;
+  font-weight: 500;
+}
+
+.modal-newschedule .footer-modal .v2-btn-main:hover {
+  background: var(--primary-hover, #6d28d9);
+}
+
+.theme-dark .modal.container-modal.modal-newschedule,
+.theme-dark .modal-newschedule .modal__container {
+  background: rgb(10, 12, 13);
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newschedule .header-modal {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .modal-newschedule .header-modal__label {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newschedule .header-modal .v2-btn-default.--transparent:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__field label {
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newschedule .new-schedule-form__field input,
+.theme-dark .modal-newschedule .new-schedule-form__select,
+.theme-dark .modal-newschedule .new-schedule-form__color {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #1a1d26;
+  color: rgb(176, 168, 181);
+}
+
+.theme-dark .modal-newschedule .footer-modal {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .modal-newschedule .footer-modal .v2-btn-default.--transparent {
+  color: rgba(176, 168, 181, 0.8);
+}
+
+.theme-dark .modal-newschedule .footer-modal .v2-btn-default.--transparent:hover {
+  color: rgb(176, 168, 181);
+  background: #1a1d26;
+}
+
+.theme-dark .modal-newschedule .footer-modal .v2-btn-main {
+  background: rgb(142, 72, 247);
+  color: #fff;
+}
+
+.theme-dark .modal-newschedule .footer-modal .v2-btn-main:hover {
   background: rgb(122, 52, 227);
 }
 

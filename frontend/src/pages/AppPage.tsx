@@ -8,6 +8,7 @@ import { EditLineItemModalProvider } from "../context/EditLineItemModalContext";
 import { NewSourceModalProvider } from "../context/NewSourceModalContext";
 import { NewUserModalProvider } from "../context/NewUserModalContext";
 import { EditUserModalProvider } from "../context/EditUserModalContext";
+import { NewScheduleModalProvider } from "../context/NewScheduleModalContext";
 
 export const AppPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -18,6 +19,7 @@ export const AppPage = () => {
       <EditLineItemModalProvider>
       <NewUserModalProvider>
       <EditUserModalProvider>
+      <NewScheduleModalProvider>
       <NewSourceModalProvider>
       <div id="main-page">
         <Header
@@ -34,6 +36,7 @@ export const AppPage = () => {
         </div>
       </div>
       </NewSourceModalProvider>
+      </NewScheduleModalProvider>
       </EditUserModalProvider>
       </NewUserModalProvider>
       </EditLineItemModalProvider>
