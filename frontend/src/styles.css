@@ -9912,6 +9912,26 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   min-width: 120px;
 }
 
+.line-items-page.tags-page .table-wrapper th.col-tags,
+.line-items-page.tags-page .table-wrapper td.col-tags,
+.line-items-page.tags-page .table-wrapper th:nth-child(2),
+.line-items-page.tags-page .table-wrapper td:nth-child(2) {
+  text-align: left !important;
+}
+.line-items-page.tags-page .table-wrapper th:nth-child(2),
+.line-items-page.tags-page .table-wrapper td:nth-child(2) {
+  width: auto;
+  min-width: 120px;
+}
+.line-items-page.tags-page .table-wrapper th.col-type,
+.line-items-page.tags-page .table-wrapper td.col-type,
+.line-items-page.tags-page .table-wrapper th:nth-child(3),
+.line-items-page.tags-page .table-wrapper td:nth-child(3) {
+  text-align: left !important;
+  width: auto;
+  min-width: 100px;
+}
+
 .line-items-page.payment-methods-page .table-wrapper th.col-payment-methods,
 .line-items-page.payment-methods-page .table-wrapper td.col-payment-methods,
 .line-items-page.payment-methods-page .table-wrapper th:nth-child(2),
@@ -9923,72 +9943,72 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
 
 /* Line Items page (6 cols: checkbox, Name, Description, Tax 1, Tax 2, Cost) – responsive */
 @media (max-width: 1296px) {
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(2),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 24%; min-width: 160px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(3),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 28%; min-width: 120px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(6),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 12%; min-width: 70px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions { padding: 8px 12px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-footer { padding: 8px 12px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(2),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 24%; min-width: 160px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(3),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 28%; min-width: 120px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(6),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 12%; min-width: 70px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions { padding: 8px 12px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-footer { padding: 8px 12px; }
 }
 
 @media (max-width: 990px) {
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
     padding: 10px 12px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .left-actions,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .right-actions {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions .left-actions,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions .right-actions {
     flex-wrap: wrap;
     justify-content: flex-start;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(2),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 22%; min-width: 120px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(3),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 24%; min-width: 90px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(6),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 60px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td { padding: 4px 8px; font-size: 13px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-footer {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(2),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 22%; min-width: 120px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(3),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 24%; min-width: 90px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(6),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 60px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td { padding: 4px 8px; font-size: 13px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-footer {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
     padding: 8px 12px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .pagination { flex-wrap: wrap; justify-content: center; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .pagination { flex-wrap: wrap; justify-content: center; }
 }
 
 @media (max-width: 672px) {
   /* Mobile: page scroll for table body; table container grows with content; horizontal scroll kept */
-  .container-setting .wrapper-columns:has(.line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page)) {
+  .container-setting .wrapper-columns:has(.line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page)) {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) {
     height: auto;
     min-height: 0;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-container {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-container {
     padding: 0;
     border-radius: 0;
     height: auto;
     min-height: 0;
     flex: none;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper {
     flex: none;
     height: auto;
     min-height: 0;
@@ -9996,56 +10016,56 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
     padding: 8px 10px;
     min-height: auto;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .right-actions .export-text {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions .right-actions .export-text {
     display: none;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .btn,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .export__option {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions .btn,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions .export__option {
     padding: 0 10px;
     font-size: 12px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-actions .btn .material-symbols-outlined {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-actions .btn .material-symbols-outlined {
     font-size: 16px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper table { min-width: 580px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(1),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(1) { width: 36px; padding: 4px 6px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(2),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 20%; min-width: 80px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(3),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 22%; min-width: 70px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(4),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(5),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th:nth-child(6),
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 50px; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper th,
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-wrapper td {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper table { min-width: 580px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(1),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(1) { width: 36px; padding: 4px 6px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(2),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(2) { width: 20%; min-width: 80px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(3),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(3) { width: 22%; min-width: 70px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(4),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(5),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th:nth-child(6),
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td:nth-child(6) { width: 14%; min-width: 50px; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper th,
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-wrapper td {
     padding: 6px 8px;
     font-size: 12px;
     height: 32px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .table-footer {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .table-footer {
     flex-direction: column;
     align-items: stretch;
     padding: 8px 10px;
     gap: 8px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .per-page .custom-select { width: 100%; max-width: 140px; margin: 0 auto; }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .pagination {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .per-page .custom-select { width: 100%; max-width: 140px; margin: 0 auto; }
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .pagination {
     flex-wrap: wrap;
     justify-content: center;
     gap: 4px;
   }
-  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.schedules-page) .page-btn {
+  .line-items-page:not(.taxes-page):not(.payment-methods-page):not(.sources-page):not(.tags-page):not(.schedules-page) .page-btn {
     min-width: 28px;
     height: 28px;
     font-size: 12px;
