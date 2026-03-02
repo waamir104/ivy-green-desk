@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNewTagModal } from "../../context/NewTagModalContext";
+import { useEditTagModal } from "../../context/EditTagModalContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
-const TAGS = [
+const TAGS_INITIAL = [
   { id: 1, name: "VIP", type: "Customer" },
   { id: 2, name: "Commercial", type: "Customer" },
   { id: 3, name: "Residential", type: "Customer" },
@@ -12,6 +14,9 @@ const TAGS = [
 ];
 
 export const SettingsTagsPage = () => {
+  const { openModal: openNewTagModal, setOnSave: setNewTagOnSave } = useNewTagModal();
+  const { openModal: openEditTagModal, setOnSave: setEditTagOnSave } = useEditTagModal();
+  const [tags, setTags] = useState(TAGS_INITIAL);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -19,10 +24,27 @@ export const SettingsTagsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
-  const recordCount = TAGS.length;
+  const recordCount = tags.length;
   const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
   const startIndex = (currentPage - 1) * perPage;
-  const paginatedItems = TAGS.slice(startIndex, startIndex + perPage);
+  const paginatedItems = tags.slice(startIndex, startIndex + perPage);
+
+  useEffect(() => {
+    setNewTagOnSave((name: string, type: string) => {
+      setTags((prev) => {
+        const nextId = prev.length > 0 ? Math.max(...prev.map((t) => t.id)) + 1 : 1;
+        return [...prev, { id: nextId, name, type: type || "Customer" }];
+      });
+    });
+    return () => setNewTagOnSave(null);
+  }, [setNewTagOnSave]);
+
+  useEffect(() => {
+    setEditTagOnSave((id: number, name: string, type: string) => {
+      setTags((prev) => prev.map((t) => (t.id === id ? { ...t, name, type: type || "Customer" } : t)));
+    });
+    return () => setEditTagOnSave(null);
+  }, [setEditTagOnSave]);
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -116,7 +138,7 @@ export const SettingsTagsPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple">+ Add Tag</button>
+            <button type="button" className="btn btn-purple" onClick={openNewTagModal}>+ Add Tag</button>
           </div>
         </div>
 
@@ -167,7 +189,13 @@ export const SettingsTagsPage = () => {
                         aria-label={`Select ${row.name}`}
                       />
                     </td>
-                    <td className="col-tags">
+                    <td
+                      className="col-tags link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openEditTagModal({ id: row.id, name: row.name, type: row.type })}
+                      onKeyDown={(e) => e.key === "Enter" && openEditTagModal({ id: row.id, name: row.name, type: row.type })}
+                    >
                       <span className="table-link-button">{row.name}</span>
                     </td>
                     <td className="col-type">{row.type}</td>
