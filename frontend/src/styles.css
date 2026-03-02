@@ -6345,14 +6345,16 @@ section p {
   background: #6d28d9;
 }
 
-/* New User Modal (modal-newuser) – same structure as other modals */
-.modal-newuser .modal__container {
+/* New User / Edit User Modals (modal-newuser, modal-edituser) – same structure */
+.modal-newuser .modal__container,
+.modal-edituser .modal__container {
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
 
-.modal-newuser .header-modal {
+.modal-newuser .header-modal,
+.modal-edituser .header-modal {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -6361,46 +6363,53 @@ section p {
   border-bottom: 1px solid var(--border-color, #e5e7eb);
 }
 
-.modal-newuser .header-modal__label {
+.modal-newuser .header-modal__label,
+.modal-edituser .header-modal__label {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text, #1f2937);
 }
 
-.modal-newuser .header-modal .v2-btn-default.--transparent {
+.modal-newuser .header-modal .v2-btn-default.--transparent,
+.modal-edituser .header-modal .v2-btn-default.--transparent {
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0.25rem;
 }
 
-.modal-newuser .header-modal .v2-btn-default.--transparent:hover {
+.modal-newuser .header-modal .v2-btn-default.--transparent:hover,
+.modal-edituser .header-modal .v2-btn-default.--transparent:hover {
   background: rgba(0, 0, 0, 0.06);
   border-radius: 6px;
 }
 
-.modal-newuser form.new-user-form__container {
+.modal-newuser form.new-user-form__container,
+.modal-edituser form.new-user-form__container {
   display: flex;
   flex-direction: column;
   flex: 1;
   min-height: 0;
 }
 
-.modal-newuser .body-modal.new-user-form__body {
+.modal-newuser .body-modal.new-user-form__body,
+.modal-edituser .body-modal.new-user-form__body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   padding: 0;
 }
 
-.modal-newuser .body-modal .new-user-form__content {
+.modal-newuser .body-modal .new-user-form__content,
+.modal-edituser .body-modal .new-user-form__content {
   padding: 1rem 1.25rem;
   margin: 0 auto;
   max-width: 550px;
 }
 
-.modal-newuser .footer-modal {
+.modal-newuser .footer-modal,
+.modal-edituser .footer-modal {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -6409,7 +6418,8 @@ section p {
   flex-shrink: 0;
 }
 
-.modal-newuser .footer-modal .v2-btn-default.--transparent {
+.modal-newuser .footer-modal .v2-btn-default.--transparent,
+.modal-edituser .footer-modal .v2-btn-default.--transparent {
   background: transparent;
   color: var(--text-muted, #6b7280);
   padding: 8px 14px;
@@ -6419,12 +6429,14 @@ section p {
   cursor: pointer;
 }
 
-.modal-newuser .footer-modal .v2-btn-default.--transparent:hover {
+.modal-newuser .footer-modal .v2-btn-default.--transparent:hover,
+.modal-edituser .footer-modal .v2-btn-default.--transparent:hover {
   color: var(--color-text, #1f2937);
   background: #f3f4f6;
 }
 
-.modal-newuser .footer-modal .v2-btn-main {
+.modal-newuser .footer-modal .v2-btn-main,
+.modal-edituser .footer-modal .v2-btn-main {
   background: var(--primary, #7c3aed);
   color: #fff;
   padding: 8px 18px;
@@ -6435,49 +6447,60 @@ section p {
   cursor: pointer;
 }
 
-.modal-newuser .footer-modal .v2-btn-main:hover {
+.modal-newuser .footer-modal .v2-btn-main:hover,
+.modal-edituser .footer-modal .v2-btn-main:hover {
   background: var(--primary-hover, #6d28d9);
 }
 
-/* New User Modal – dark theme */
+/* New User / Edit User Modal – dark theme */
 .theme-dark .modal.container-modal.modal-newuser,
-.theme-dark .modal-newuser .modal__container {
+.theme-dark .modal.container-modal.modal-edituser,
+.theme-dark .modal-newuser .modal__container,
+.theme-dark .modal-edituser .modal__container {
   background: rgb(10, 12, 13);
   color: rgb(176, 168, 181);
 }
 
-.theme-dark .modal-newuser .header-modal {
+.theme-dark .modal-newuser .header-modal,
+.theme-dark .modal-edituser .header-modal {
   border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
-.theme-dark .modal-newuser .header-modal__label {
+.theme-dark .modal-newuser .header-modal__label,
+.theme-dark .modal-edituser .header-modal__label {
   color: rgb(176, 168, 181);
 }
 
-.theme-dark .modal-newuser .header-modal .v2-btn-default.--transparent:hover {
+.theme-dark .modal-newuser .header-modal .v2-btn-default.--transparent:hover,
+.theme-dark .modal-edituser .header-modal .v2-btn-default.--transparent:hover {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 6px;
 }
 
-.theme-dark .modal-newuser .footer-modal {
+.theme-dark .modal-newuser .footer-modal,
+.theme-dark .modal-edituser .footer-modal {
   border-top-color: rgba(255, 255, 255, 0.12);
 }
 
-.theme-dark .modal-newuser .footer-modal .v2-btn-default.--transparent {
+.theme-dark .modal-newuser .footer-modal .v2-btn-default.--transparent,
+.theme-dark .modal-edituser .footer-modal .v2-btn-default.--transparent {
   color: rgba(176, 168, 181, 0.8);
 }
 
-.theme-dark .modal-newuser .footer-modal .v2-btn-default.--transparent:hover {
+.theme-dark .modal-newuser .footer-modal .v2-btn-default.--transparent:hover,
+.theme-dark .modal-edituser .footer-modal .v2-btn-default.--transparent:hover {
   color: rgb(176, 168, 181);
   background: #1a1d26;
 }
 
-.theme-dark .modal-newuser .footer-modal .v2-btn-main {
+.theme-dark .modal-newuser .footer-modal .v2-btn-main,
+.theme-dark .modal-edituser .footer-modal .v2-btn-main {
   background: rgb(142, 72, 247);
   color: #fff;
 }
 
-.theme-dark .modal-newuser .footer-modal .v2-btn-main:hover {
+.theme-dark .modal-newuser .footer-modal .v2-btn-main:hover,
+.theme-dark .modal-edituser .footer-modal .v2-btn-main:hover {
   background: rgb(122, 52, 227);
 }
 

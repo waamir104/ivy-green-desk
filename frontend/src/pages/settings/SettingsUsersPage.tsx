@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNewUserModal } from "../../context/NewUserModalContext";
+import { useEditUserModal } from "../../context/EditUserModalContext";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,6 +87,7 @@ const ROLE_CLASS: Record<UserRole, string> = {
 export const SettingsUsersPage = () => {
   const [selectedId, setSelectedId] = useState<string>(USERS[0].id);
   const { openModal: openNewUserModal } = useNewUserModal();
+  const { openModal: openEditUserModal } = useEditUserModal();
   const [permissionsOpen, setPermissionsOpen] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
 
@@ -180,7 +182,7 @@ export const SettingsUsersPage = () => {
                   <div className="avatar">
                     <img className="avatar-img" src={selected.avatar} alt="" width={40} height={40} />
                   </div>
-                  <button type="button" className="v2-btn-default has-icon js-edit-form">
+                  <button type="button" className="v2-btn-default has-icon js-edit-form" onClick={() => openEditUserModal(selected)}>
                     <span className="material-symbols-outlined">edit</span>
                     <span>Edit</span>
                   </button>
