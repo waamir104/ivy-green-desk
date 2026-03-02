@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { ScheduleColorInput } from "./ScheduleColorInput";
 
-/** Same users as Settings → Users (id + name for Assign to select) */
-const SCHEDULE_USER_OPTIONS: { id: string; name: string }[] = [
-  { id: "1", name: "IVY GREEN" },
-  { id: "2", name: "ANDRES CREW2" },
-  { id: "3", name: "CREW 7 ISBI" },
-  { id: "4", name: "ANTONIO CREW 5" },
-  { id: "5", name: "CREW  1 JOSE" },
-  { id: "6", name: "ALVARO crew 3" },
-  { id: "7", name: "ROSENDO CREW650" },
+const DEFAULT_AVATAR = "/login/logo icon.png";
+
+/** Same users as Settings → Users (id + name + avatar for Assign to dropdown) */
+const SCHEDULE_USER_OPTIONS: { id: string; name: string; avatar: string }[] = [
+  { id: "1", name: "IVY GREEN", avatar: DEFAULT_AVATAR },
+  { id: "2", name: "ANDRES CREW2", avatar: DEFAULT_AVATAR },
+  { id: "3", name: "CREW 7 ISBI", avatar: DEFAULT_AVATAR },
+  { id: "4", name: "ANTONIO CREW 5", avatar: DEFAULT_AVATAR },
+  { id: "5", name: "CREW  1 JOSE", avatar: DEFAULT_AVATAR },
+  { id: "6", name: "ALVARO crew 3", avatar: DEFAULT_AVATAR },
+  { id: "7", name: "ROSENDO CREW650", avatar: DEFAULT_AVATAR },
 ];
+
+const ChevronDownIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2.5 5L6 8.5L9.5 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 export type NewScheduleFormData = {
   name: string;
@@ -42,8 +50,19 @@ export const NewScheduleModal: React.FC<NewScheduleModalProps> = ({ isOpen, onCl
   const [color, setColor] = useState(DEFAULT_COLOR);
   const [nickname, setNickname] = useState("");
   const [assignTo, setAssignTo] = useState("");
+  const [assignToOpen, setAssignToOpen] = useState(false);
   const [startAddress, setStartAddress] = useState("");
   const [endAddress, setEndAddress] = useState("");
+  const assignToRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!assignToOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (assignToRef.current && !assignToRef.current.contains(e.target as Node)) setAssignToOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [assignToOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -51,6 +70,7 @@ export const NewScheduleModal: React.FC<NewScheduleModalProps> = ({ isOpen, onCl
       setColor(DEFAULT_COLOR);
       setNickname("");
       setAssignTo(SCHEDULE_USER_OPTIONS[0]?.id ?? "");
+      setAssignToOpen(false);
       setStartAddress("");
       setEndAddress("");
     }
@@ -172,25 +192,52 @@ export const NewScheduleModal: React.FC<NewScheduleModalProps> = ({ isOpen, onCl
                   </div>
                   <div className="new-schedule-form__field new-schedule-form__field--full">
                     <label>Assign to</label>
-                    <div className="new-schedule-form__assign-to-wrap">
-                      <img
-                        src="/login/logo icon.png"
-                        alt=""
-                        className="new-schedule-form__assign-to-logo"
-                        width={22}
-                        height={22}
-                      />
-                      <select
-                        value={assignTo}
-                        onChange={(e) => setAssignTo(e.target.value)}
-                        className="new-schedule-form__assign-to-select"
+                    <div ref={assignToRef} className="new-schedule-form__assign-to-dropdown">
+                      <button
+                        type="button"
+                        className="new-schedule-form__assign-to-wrap"
+                        onClick={() => setAssignToOpen((o) => !o)}
+                        aria-expanded={assignToOpen}
+                        aria-haspopup="listbox"
+                        aria-label="Assign to"
                       >
-                        {SCHEDULE_USER_OPTIONS.map((u) => (
-                          <option key={u.id} value={u.id}>
-                            {u.name}
-                          </option>
-                        ))}
-                      </select>
+                        <img
+                          src={SCHEDULE_USER_OPTIONS.find((u) => u.id === assignTo)?.avatar ?? DEFAULT_AVATAR}
+                          alt=""
+                          className="new-schedule-form__assign-to-logo"
+                          width={22}
+                          height={22}
+                        />
+                        <span className="new-schedule-form__assign-to-value">
+                          {SCHEDULE_USER_OPTIONS.find((u) => u.id === assignTo)?.name ?? ""}
+                        </span>
+                        <span className="new-schedule-form__assign-to-chevron">
+                          <ChevronDownIcon />
+                        </span>
+                      </button>
+                      {assignToOpen && (
+                        <ul
+                          className="new-schedule-form__assign-to-list"
+                          role="listbox"
+                          aria-label="Assign to options"
+                        >
+                          {SCHEDULE_USER_OPTIONS.map((u) => (
+                            <li
+                              key={u.id}
+                              role="option"
+                              aria-selected={assignTo === u.id}
+                              className={`new-schedule-form__assign-to-option${assignTo === u.id ? " is-selected" : ""}`}
+                              onClick={() => {
+                                setAssignTo(u.id);
+                                setAssignToOpen(false);
+                              }}
+                            >
+                              <img src={u.avatar} alt="" className="new-schedule-form__assign-to-option-avatar" width={22} height={22} />
+                              <span className="new-schedule-form__assign-to-option-name">{u.name}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                   <div className="new-schedule-form__field new-schedule-form__field--full">

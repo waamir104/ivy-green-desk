@@ -193,9 +193,7 @@ export const SettingsSchedulesPage = () => {
                         aria-label={`Select ${row.name}`}
                       />
                     </td>
-                    <td className="link">
-                      <span className="table-link-button">{row.name}</span>
-                    </td>
+                    <td>{row.name}</td>
                     <td>
                       <ScheduleColorInput
                         value={row.color}
@@ -214,7 +212,18 @@ export const SettingsSchedulesPage = () => {
                     </td>
                     <td>{row.assignTo}</td>
                     <td>{row.jobsActive}</td>
-                    <td>{row.startAddress} / {row.endAddress}</td>
+                    <td>
+                      <div className="schedules-page__address-cell">
+                        <div className="schedules-page__address-item">
+                          <span className="material-symbols-outlined schedules-page__address-icon" aria-hidden>location_on</span>
+                          <span className="schedules-page__address-text">{row.startAddress}</span>
+                        </div>
+                        <div className="schedules-page__address-item">
+                          <span className="material-symbols-outlined schedules-page__address-icon" aria-hidden>location_on</span>
+                          <span className="schedules-page__address-text">{row.endAddress}</span>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
                 ))
               )}

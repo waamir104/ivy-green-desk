@@ -6694,6 +6694,56 @@ section p {
   border-color: rgb(142, 72, 247);
 }
 
+.schedules-page__address-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedules-page__address-item {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  height: 24px;
+  padding: 0 5px 0 0;
+  box-sizing: border-box;
+  border: 1px solid var(--address-item-border, #e5e7eb);
+  border-radius: 6px;
+  background: var(--address-item-bg, #f9fafb);
+  gap: 6px;
+}
+
+.schedules-page__address-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  flex-shrink: 0;
+  color: var(--address-icon-color, #6b7280);
+}
+
+.schedules-page__address-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--color-text, #374151);
+}
+
+.theme-dark .schedules-page__address-item {
+  --address-item-border: rgba(255, 255, 255, 0.2);
+  --address-item-bg: #1a1d26;
+}
+
+.theme-dark .schedules-page__address-icon {
+  --address-icon-color: rgb(176, 168, 181);
+}
+
+.theme-dark .schedules-page__address-text {
+  color: rgb(176, 168, 181);
+}
+
 .schedule-color-input__native {
   position: absolute;
   inset: 0;
