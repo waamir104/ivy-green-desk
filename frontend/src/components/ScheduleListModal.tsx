@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 type ScheduleListModalProps = {
-  isOpen: boolean;
   onClose: () => void;
 };
 
@@ -30,26 +29,12 @@ const DEFAULT_SCHEDULES: ScheduleItem[] = [
   { id: 72, name: "HECTOR", avatar: "https://d10lkxv225q7z2.cloudfront.net/avatars%2Fstatic%2Favatar_1.jpg", checked: true },
 ];
 
-export const ScheduleListModal: React.FC<ScheduleListModalProps> = ({ isOpen, onClose }) => {
+export const ScheduleListModal: React.FC<ScheduleListModalProps> = ({ onClose }) => {
   const [allSchedulesChecked, setAllSchedulesChecked] = useState(true);
   const [workPoolOn, setWorkPoolOn] = useState(false);
   const [schedules, setSchedules] = useState<ScheduleItem[]>(() =>
     DEFAULT_SCHEDULES.map((s) => ({ ...s, checked: s.checked ?? false }))
   );
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen, onClose]);
 
   const handleSelectAll = (checked: boolean) => {
     setAllSchedulesChecked(checked);
@@ -64,119 +49,81 @@ export const ScheduleListModal: React.FC<ScheduleListModalProps> = ({ isOpen, on
     });
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="ReactModalPortal ReactModalPortal-schedule" aria-modal="true" role="dialog">
-      <div
-        className="ReactModal__Overlay ReactModal__Overlay--after-open"
-        style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0,0,0,0.45)",
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 99999,
-        }}
-        onClick={(e) => e.target === e.currentTarget && onClose()}
-      >
-        <div
-          className="ReactModal__Content ReactModal__Content--after-open modal container-modal modal-schedule-list open"
-          tabIndex={-1}
-          role="dialog"
-          aria-modal="true"
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            position: "relative",
-            maxHeight: "90vh",
-            width: "100%",
-            maxWidth: "400px",
-            background: "var(--bg-body, #fff)",
-            borderRadius: "8px",
-            boxShadow: "0 4px 24px rgba(0, 0, 0, 0.15)",
-            overflow: "hidden",
-          }}
-        >
-          <div className="modal__container">
-            <div id="show_list_schedule_group" className="list-schedules">
-              <div className="sidebar-modal flex-column" style={{ display: "flex", flexDirection: "column", minHeight: 0, flex: 1 }}>
-                <div className="btn-modal" style={{ flexShrink: 0, padding: "0.75rem 1rem" }}>
-                  <button type="button" className="v2-btn-main fw-normal w-100 justify-center" onClick={onClose}>
-                    Update
-                  </button>
+    <div className="list-schedules-dropdown">
+      <div id="show_list_schedule_group" className="list-schedules">
+        <div className="sidebar-modal flex-column">
+          <div className="btn-modal">
+            <button type="button" className="v2-btn-main fw-normal w-100 justify-center" onClick={onClose}>
+              Update
+            </button>
+          </div>
+          <div className="list-schedules__boxs --box-group flex-1 is-disable">
+            <div className="mt-1">
+              <div className="items">
+                <div className="check-items">
+                  <input
+                    id="check-box-select-all-schedules"
+                    type="checkbox"
+                    checked={allSchedulesChecked}
+                    onChange={(e) => handleSelectAll(e.target.checked)}
+                  />
+                  <div className="item-checkbox ">
+                    <label className="" htmlFor="check-box-select-all-schedules">
+                      <span className="txt-ellipsis">All Schedules</span>
+                    </label>
+                  </div>
                 </div>
-                <div className="list-schedules__boxs --box-group flex-1 is-disable" style={{ padding: "0 1rem 0.5rem" }}>
-                  <div className="mt-1">
-                    <div className="items">
-                      <div className="check-items">
-                        <input
-                          id="check-box-select-all-schedules"
-                          type="checkbox"
-                          checked={allSchedulesChecked}
-                          onChange={(e) => handleSelectAll(e.target.checked)}
-                        />
-                        <div className="item-checkbox ">
-                          <label className="" htmlFor="check-box-select-all-schedules">
-                            <span className="txt-ellipsis">All Schedules</span>
-                          </label>
-                        </div>
+              </div>
+            </div>
+          </div>
+          <div className="work-pool flexcenter">
+            <div className="flexcenter gap-4 flex-1">
+              <p>Work Pool</p>
+              <p className="tooltip d-flex">
+                {TOOLTIP_SVG}
+                <span className="tooltiptext top">
+                  The work pool is a very temporary holding place where you may need to move jobs off the schedule. It is not ideal to have many jobs in the work pool.
+                </span>
+              </p>
+            </div>
+            <div className="switch large" title={workPoolOn ? "On" : "Off"}>
+              <span className="switch__label cursor-pointer" onClick={() => setWorkPoolOn((v) => !v)}>
+                {workPoolOn ? "On" : "Off"}
+              </span>
+              <input
+                id="gdSwitchCheckbox"
+                className="toggle toggle-round label-enabled"
+                type="checkbox"
+                checked={workPoolOn}
+                onChange={(e) => setWorkPoolOn(e.target.checked)}
+              />
+              <label htmlFor="gdSwitchCheckbox" />
+            </div>
+          </div>
+          <div className="list-schedules__boxs --box-schedule">
+            <div className="list-group group-sm">
+              <div className="item-group --without-group">
+                {schedules.map((schedule) => (
+                  <div key={schedule.id} title={schedule.name} className={`items ${schedule.checked ? "active-item" : ""}`}>
+                    <div className="check-items">
+                      <input
+                        id={`check-box-schedule-withoutGroup-${schedule.id}`}
+                        type="checkbox"
+                        checked={schedule.checked}
+                        onChange={(e) => handleScheduleToggle(schedule.id, e.target.checked)}
+                      />
+                      <div className="item-checkbox ">
+                        <label className="" htmlFor={`check-box-schedule-withoutGroup-${schedule.id}`}>
+                          <div className="avt-img">
+                            <img src={schedule.avatar} width={24} height={24} alt="" />
+                          </div>
+                          <span className="txt-ellipsis">{schedule.name}</span>
+                        </label>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="work-pool flexcenter" style={{ padding: "0.75rem 1rem", gap: "1rem", alignItems: "center", borderTop: "1px solid var(--border-color, #e5e7eb)" }}>
-                  <div className="flexcenter gap-4 flex-1" style={{ alignItems: "center", gap: "0.5rem", flex: 1 }}>
-                    <p style={{ margin: 0, fontSize: "14px" }}>Work Pool</p>
-                    <p className="tooltip d-flex" style={{ margin: 0 }}>
-                      {TOOLTIP_SVG}
-                      <span className="tooltiptext top">
-                        The work pool is a very temporary holding place where you may need to move jobs off the schedule. It is not ideal to have many jobs in the work pool.
-                      </span>
-                    </p>
-                  </div>
-                  <div className="switch large" title={workPoolOn ? "On" : "Off"}>
-                    <span className="switch__label cursor-pointer" onClick={() => setWorkPoolOn((v) => !v)}>
-                      {workPoolOn ? "On" : "Off"}
-                    </span>
-                    <input
-                      id="gdSwitchCheckbox"
-                      className="toggle toggle-round label-enabled"
-                      type="checkbox"
-                      checked={workPoolOn}
-                      onChange={(e) => setWorkPoolOn(e.target.checked)}
-                    />
-                    <label htmlFor="gdSwitchCheckbox" />
-                  </div>
-                </div>
-                <div className="list-schedules__boxs --box-schedule" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "0 1rem 1rem" }}>
-                  <div className="list-group group-sm">
-                    <div className="item-group --without-group">
-                      {schedules.map((schedule) => (
-                        <div key={schedule.id} title={schedule.name} className={`items ${schedule.checked ? "active-item" : ""}`}>
-                          <div className="check-items">
-                            <input
-                              id={`check-box-schedule-withoutGroup-${schedule.id}`}
-                              type="checkbox"
-                              checked={schedule.checked}
-                              onChange={(e) => handleScheduleToggle(schedule.id, e.target.checked)}
-                            />
-                            <div className="item-checkbox ">
-                              <label className="" htmlFor={`check-box-schedule-withoutGroup-${schedule.id}`}>
-                                <div className="avt-img">
-                                  <img src={schedule.avatar} width={24} height={24} alt="" />
-                                </div>
-                                <span className="txt-ellipsis">{schedule.name}</span>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

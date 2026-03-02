@@ -10,20 +10,21 @@ export const SettingsSidebar = ({ ariaHidden }: SettingsSidebarProps) => {
   const { pathname } = useLocation();
 
   return (
-    <div className="sidebar-menu sidebar-pages scrolls pb-4 settings-page-bg" aria-hidden={ariaHidden}>
+    <div className="sidebar-menu sidebar-pages scrolls pb-4 settings-page-bg settings-sidebar-hide-extra" aria-hidden={ariaHidden}>
       <ul>
         {SETTINGS_GROUPS.map((group) => (
           <Fragment key={group.title}>
             <li
               className={`sub-title${group.title === "SYSTEM SETTINGS" || group.title === "Email & Sms Templates" ? " pt-4" : ""}`}
               title={group.title}
+              data-settings-group={group.title}
             >
               {group.title}
             </li>
             {group.items.map((item) => {
               const isActive = pathname === item.path;
               return (
-                <li key={item.path}>
+                <li key={item.path} data-settings-path={item.path}>
                   <NavLink
                     to={item.path}
                     className={`items${isActive ? " active" : ""}`}

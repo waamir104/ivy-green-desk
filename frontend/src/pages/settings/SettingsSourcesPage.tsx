@@ -1,22 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNewPaymentMethodModal } from "../../context/NewPaymentMethodModalContext";
-import { useEditPaymentMethodModal } from "../../context/EditPaymentMethodModalContext";
+import { useNewSourceModal } from "../../context/NewSourceModalContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
-const PAYMENT_METHODS_INITIAL = [
-  { id: 1, name: "Bank Account ACH" },
-  { id: 2, name: "Cash" },
-  { id: 3, name: "Check" },
-  { id: 4, name: "Credit" },
-  { id: 5, name: "Opening Credit" },
-  { id: 6, name: "Stripe" },
+const SOURCES = [
+  { id: 1, name: "Angieslist" },
+  { id: 2, name: "Craigslist" },
+  { id: 3, name: "Facebook" },
+  { id: 4, name: "Google" },
+  { id: 5, name: "Referral" },
+  { id: 6, name: "Yelp" },
 ];
 
-export const SettingsPaymentMethodsPage = () => {
-  const { openModal: openNewPaymentMethodModal, setOnSave: setNewPaymentMethodOnSave } = useNewPaymentMethodModal();
-  const { openModal: openEditPaymentMethodModal, setOnSave: setEditPaymentMethodOnSave } = useEditPaymentMethodModal();
-  const [paymentMethods, setPaymentMethods] = useState(PAYMENT_METHODS_INITIAL);
+export const SettingsSourcesPage = () => {
+  const { openModal: openNewSourceModal } = useNewSourceModal();
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -24,27 +21,10 @@ export const SettingsPaymentMethodsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
-  const recordCount = paymentMethods.length;
+  const recordCount = SOURCES.length;
   const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
   const startIndex = (currentPage - 1) * perPage;
-  const paginatedItems = paymentMethods.slice(startIndex, startIndex + perPage);
-
-  useEffect(() => {
-    setNewPaymentMethodOnSave((name: string) => {
-      setPaymentMethods((prev) => {
-        const nextId = prev.length > 0 ? Math.max(...prev.map((m) => m.id)) + 1 : 1;
-        return [...prev, { id: nextId, name }];
-      });
-    });
-    return () => setNewPaymentMethodOnSave(null);
-  }, [setNewPaymentMethodOnSave]);
-
-  useEffect(() => {
-    setEditPaymentMethodOnSave((id: number, name: string) => {
-      setPaymentMethods((prev) => prev.map((m) => (m.id === id ? { ...m, name } : m)));
-    });
-    return () => setEditPaymentMethodOnSave(null);
-  }, [setEditPaymentMethodOnSave]);
+  const paginatedItems = SOURCES.slice(startIndex, startIndex + perPage);
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -105,7 +85,7 @@ export const SettingsPaymentMethodsPage = () => {
   };
 
   return (
-    <div className="line-items-page payment-methods-page">
+    <div className="line-items-page sources-page">
       <div className="table-container">
         <div className="table-actions">
           <div className="left-actions">
@@ -138,7 +118,7 @@ export const SettingsPaymentMethodsPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple" onClick={openNewPaymentMethodModal}>+ Add Payment Method</button>
+            <button type="button" className="btn btn-purple" onClick={openNewSourceModal}>+ Add Source</button>
           </div>
         </div>
 
@@ -154,7 +134,7 @@ export const SettingsPaymentMethodsPage = () => {
                     aria-label="Select all"
                   />
                 </th>
-                <th className="col-payment-methods">Payment Methods</th>
+                <th className="col-sources">Sources</th>
               </tr>
             </thead>
             <tbody>
@@ -188,13 +168,7 @@ export const SettingsPaymentMethodsPage = () => {
                         aria-label={`Select ${row.name}`}
                       />
                     </td>
-                    <td
-                      className="col-payment-methods link"
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => openEditPaymentMethodModal(row.id, row.name)}
-                      onKeyDown={(e) => e.key === "Enter" && openEditPaymentMethodModal(row.id, row.name)}
-                    >
+                    <td className="col-sources">
                       <span className="table-link-button">{row.name}</span>
                     </td>
                   </tr>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { NewUserForm } from "./NewUserForm";
+import { useNewUserModal } from "../../context/NewUserModalContext";
+import { useEditUserModal } from "../../context/EditUserModalContext";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,6 +94,8 @@ const ROLE_CLASS: Record<UserRole, string> = {
 
 export const SettingsUsersPage = () => {
   const [selectedId, setSelectedId] = useState<string>(USERS[0].id);
+  const { openModal: openNewUserModal } = useNewUserModal();
+  const { openModal: openEditUserModal } = useEditUserModal();
   const [permissionsOpen, setPermissionsOpen] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
   const [isAddingUser, setIsAddingUser] = useState(false);
@@ -151,7 +154,7 @@ export const SettingsUsersPage = () => {
                 </button>
               </div>
             </div>
-            <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={() => setIsAddingUser(true)}>
+            <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={openNewUserModal}>
               <div><AddUserIcon /></div>
               <span>Add User</span>
             </button>
@@ -188,6 +191,7 @@ export const SettingsUsersPage = () => {
           </div>
         </div>
         <div className="set-user-right wrapper-box-edit">
+          <div className={`wrapper-box-edit__content form-default${detailLoading ? " user-detail-loading" : ""}`}>
           <div className={`wrapper-box-edit__content form-default${detailLoading && !isAddingUser ? " user-detail-loading" : ""}`}>
             {!usersListOpen && (
               <div className="users-expand-bar">
@@ -230,7 +234,7 @@ export const SettingsUsersPage = () => {
                   <div className="avatar">
                     <img className="avatar-img" src={selected.avatar} alt="" width={40} height={40} />
                   </div>
-                  <button type="button" className="v2-btn-default has-icon js-edit-form">
+                  <button type="button" className="v2-btn-default has-icon js-edit-form" onClick={() => openEditUserModal(selected)}>
                     <span className="material-symbols-outlined">edit</span>
                     <span>Edit</span>
                   </button>
@@ -334,8 +338,6 @@ export const SettingsUsersPage = () => {
                 )}
               </div>
             </div>
-              </>
-            )}
           </div>
         </div>
       </div>

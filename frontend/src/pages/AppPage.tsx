@@ -5,6 +5,14 @@ import { Sidebar } from "../components/Sidebar";
 import { NewCustomerModalProvider } from "../context/NewCustomerModalContext";
 import { NewLineItemModalProvider } from "../context/NewLineItemModalContext";
 import { EditLineItemModalProvider } from "../context/EditLineItemModalContext";
+import { NewSourceModalProvider } from "../context/NewSourceModalContext";
+import { NewPaymentMethodModalProvider } from "../context/NewPaymentMethodModalContext";
+import { EditPaymentMethodModalProvider } from "../context/EditPaymentMethodModalContext";
+import { NewUserModalProvider } from "../context/NewUserModalContext";
+import { EditUserModalProvider } from "../context/EditUserModalContext";
+import { NewScheduleModalProvider } from "../context/NewScheduleModalContext";
+import { NewTagModalProvider } from "../context/NewTagModalContext";
+import { EditTagModalProvider } from "../context/EditTagModalContext";
 
 export const AppPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -13,6 +21,14 @@ export const AppPage = () => {
     <NewCustomerModalProvider>
       <NewLineItemModalProvider>
       <EditLineItemModalProvider>
+      <NewUserModalProvider>
+      <EditUserModalProvider>
+      <NewScheduleModalProvider>
+      <NewSourceModalProvider>
+      <NewPaymentMethodModalProvider>
+      <EditPaymentMethodModalProvider>
+      <NewTagModalProvider>
+      <EditTagModalProvider>
       <div id="main-page">
         <Header
           isSidebarOpen={sidebarOpen}
@@ -27,6 +43,14 @@ export const AppPage = () => {
           </main>
         </div>
       </div>
+      </EditTagModalProvider>
+      </NewTagModalProvider>
+      </EditPaymentMethodModalProvider>
+      </NewPaymentMethodModalProvider>
+      </NewSourceModalProvider>
+      </NewScheduleModalProvider>
+      </EditUserModalProvider>
+      </NewUserModalProvider>
       </EditLineItemModalProvider>
       </NewLineItemModalProvider>
     </NewCustomerModalProvider>

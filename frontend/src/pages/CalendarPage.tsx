@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IconSearch, IconCalendar } from "../components/header/HeaderIcons";
 import { ScheduleListModal } from "../components/ScheduleListModal";
 
@@ -140,7 +140,26 @@ export const CalendarPage = () => {
   const [workpoolTab, setWorkpoolTab] = useState<"pool" | "missed">("pool");
   const [sidebarTab, setSidebarTab] = useState<"workpool" | "tasks" | "joblist">("workpool");
   const [actionsMenuOpen, setActionsMenuOpen] = useState(false);
-  const [scheduleListModalOpen, setScheduleListModalOpen] = useState(false);
+  const [scheduleListOpen, setScheduleListOpen] = useState(false);
+  const schedulePickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!scheduleListOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setScheduleListOpen(false);
+    };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (schedulePickerRef.current && !schedulePickerRef.current.contains(e.target as Node)) {
+        setScheduleListOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [scheduleListOpen]);
 
   const goPrev = () =>
     setCurrentDate((d) => {
@@ -221,17 +240,17 @@ export const CalendarPage = () => {
                     <span className="arrow"><ArrowDown /></span>
                   </button>
                 </div>
-                <div className="wrap-schedule-picker">
+                <div className="wrap-schedule-picker" ref={schedulePickerRef}>
                   <div
                     className="wrap-schedule-picker__btn cursor-pointer"
                     title="Schedule"
                     role="button"
                     tabIndex={0}
-                    onClick={() => setScheduleListModalOpen(true)}
+                    onClick={() => setScheduleListOpen((o) => !o)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        setScheduleListModalOpen(true);
+                        setScheduleListOpen((o) => !o);
                       }
                     }}
                   >
@@ -240,6 +259,9 @@ export const CalendarPage = () => {
                     </div>
                     <span className="svg-dropup"><IconDropup /></span>
                   </div>
+                  {scheduleListOpen && (
+                    <ScheduleListModal onClose={() => setScheduleListOpen(false)} />
+                  )}
                 </div>
               </div>
 
@@ -578,7 +600,6 @@ export const CalendarPage = () => {
         </aside>
       </div>
 
-      <ScheduleListModal isOpen={scheduleListModalOpen} onClose={() => setScheduleListModalOpen(false)} />
-    </div>
+      </div>
   );
 };

@@ -1,19 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNewTagModal } from "../../context/NewTagModalContext";
+import { useEditTagModal } from "../../context/EditTagModalContext";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
-const TAXES = [
-  { id: 1, name: "Sales Tax", rate: "8.25", description: "Standard state sales tax" },
-  { id: 2, name: "VAT", rate: "16", description: "Value added tax" },
-  { id: 3, name: "GST", rate: "5", description: "Goods and services tax" },
-  { id: 4, name: "Local Tax", rate: "2", description: "County/city local tax" },
-  { id: 5, name: "Service Tax", rate: "10", description: "Tax on services" },
-  { id: 6, name: "Luxury Tax", rate: "15", description: "Luxury goods tax" },
-  { id: 7, name: "Environmental Tax", rate: "3", description: "Green/environmental levy" },
-  { id: 8, name: "Tourism Tax", rate: "5", description: "Hotel and tourism tax" },
+const TAGS_INITIAL = [
+  { id: 1, name: "VIP", type: "Customer" },
+  { id: 2, name: "Commercial", type: "Customer" },
+  { id: 3, name: "Residential", type: "Customer" },
+  { id: 4, name: "Recurring", type: "Customer" },
+  { id: 5, name: "One-time", type: "Customer" },
+  { id: 6, name: "Warranty", type: "Customer" },
 ];
 
-export const SettingsTaxesPage = () => {
+export const SettingsTagsPage = () => {
+  const { openModal: openNewTagModal, setOnSave: setNewTagOnSave } = useNewTagModal();
+  const { openModal: openEditTagModal, setOnSave: setEditTagOnSave } = useEditTagModal();
+  const [tags, setTags] = useState(TAGS_INITIAL);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -21,10 +24,27 @@ export const SettingsTaxesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
-  const recordCount = TAXES.length;
+  const recordCount = tags.length;
   const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
   const startIndex = (currentPage - 1) * perPage;
-  const paginatedItems = TAXES.slice(startIndex, startIndex + perPage);
+  const paginatedItems = tags.slice(startIndex, startIndex + perPage);
+
+  useEffect(() => {
+    setNewTagOnSave((name: string, type: string) => {
+      setTags((prev) => {
+        const nextId = prev.length > 0 ? Math.max(...prev.map((t) => t.id)) + 1 : 1;
+        return [...prev, { id: nextId, name, type: type || "Customer" }];
+      });
+    });
+    return () => setNewTagOnSave(null);
+  }, [setNewTagOnSave]);
+
+  useEffect(() => {
+    setEditTagOnSave((id: number, name: string, type: string) => {
+      setTags((prev) => prev.map((t) => (t.id === id ? { ...t, name, type: type || "Customer" } : t)));
+    });
+    return () => setEditTagOnSave(null);
+  }, [setEditTagOnSave]);
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -85,7 +105,7 @@ export const SettingsTaxesPage = () => {
   };
 
   return (
-    <div className="line-items-page taxes-page">
+    <div className="line-items-page tags-page">
       <div className="table-container">
         <div className="table-actions">
           <div className="left-actions">
@@ -118,7 +138,7 @@ export const SettingsTaxesPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple">+ Add Tax</button>
+            <button type="button" className="btn btn-purple" onClick={openNewTagModal}>+ Add Tag</button>
           </div>
         </div>
 
@@ -134,15 +154,14 @@ export const SettingsTaxesPage = () => {
                     aria-label="Select all"
                   />
                 </th>
-                <th>Name</th>
-                <th>Rate (%)</th>
-                <th>Description</th>
+                <th className="col-tags">Tags</th>
+                <th className="col-type">Type</th>
               </tr>
             </thead>
             <tbody>
               {pageLoading ? (
                 <tr className="line-items-loading-row">
-                  <td colSpan={4} className="line-items-loading-cell">
+                  <td colSpan={3} className="line-items-loading-cell">
                     <div className="line-items-loading__inner">
                       <img
                         src="/shared/grass icon.png"
@@ -155,7 +174,7 @@ export const SettingsTaxesPage = () => {
                 </tr>
               ) : recordCount === 0 ? (
                 <tr className="line-items-empty-row">
-                  <td colSpan={4} className="line-items-empty-cell">
+                  <td colSpan={3} className="line-items-empty-cell">
                     <div className="line-items-empty-msg">There is no data to display.</div>
                   </td>
                 </tr>
@@ -170,11 +189,16 @@ export const SettingsTaxesPage = () => {
                         aria-label={`Select ${row.name}`}
                       />
                     </td>
-                    <td className="link">
+                    <td
+                      className="col-tags link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openEditTagModal({ id: row.id, name: row.name, type: row.type })}
+                      onKeyDown={(e) => e.key === "Enter" && openEditTagModal({ id: row.id, name: row.name, type: row.type })}
+                    >
                       <span className="table-link-button">{row.name}</span>
                     </td>
-                    <td>{row.rate}%</td>
-                    <td>{row.description}</td>
+                    <td className="col-type">{row.type}</td>
                   </tr>
                 ))
               )}

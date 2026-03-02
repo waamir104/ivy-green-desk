@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNewScheduleModal } from "../../context/NewScheduleModalContext";
+import { ScheduleColorInput } from "../../components/ScheduleColorInput";
 
 const PER_PAGE_OPTIONS = [10, 15, 20, 25, 50, 100] as const;
 
@@ -11,18 +13,19 @@ interface ScheduleRow {
   jobsActive: number;
   startAddress: string;
   endAddress: string;
-  group: string;
 }
 
-const SCHEDULES: ScheduleRow[] = [
-  { id: 1, name: "Schedule 1", color: "#045AF9", nickname: "Crew A", assignTo: "John Smith", jobsActive: 24, startAddress: "123 Main St", endAddress: "456 Oak Ave", group: "North" },
-  { id: 2, name: "Schedule 2", color: "#85B501", nickname: "Crew B", assignTo: "Jane Doe", jobsActive: 18, startAddress: "789 Pine Rd", endAddress: "321 Elm St", group: "South" },
-  { id: 3, name: "Schedule 3", color: "#FA6601", nickname: "Crew C", assignTo: "Bob Wilson", jobsActive: 31, startAddress: "555 Cedar Ln", endAddress: "777 Maple Dr", group: "East" },
-  { id: 4, name: "Schedule 4", color: "#7651A8", nickname: "Crew D", assignTo: "Alice Brown", jobsActive: 12, startAddress: "100 First Ave", endAddress: "200 Second Blvd", group: "West" },
-  { id: 5, name: "Schedule 5", color: "#9DA5B3", nickname: "Crew E", assignTo: "Charlie Davis", jobsActive: 22, startAddress: "300 Third St", endAddress: "400 Fourth Rd", group: "" },
+const SCHEDULES_INITIAL: ScheduleRow[] = [
+  { id: 1, name: "Schedule 1", color: "#045AF9", nickname: "Crew A", assignTo: "John Smith", jobsActive: 24, startAddress: "123 Main St", endAddress: "456 Oak Ave" },
+  { id: 2, name: "Schedule 2", color: "#85B501", nickname: "Crew B", assignTo: "Jane Doe", jobsActive: 18, startAddress: "789 Pine Rd", endAddress: "321 Elm St" },
+  { id: 3, name: "Schedule 3", color: "#FA6601", nickname: "Crew C", assignTo: "Bob Wilson", jobsActive: 31, startAddress: "555 Cedar Ln", endAddress: "777 Maple Dr" },
+  { id: 4, name: "Schedule 4", color: "#7651A8", nickname: "Crew D", assignTo: "Alice Brown", jobsActive: 12, startAddress: "100 First Ave", endAddress: "200 Second Blvd" },
+  { id: 5, name: "Schedule 5", color: "#9DA5B3", nickname: "Crew E", assignTo: "Charlie Davis", jobsActive: 22, startAddress: "300 Third St", endAddress: "400 Fourth Rd" },
 ];
 
 export const SettingsSchedulesPage = () => {
+  const { openModal: openNewScheduleModal } = useNewScheduleModal();
+  const [schedules, setSchedules] = useState<ScheduleRow[]>(SCHEDULES_INITIAL);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [perPage, setPerPage] = useState(15);
@@ -30,10 +33,18 @@ export const SettingsSchedulesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const perPageRef = useRef<HTMLDivElement>(null);
   const selectedCount = selectedIds.size;
-  const recordCount = SCHEDULES.length;
+  const recordCount = schedules.length;
   const totalPages = Math.max(1, Math.ceil(recordCount / perPage));
   const startIndex = (currentPage - 1) * perPage;
-  const paginatedItems = SCHEDULES.slice(startIndex, startIndex + perPage);
+  const paginatedItems = schedules.slice(startIndex, startIndex + perPage);
+
+  const handleScheduleColorChange = (id: number, color: string) => {
+    setSchedules((prev) => prev.map((r) => (r.id === id ? { ...r, color } : r)));
+  };
+
+  const handleScheduleNicknameChange = (id: number, nickname: string) => {
+    setSchedules((prev) => prev.map((r) => (r.id === id ? { ...r, nickname } : r)));
+  };
 
   useEffect(() => {
     if (!perPageOpen) return;
@@ -127,7 +138,7 @@ export const SettingsSchedulesPage = () => {
               <span className="material-symbols-outlined">print</span>
               Print
             </button>
-            <button type="button" className="btn btn-purple">+ Add Schedule</button>
+            <button type="button" className="btn btn-purple" onClick={openNewScheduleModal}>+ Add Schedule</button>
           </div>
         </div>
 
@@ -149,13 +160,12 @@ export const SettingsSchedulesPage = () => {
                 <th>Assign To</th>
                 <th>Jobs Active</th>
                 <th>Start/End Address</th>
-                <th>Group</th>
               </tr>
             </thead>
             <tbody>
               {pageLoading ? (
                 <tr className="line-items-loading-row">
-                  <td colSpan={8} className="line-items-loading-cell">
+                  <td colSpan={7} className="line-items-loading-cell">
                     <div className="line-items-loading__inner">
                       <img
                         src="/shared/grass icon.png"
@@ -168,7 +178,7 @@ export const SettingsSchedulesPage = () => {
                 </tr>
               ) : recordCount === 0 ? (
                 <tr className="line-items-empty-row">
-                  <td colSpan={8} className="line-items-empty-cell">
+                  <td colSpan={7} className="line-items-empty-cell">
                     <div className="line-items-empty-msg">There is no data to display.</div>
                   </td>
                 </tr>
@@ -183,27 +193,37 @@ export const SettingsSchedulesPage = () => {
                         aria-label={`Select ${row.name}`}
                       />
                     </td>
-                    <td className="link">
-                      <span className="table-link-button">{row.name}</span>
-                    </td>
+                    <td>{row.name}</td>
                     <td>
-                      <span
-                        className="schedule-color-dot"
-                        style={{
-                          display: "inline-block",
-                          width: 12,
-                          height: 12,
-                          borderRadius: "50%",
-                          backgroundColor: row.color,
-                        }}
-                        title={row.color}
+                      <ScheduleColorInput
+                        value={row.color}
+                        onChange={(color) => handleScheduleColorChange(row.id, color)}
+                        aria-label={`Color for ${row.name}`}
                       />
                     </td>
-                    <td>{row.nickname}</td>
+                    <td>
+                      <input
+                        type="text"
+                        className="schedules-page__nickname-input"
+                        value={row.nickname}
+                        onChange={(e) => handleScheduleNicknameChange(row.id, e.target.value)}
+                        aria-label={`Nickname for ${row.name}`}
+                      />
+                    </td>
                     <td>{row.assignTo}</td>
                     <td>{row.jobsActive}</td>
-                    <td>{row.startAddress} / {row.endAddress}</td>
-                    <td>{row.group || "—"}</td>
+                    <td>
+                      <div className="schedules-page__address-cell">
+                        <div className="schedules-page__address-item">
+                          <span className="material-symbols-outlined schedules-page__address-icon" aria-hidden>location_on</span>
+                          <span className="schedules-page__address-text">{row.startAddress}</span>
+                        </div>
+                        <div className="schedules-page__address-item">
+                          <span className="material-symbols-outlined schedules-page__address-icon" aria-hidden>location_on</span>
+                          <span className="schedules-page__address-text">{row.endAddress}</span>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
                 ))
               )}
