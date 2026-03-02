@@ -10710,6 +10710,14 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   white-space: nowrap;
 }
 
+@media (max-width: 500px) {
+  .line-items-page.payment-methods-page .table-actions .right-actions .btn.btn-purple {
+    white-space: normal;
+    height: auto;
+    min-height: 32px;
+  }
+}
+
 @container table-actions-container (max-width: 900px) {
   .line-items-page .table-actions {
     flex-direction: column;
