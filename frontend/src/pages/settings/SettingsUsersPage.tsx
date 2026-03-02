@@ -28,6 +28,14 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
+const HamburgerIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <path d="M5 7h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M5 17h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
 const SessionHistoryIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.5 5.5L19 12L12.5 18.5" stroke="var(--color-icon)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
@@ -88,6 +96,7 @@ export const SettingsUsersPage = () => {
   const [permissionsOpen, setPermissionsOpen] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
   const [isAddingUser, setIsAddingUser] = useState(false);
+  const [usersListOpen, setUsersListOpen] = useState(true);
 
   const selected = USERS.find((u) => u.id === selectedId) ?? USERS[0];
 
@@ -117,13 +126,29 @@ export const SettingsUsersPage = () => {
         </div>
       </div>
       <div className="contents-user__details scrolls-x">
-        <div className="wrap-list-items set-user-left">
+        <div
+          className={`wrap-list-items set-user-left${!usersListOpen ? " users-list-column-hidden" : ""}`}
+          style={!usersListOpen ? { display: "none" } : undefined}
+          aria-hidden={!usersListOpen}
+        >
           <div className="header-title">
             <div className="tabs">
               <div className="btn-item ml-0">
-                <div className="tab-items flexcenter gap-2 svg-noeffect active-tab-selector">
+                <button
+                  type="button"
+                  className={`tab-items flexcenter gap-2 svg-noeffect users-collapse-btn${usersListOpen ? " is-open" : ""}`}
+                  onClick={() => setUsersListOpen((o) => !o)}
+                  aria-expanded={usersListOpen}
+                  aria-label={usersListOpen ? "Collapse users list" : "Expand users list"}
+                >
+                  <span className="users-collapse-btn__icon" aria-hidden>
+                    <HamburgerIcon />
+                  </span>
                   <span>Users</span>
-                </div>
+                  <span className="users-collapse-btn__chevron" aria-hidden>
+                    <ChevronDownIcon />
+                  </span>
+                </button>
               </div>
             </div>
             <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={() => setIsAddingUser(true)}>
@@ -131,7 +156,8 @@ export const SettingsUsersPage = () => {
               <span>Add User</span>
             </button>
           </div>
-          <div className="list-details scrolls">
+          <div className={`list-details-wrap${usersListOpen ? " is-open" : ""}`}>
+            <div className="list-details scrolls">
             {USERS.map((user) => (
               <div
                 key={user.id}
@@ -158,10 +184,30 @@ export const SettingsUsersPage = () => {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
         <div className="set-user-right wrapper-box-edit">
           <div className={`wrapper-box-edit__content form-default${detailLoading && !isAddingUser ? " user-detail-loading" : ""}`}>
+            {!usersListOpen && (
+              <div className="users-expand-bar">
+                <button
+                  type="button"
+                  className="tab-items flexcenter gap-2 svg-noeffect users-collapse-btn"
+                  onClick={() => setUsersListOpen(true)}
+                  aria-label="Show users list"
+                >
+                  <span className="users-collapse-btn__icon" aria-hidden>
+                    <HamburgerIcon />
+                  </span>
+                  <span>Users</span>
+                </button>
+                <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={() => setIsAddingUser(true)}>
+                  <div><AddUserIcon /></div>
+                  <span>Add User</span>
+                </button>
+              </div>
+            )}
             {isAddingUser ? (
               <NewUserForm onClose={() => setIsAddingUser(false)} onSave={() => {}} />
             ) : (

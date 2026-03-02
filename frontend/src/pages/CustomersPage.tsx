@@ -387,29 +387,6 @@ export const CustomersPage = () => {
             </div>
           </div>
 
-          {/* Stats panel inline (solo visible en móvil, entre barra superior y filtro A-Z) */}
-          <div className="customer-list-stats-inline" role="navigation" aria-label="Customer statistics">
-            {SIDEBAR_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`customer-list-stats-inline__item${activeSidebarId === item.id ? " is-active" : ""}${item.disabled ? " is-disable" : ""}`}
-                onClick={() => {
-                  if (item.disabled) return;
-                  setActiveSidebarId(item.id);
-                  setCustomersLoading(true);
-                }}
-                disabled={item.disabled}
-                title={item.tooltip ?? item.label}
-              >
-                <span className="customer-list-stats-inline__label">{item.label}</span>
-                {!item.disabled && item.count !== undefined && (
-                  <span className="customer-list-stats-inline__count">{item.count}</span>
-                )}
-              </button>
-            ))}
-          </div>
-
           {/* Alphabet filter */}
           <div className="header filter-alphabet">
             {ALPHABET.map((letter) => (

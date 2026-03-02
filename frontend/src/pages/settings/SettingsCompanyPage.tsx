@@ -40,7 +40,7 @@ export const SettingsCompanyPage = () => {
 
   return (
     <>
-      <form className="contents-pages container-column wrapper-box-edit scrolls">
+      <form className="contents-pages container-column wrapper-box-edit contents-company scrolls">
         <div className="box-tips hide">
           <div className="box-tips__content">
             <div className="tip">
