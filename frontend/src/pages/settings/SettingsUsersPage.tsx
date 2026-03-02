@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NewUserForm } from "./NewUserForm";
+import { useNewUserModal } from "../../context/NewUserModalContext";
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,9 +85,9 @@ const ROLE_CLASS: Record<UserRole, string> = {
 
 export const SettingsUsersPage = () => {
   const [selectedId, setSelectedId] = useState<string>(USERS[0].id);
+  const { openModal: openNewUserModal } = useNewUserModal();
   const [permissionsOpen, setPermissionsOpen] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
-  const [isAddingUser, setIsAddingUser] = useState(false);
 
   const selected = USERS.find((u) => u.id === selectedId) ?? USERS[0];
 
@@ -126,7 +126,7 @@ export const SettingsUsersPage = () => {
                 </div>
               </div>
             </div>
-            <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={() => setIsAddingUser(true)}>
+            <button type="button" className="v2-btn-main has-icon svg-white btn-purple" onClick={openNewUserModal}>
               <div><AddUserIcon /></div>
               <span>Add User</span>
             </button>
@@ -161,11 +161,7 @@ export const SettingsUsersPage = () => {
           </div>
         </div>
         <div className="set-user-right wrapper-box-edit">
-          <div className={`wrapper-box-edit__content form-default${detailLoading && !isAddingUser ? " user-detail-loading" : ""}`}>
-            {isAddingUser ? (
-              <NewUserForm onClose={() => setIsAddingUser(false)} onSave={() => {}} />
-            ) : (
-              <>
+          <div className={`wrapper-box-edit__content form-default${detailLoading ? " user-detail-loading" : ""}`}>
             {detailLoading && (
               <div className="user-detail-loading__overlay" aria-hidden>
                 <div className="user-detail-loading__inner">
@@ -288,8 +284,6 @@ export const SettingsUsersPage = () => {
                 )}
               </div>
             </div>
-              </>
-            )}
           </div>
         </div>
       </div>
