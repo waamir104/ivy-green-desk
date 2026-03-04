@@ -5846,6 +5846,32 @@ section p {
   z-index: 10;
 }
 
+/* Settings sidebar como overlay en vistas estrechas: no reduce el ancho del contenido */
+@media (max-width: 500px) {
+  .container-wrap.container-setting.custom-grid-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .container-setting .settings-body {
+    left: 64px;
+  }
+
+  .app-body.sidebar-hidden .container-setting .settings-body {
+    left: 0;
+  }
+
+  .container-setting .sidebar-menu.sidebar-pages {
+    left: 64px;
+    width: 240px;
+    min-width: 240px;
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+    border-right: none;
+    border-radius: 0 12px 12px 0;
+    z-index: 30;
+  }
+}
+
 .container-setting .sidebar-menu.sidebar-pages * {
   opacity: 1;
 }
