@@ -28,6 +28,12 @@ body {
   min-width: 1020px;
 }
 
+@media (max-width: 1020px) {
+  #root {
+    min-width: 0;
+  }
+}
+
 /* Scrollbars: solo la barra visible; sin flechas ni track
    No usar scrollbar-width/scrollbar-color en * porque en Chrome activan el scrollbar
    nativo (con flechas) y anulan los ::-webkit-scrollbar-*. Solo Firefox los usa abajo. */
