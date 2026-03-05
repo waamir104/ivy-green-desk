@@ -5864,7 +5864,7 @@ section p {
     left: 64px;
     width: 240px;
     min-width: 240px;
-    background: #ffffff;
+    background: #ffffff !important;
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
     border-right: none;
     border-radius: 0 12px 12px 0;
