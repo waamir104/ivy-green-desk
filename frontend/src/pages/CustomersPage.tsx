@@ -91,12 +91,14 @@ const MOCK_CUSTOMERS = [
 export const CustomersPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [alphabetFilter, setAlphabetFilter] = useState("A-Z");
-  const [selectedCount, setSelectedCount] = useState(0);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
+  const selectedCount = selectedIds.size;
   const [activeSidebarId, setActiveSidebarId] = useState<string>("total");
   const [customersLoading, setCustomersLoading] = useState(false);
-  const [internalSidebarOpen, setInternalSidebarOpen] = useState(true);
+  const [internalSidebarOpen, setInternalSidebarOpen] = useState(
+    () => typeof window !== "undefined" && window.innerWidth > 500
+  );
   const [sortColumn, setSortColumn] = useState<SortColumn | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const { openModal: openNewCustomerModal } = useNewCustomerModal();
@@ -106,6 +108,17 @@ export const CustomersPage = () => {
     const t = setTimeout(() => setCustomersLoading(false), 4000);
     return () => clearTimeout(t);
   }, [customersLoading]);
+
+  useEffect(() => {
+    if (!internalSidebarOpen) return;
+    const media = window.matchMedia("(max-width: 500px)");
+    if (!media.matches) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setInternalSidebarOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [internalSidebarOpen]);
 
   const sortedCustomers = useMemo(() => {
     if (!sortColumn) return [...MOCK_CUSTOMERS];
@@ -158,7 +171,6 @@ export const CustomersPage = () => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      setSelectedCount(next.size);
       setSelectAll(next.size === MOCK_CUSTOMERS.length);
       return next;
     });
@@ -172,7 +184,6 @@ export const CustomersPage = () => {
       setSelectedIds((prev) => {
         const next = new Set(prev);
         filteredIds.forEach((id) => next.delete(id));
-        setSelectedCount(next.size);
         return next;
       });
       setSelectAll(false);
@@ -181,7 +192,6 @@ export const CustomersPage = () => {
       setSelectedIds((prev) => {
         const next = new Set(prev);
         filteredIds.forEach((id) => next.add(id));
-        setSelectedCount(next.size);
         return next;
       });
       setSelectAll(filteredCustomers.length === MOCK_CUSTOMERS.length);
@@ -297,11 +307,17 @@ export const CustomersPage = () => {
                       if (item.disabled) return;
                       setActiveSidebarId(item.id);
                       setCustomersLoading(true);
+                      if (window.matchMedia("(max-width: 500px)").matches) {
+                        setInternalSidebarOpen(false);
+                      }
                     }}
                     onKeyDown={(e) => {
                       if (!item.disabled && (e.key === "Enter" || e.key === " ")) {
                         setActiveSidebarId(item.id);
                         setCustomersLoading(true);
+                        if (window.matchMedia("(max-width: 500px)").matches) {
+                          setInternalSidebarOpen(false);
+                        }
                       }
                     }}
                   >
@@ -328,7 +344,15 @@ export const CustomersPage = () => {
         </ul>
       </div>
 
-      <div className="wrapper-columns customer-list-main">
+      <div
+        className="wrapper-columns customer-list-main"
+        role="main"
+        onClick={() => {
+          if (window.matchMedia("(max-width: 500px)").matches && internalSidebarOpen) {
+            setInternalSidebarOpen(false);
+          }
+        }}
+      >
         <div className="container-print contents-pages has-tab accessible-tabs-container customer-list gap-8">
           {/* Header: back, search, export, import, new customer */}
           <div className="header customer-list-header">
@@ -337,7 +361,10 @@ export const CustomersPage = () => {
                 type="button"
                 className="header-items v2-btn-default --icon-lg"
                 aria-label={internalSidebarOpen ? "Ocultar menú" : "Mostrar menú"}
-                onClick={() => setInternalSidebarOpen((prev) => !prev)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setInternalSidebarOpen((prev) => !prev);
+                }}
                 title={internalSidebarOpen ? "Ocultar menú" : "Mostrar menú"}
               >
                 <BackIcon />
@@ -379,35 +406,12 @@ export const CustomersPage = () => {
               </div>
               <button
                 type="button"
-                className="header-items v2-btn-main btn-modal --bg-green"
+                className="header-items v2-btn-main btn-modal --bg-green customer-list-btn-new-customer"
                 onClick={() => openNewCustomerModal()}
               >
                 New Customer
               </button>
             </div>
-          </div>
-
-          {/* Stats panel inline (solo visible en móvil, entre barra superior y filtro A-Z) */}
-          <div className="customer-list-stats-inline" role="navigation" aria-label="Customer statistics">
-            {SIDEBAR_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`customer-list-stats-inline__item${activeSidebarId === item.id ? " is-active" : ""}${item.disabled ? " is-disable" : ""}`}
-                onClick={() => {
-                  if (item.disabled) return;
-                  setActiveSidebarId(item.id);
-                  setCustomersLoading(true);
-                }}
-                disabled={item.disabled}
-                title={item.tooltip ?? item.label}
-              >
-                <span className="customer-list-stats-inline__label">{item.label}</span>
-                {!item.disabled && item.count !== undefined && (
-                  <span className="customer-list-stats-inline__count">{item.count}</span>
-                )}
-              </button>
-            ))}
           </div>
 
           {/* Alphabet filter */}
@@ -429,7 +433,6 @@ export const CustomersPage = () => {
             <div className="header --filter action-export align-center gap-8">
               <div className="flexcenter w-100 flex-wrap gap-4">
                 <div className="header__left has-filter flex-1">
-                  <div className="v2-btn-default btn-mapbox cursor">Map<span className="switch-icon ml-1"><span className="switch-icon__dots" /></span></div>
                   <div className="header-items has-bg-blue v2-dropdown">
                     <div tabIndex={0} className="dropbtn v2-btn-default selection">
                       <div className="dropbtn__label">
@@ -465,39 +468,45 @@ export const CustomersPage = () => {
                       <span className="arrow"><span className="material-symbols-outlined">keyboard_arrow_down</span></span>
                     </div>
                   </div>
-                  <div className="v2-btn-default btn-mapbox cursor">Sub Locations<span className="switch-icon ml-1"><span className="switch-icon__dots" /></span></div>
-                </div>
-                <div className="header-items switch-action v2-dropdown">
-                  <div className="dropbtn v2-btn-default --sm --icon-r fs-13" tabIndex={0}>
-                    <div className="txt-ellipsis">Active</div>
-                    <div className="arrow"><ArrowDownIcon /></div>
-                  </div>
-                  <div className="v2-dropdown__menu v2-dropdown__menu--customer-list">
-                    <ul>
-                      <li className="items is-selected">Active</li>
-                      <li className="items">Deleted</li>
-                    </ul>
-                  </div>
                 </div>
               </div>
-              <div className="flex-betweenitems flex-wrap gap-8 w-100">
-              <div className={`flexcenter gap-4 flex-wrap ${selectedCount === 0 ? "is-disable" : ""}`}>
-                <div className="header-items check-items flexcenter">
-                  <input
-                    id="customer_list_cb"
-                    type="checkbox"
-                    checked={selectAllVisible}
-                    onChange={toggleSelectAll}
+              <div className="flex-betweenitems flex-wrap gap-8 w-100 customer-list-toolbar-actions">
+                <div className="flexcenter gap-4 flex-wrap">
+                  <div
+                    className="header-items check-items flexcenter"
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleSelectAll();
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleSelectAll();
+                      }
+                    }}
                     aria-label="Select all"
-                  />
-                  <div className="item-checkbox">
-                    <label htmlFor="customer_list_cb"><span /></label>
+                  >
+                    <input
+                      id="customer_list_cb"
+                      type="checkbox"
+                      checked={selectAllVisible}
+                      readOnly
+                      tabIndex={-1}
+                      aria-hidden
+                    />
+                    <div className="item-checkbox">
+                      <label htmlFor="customer_list_cb"><span /></label>
+                    </div>
+                    <span className="flexcenter black fw-600">
+                      <span className="black-darker2">{selectedCount}</span>
+                      <span>/{filteredCustomers.length.toLocaleString()}</span>
+                    </span>
                   </div>
-                  <span className="flexcenter black fw-600">
-                    <span className="black-darker2">{selectedCount}</span>
-                    <span>/{filteredCustomers.length.toLocaleString()}</span>
-                  </span>
                 </div>
+                <div className={`flexcenter gap-4 flex-wrap ${selectedCount === 0 ? "is-disable" : ""}`}>
                 <div className="header-items v2-dropdown">
                   <div className="dropbtn items" tabIndex={0}>
                     <div className="txt-ellipsis mr-1">Mark as</div>
@@ -541,7 +550,7 @@ export const CustomersPage = () => {
                   <span className="material-symbols-outlined">delete</span>
                   Delete
                 </div>
-              </div>
+                </div>
             </div>
             </div>
 
@@ -553,16 +562,33 @@ export const CustomersPage = () => {
                   {/* Table header */}
                   <div className="rows --fixed --header">
                     <div className="col --checkbox">
-                      <div className="check-items">
+                      <div
+                        className="check-items"
+                        role="button"
+                        tabIndex={0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleSelectAll();
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            toggleSelectAll();
+                          }
+                        }}
+                        aria-label="Select all rows"
+                      >
                         <input
-                          id="-checkbox-header0-check-box"
+                          id="customer-list-select-all-header"
                           type="checkbox"
                           checked={selectAllVisible}
-                          onChange={toggleSelectAll}
-                          aria-label="Select all rows"
+                          readOnly
+                          tabIndex={-1}
+                          aria-hidden
                         />
                         <div className="item-checkbox">
-                          <label htmlFor="-checkbox-header0-check-box" />
+                          <label htmlFor="customer-list-select-all-header" />
                         </div>
                       </div>
                     </div>
@@ -702,16 +728,33 @@ export const CustomersPage = () => {
                       filteredCustomers.map((customer) => (
                         <div id={String(customer.id)} key={customer.id} className="rows">
                           <div className="col --checkbox">
-                            <div className="check-items">
+                            <div
+                              className="check-items"
+                              role="button"
+                              tabIndex={0}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleRow(customer.id);
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  toggleRow(customer.id);
+                                }
+                              }}
+                              aria-label={`Select ${customer.name}`}
+                            >
                               <input
-                                id={`-${customer.id}-check-box`}
+                                id={`customer-row-${customer.id}-check-box`}
                                 type="checkbox"
                                 checked={selectedIds.has(customer.id)}
-                                onChange={() => toggleRow(customer.id)}
-                                aria-label={`Select ${customer.name}`}
+                                readOnly
+                                tabIndex={-1}
+                                aria-hidden
                               />
                               <div className="item-checkbox">
-                                <label htmlFor={`-${customer.id}-check-box`} />
+                                <label htmlFor={`customer-row-${customer.id}-check-box`} />
                               </div>
                             </div>
                           </div>

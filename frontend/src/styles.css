@@ -1370,7 +1370,7 @@ section p {
 
 /* Menú interno oculto (toggle desde el botón Back) */
 .container-customer-list.customer-list-internal-sidebar-hidden {
-  grid-template-columns: 0 1fr;
+  grid-template-columns: 0 minmax(0, 1fr);
 }
 
 .container-customer-list.customer-list-internal-sidebar-hidden #wrapper-side-menu-customer-list {
@@ -1380,6 +1380,12 @@ section p {
   padding: 0;
   border-right-width: 0;
   visibility: hidden;
+}
+
+/* Asegurar que la columna principal ocupe todo el espacio cuando el sidebar está cerrado */
+.container-customer-list.customer-list-internal-sidebar-hidden .customer-list-main {
+  min-width: 0;
+  grid-column: 2;
 }
 
 /* Columna derecha hace scroll; sidebar izquierdo queda estático */
@@ -1392,6 +1398,11 @@ section p {
   grid-template-columns: 220px 1fr;
   min-height: 0;
   flex: 1;
+}
+
+/* Customers: cuando el sidebar interno está cerrado, el grid debe dar todo el espacio al contenido (no a .custom-grid-sidebar) */
+.container-customer-list.custom-grid-sidebar.customer-list-internal-sidebar-hidden {
+  grid-template-columns: 0 minmax(0, 1fr);
 }
 
 /* =========================
@@ -2205,6 +2216,11 @@ section p {
   color: var(--selected-color);
 }
 
+/* Customer list: filtro A-Z centrado horizontalmente */
+.container-customer-list .header.filter-alphabet {
+  justify-content: center;
+}
+
 /* Customer list: alfabeto como links (sin borde ni bg, azul) */
 .container-customer-list .filter-alphabet .alphabet-item {
   font-size: 14px;
@@ -2331,6 +2347,59 @@ section p {
   }
 }
 
+/* A 500px o menos: el sidebar interno se puede abrir/cerrar con el toggle y se muestra superpuesto al body */
+@media (max-width: 500px) {
+  .container-customer-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sidebar cerrado: oculto */
+  .container-customer-list.customer-list-internal-sidebar-hidden #wrapper-side-menu-customer-list {
+    display: none !important;
+  }
+
+  /* Sidebar abierto: visible como overlay sobre el body de la página de customers */
+  .container-customer-list:not(.customer-list-internal-sidebar-hidden) #wrapper-side-menu-customer-list {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    left: 64px;
+    top: 120px;
+    bottom: 0;
+    width: 220px;
+    min-width: 220px;
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+    border-right: none;
+    border-radius: 0 12px 12px 0;
+    z-index: 30;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .container-customer-list .customer-list-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .container-customer-list .customer-list-btn-new-customer {
+    display: none;
+  }
+
+  .container-customer-list .customer-list-btn-sub-locations {
+    display: none;
+  }
+
+  .theme-dark .container-customer-list:not(.customer-list-internal-sidebar-hidden) #wrapper-side-menu-customer-list {
+    background: rgb(19, 22, 23);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .app-body.sidebar-hidden .container-customer-list:not(.customer-list-internal-sidebar-hidden) #wrapper-side-menu-customer-list {
+    left: 0;
+  }
+}
+
 .container-customer-list .wrap-tables {
   display: flex;
   flex-direction: column;
@@ -2352,6 +2421,11 @@ section p {
   border: 1px solid #e5e7eb;
   border-bottom: none;
   border-radius: 8px 8px 0 0;
+  overflow: visible;
+}
+
+.container-customer-list .header.--filter .flex-betweenitems {
+  overflow: visible;
 }
 
 .theme-dark .container-customer-list .header.--filter,
@@ -2549,7 +2623,8 @@ section p {
   padding: 4px 0;
   list-style: none;
   opacity: 1;
-  box-shadow: 0 6px 8px -6px var(--black-darker6), 0 5px 12px 0 var(--black-darker6), 0 4px 10px 0 var(--black-darker6), 0 3px 8px 0 var(--black-darker6), 0 2px 6px 0 var(--black-darker6), 0 0 5px 0 var(--black-darker6);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .container-customer-list .header.--filter .v2-dropdown:hover .v2-dropdown__menu--customer-list,
@@ -2867,6 +2942,8 @@ section p {
 .container-customer-list .rows .col.--checkbox {
   display: flex;
   align-items: center;
+  min-width: 40px;
+  flex-shrink: 0;
 }
 
 .container-customer-list .check-items {
@@ -2985,6 +3062,33 @@ section p {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Toolbar: checkbox siempre clickeable; acciones deshabilitadas cuando no hay selección; permitir wrap */
+.container-customer-list .customer-list-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-height: 2.5rem;
+}
+
+.container-customer-list .customer-list-toolbar-actions > .flexcenter:first-child {
+  flex-shrink: 0;
+}
+
+.container-customer-list .customer-list-toolbar-actions > .flexcenter:last-child {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Toolbar acciones (Mark as, Merge, Global Override, Delete): en flujo, sin fixed ni superposición */
+.container-customer-list .customer-list-toolbar-actions,
+.container-customer-list .customer-list-toolbar-actions .header-items,
+.container-customer-list .customer-list-toolbar-actions .v2-dropdown {
+  position: relative;
+  z-index: auto;
 }
 
 .container-customer-list .gap-4 { gap: 0.5rem; }
