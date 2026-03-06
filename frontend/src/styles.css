@@ -2382,7 +2382,7 @@ section p {
     min-width: 0;
   }
 
-  .container-customer-list .customer-list-btn-new-customer {
+  .container-customer-list .customer-list-btn-import {
     display: none;
   }
 

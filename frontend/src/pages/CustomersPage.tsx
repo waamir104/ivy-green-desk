@@ -400,7 +400,7 @@ export const CustomersPage = () => {
                 </div>
               </div>
               <span className="is-divider mx-1" />
-              <div className="header-items v2-btn-default has-icon btn-modal">
+              <div className="header-items v2-btn-default has-icon btn-modal customer-list-btn-import">
                 <span className="material-symbols-outlined">publish</span>
                 Import
               </div>
