@@ -612,6 +612,34 @@ section p {
   padding-right: 16px;
 }
 
+/* Header: a 760px ocultar logo, nav (Calendar/Customers/Settings), Add, divisor y modo claro/oscuro; sección derecha 100% para search junto al burger */
+@media (max-width: 760px) {
+  #header_v2 .container__header.header-v2-left .logo,
+  #header_v2 .container__header.header-v2-left .calendar-dropdown,
+  #header_v2 .container__header.header-v2-right .add-menu,
+  #header_v2 .container__header.header-v2-right .add-menu + .is-divider,
+  #header_v2 .container__header.header-v2-right .mode-dropdown {
+    display: none !important;
+  }
+
+  #header_v2 .container__header.header-v2-right {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #header_v2 .container__header.header-v2-right .search-form.relative {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #header_v2 .container__header.header-v2-right .search-form .search-ip {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 .header-v2 .search-form.relative {
   position: relative;
   display: flex;
