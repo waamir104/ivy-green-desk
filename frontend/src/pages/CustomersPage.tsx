@@ -96,9 +96,7 @@ export const CustomersPage = () => {
   const selectedCount = selectedIds.size;
   const [activeSidebarId, setActiveSidebarId] = useState<string>("total");
   const [customersLoading, setCustomersLoading] = useState(false);
-  const [internalSidebarOpen, setInternalSidebarOpen] = useState(
-    () => typeof window !== "undefined" && window.innerWidth > 500
-  );
+  const [internalSidebarOpen, setInternalSidebarOpen] = useState(false);
   const [sortColumn, setSortColumn] = useState<SortColumn | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const { openModal: openNewCustomerModal } = useNewCustomerModal();
@@ -111,8 +109,6 @@ export const CustomersPage = () => {
 
   useEffect(() => {
     if (!internalSidebarOpen) return;
-    const media = window.matchMedia("(max-width: 500px)");
-    if (!media.matches) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setInternalSidebarOpen(false);
     };
@@ -307,17 +303,13 @@ export const CustomersPage = () => {
                       if (item.disabled) return;
                       setActiveSidebarId(item.id);
                       setCustomersLoading(true);
-                      if (window.matchMedia("(max-width: 500px)").matches) {
-                        setInternalSidebarOpen(false);
-                      }
+                      setInternalSidebarOpen(false);
                     }}
                     onKeyDown={(e) => {
                       if (!item.disabled && (e.key === "Enter" || e.key === " ")) {
                         setActiveSidebarId(item.id);
                         setCustomersLoading(true);
-                        if (window.matchMedia("(max-width: 500px)").matches) {
-                          setInternalSidebarOpen(false);
-                        }
+                        setInternalSidebarOpen(false);
                       }
                     }}
                   >
@@ -348,7 +340,7 @@ export const CustomersPage = () => {
         className="wrapper-columns customer-list-main"
         role="main"
         onClick={() => {
-          if (window.matchMedia("(max-width: 500px)").matches && internalSidebarOpen) {
+          if (internalSidebarOpen) {
             setInternalSidebarOpen(false);
           }
         }}

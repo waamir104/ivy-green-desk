@@ -6,10 +6,14 @@ const menuItemClass = (isActive: boolean) =>
   `tooltip menu-item${isActive ? " is-active" : ""}`;
 
 function isCalendarActive(pathname: string) {
-  return pathname === "/app" || (pathname.startsWith("/app") && !pathname.includes("customer") && !pathname.includes("settings"));
+  return pathname === "/app/calendar" || pathname.startsWith("/app/calendar/");
 }
 function isCustomersActive(pathname: string) {
-  return pathname.includes("customer");
+  return (
+    pathname === "/app" ||
+    pathname === "/app/customers" ||
+    pathname.startsWith("/app/customers/")
+  );
 }
 function isSettingsActive(pathname: string) {
   return pathname.includes("settings");
@@ -56,7 +60,7 @@ export const Sidebar = () => {
       {tooltipPortal}
       <div className="sidebar-container__content flex-column">
         <NavLink
-          to="/app"
+          to="/app/calendar"
           className={() => menuItemClass(isCalendarActive(pathname))}
           aria-current={isCalendarActive(pathname) ? "page" : undefined}
           onMouseEnter={(e) => showTooltip("Calendar", e.currentTarget)}

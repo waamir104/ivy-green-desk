@@ -14,7 +14,7 @@ interface HeaderProps {
 }
 
 const navOptions = [
-  { path: "/app", label: "Calendar", icon: "event" },
+  { path: "/app/calendar", label: "Calendar", icon: "event" },
   { path: "/app/customers", label: "Customers", icon: "account_circle" },
   { path: "/app/settings/company", label: "Settings", icon: "settings" },
 ] as const;
@@ -22,7 +22,8 @@ const navOptions = [
 function getSelectedOption(pathname: string) {
   if (pathname.includes("customer")) return navOptions[1];
   if (pathname.includes("settings")) return navOptions[2];
-  return navOptions[0];
+  if (pathname.includes("calendar")) return navOptions[0];
+  return navOptions[1]; // /app → Customers
 }
 
 type Theme = "light" | "dark" | "system";
@@ -198,7 +199,6 @@ export const Header = ({ isSidebarOpen = true, onToggleSidebar }: HeaderProps) =
               name="term"
               placeholder="Search ..."
             />
-            <span className="key absolute">ALT+S</span>
             <div id="globalSearch" className="search-dropdown">
               <div className="scrolls" />
             </div>

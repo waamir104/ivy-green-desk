@@ -456,8 +456,8 @@ section p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex: 1;
-  min-width: 0;
+  flex: 0 0 auto;
+  min-width: auto;
 }
 
 .header-v2 .h-100 {
@@ -614,6 +614,13 @@ section p {
 
 /* Header: a 760px ocultar logo, nav (Calendar/Customers/Settings), Add, divisor y modo claro/oscuro; sección derecha 100% para search junto al burger */
 @media (max-width: 760px) {
+  #header_v2 .container__header.header-v2-left {
+    flex: 0 0 64px;
+    max-width: 64px;
+    min-width: 64px;
+    padding-left: 0;
+  }
+
   #header_v2 .container__header.header-v2-left .logo,
   #header_v2 .container__header.header-v2-left .calendar-dropdown,
   #header_v2 .container__header.header-v2-right .add-menu,
@@ -635,8 +642,8 @@ section p {
   }
 
   #header_v2 .container__header.header-v2-right .search-form .search-ip {
-    width: 100%;
-    min-width: 0;
+    width: 220px;
+    max-width: 220px;
   }
 }
 
@@ -648,6 +655,7 @@ section p {
 
 .header-v2 .search-form .search-ip {
   width: 220px;
+  max-width: 220px;
   padding: 0.5rem 0.75rem 0.5rem 2.5rem;
   font-size: 0.875rem;
   border: 1px solid #e5e7eb;
@@ -749,6 +757,20 @@ section p {
 
 .header-v2 .boxs-notification .notify-btn:hover {
   background: rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 530px) {
+  #header_v2 .boxs-notification.nav-notification,
+  #header_v2 .boxs-notification.nav-inbox,
+  #header_v2 .container__header.header-v2-right .is-divider.ml-1 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 440px) {
+  #header_v2 .v2-dropdown.wrap-nav.nav-user .nav__label {
+    display: none !important;
+  }
 }
 
 .header-v2 .nav-help .dropbtn.--sm,
@@ -2286,7 +2308,7 @@ section p {
     grid-template-columns: 1fr;
   }
 
-  .container-customer-list #wrapper-side-menu-customer-list {
+  .container-customer-list.customer-list-internal-sidebar-hidden #wrapper-side-menu-customer-list {
     display: none;
   }
 
@@ -2375,8 +2397,8 @@ section p {
   }
 }
 
-/* A 500px o menos: el sidebar interno se puede abrir/cerrar con el toggle y se muestra superpuesto al body */
-@media (max-width: 500px) {
+/* A 671px o menos: el sidebar interno se puede abrir/cerrar con el toggle y se muestra superpuesto al body */
+@media (max-width: 671px) {
   .container-customer-list {
     grid-template-columns: 1fr;
   }
