@@ -1680,12 +1680,80 @@ section p {
   color: var(--green);
 }
 
+/* Right column card + buttons (CustomerDetailPage) */
+#customer_detail_layout .details-info {
+  width: 291px;
+  height: 212px;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 8px 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0px 0px 1px 0px #1f1f1f;
+}
+
+#customer_detail_layout .details-info.details-info--contacts {
+  height: 32px;
+  margin-top: 4px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+#customer_detail_layout .details-info.details-info--contacts .contacts-label {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+#customer_detail_layout .details-info.details-info--contacts .material-symbols-outlined {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  line-height: 18px;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#customer_detail_layout .details-info.details-info--contacts.is-open .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+#customer_detail_layout .contacts-details {
+  width: 291px;
+  padding: 8px 14px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#customer_detail_layout .fs-16 {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-transform: capitalize !important;
+}
+
+#customer_detail_layout .grey-generic,
+#customer_detail_layout .black-2 {
+  font-size: 13px !important;
+}
+
+#customer_detail_layout .title-sx {
+  font-size: 11px;
+  font-weight: normal;
+  color: #77787a;
+}
+
 /* Buttons */
 #customer_detail_layout .v2-btn-default {
   background: var(--btn-default-bg);
   border: 1px solid var(--btn-default-border);
   color: var(--text-primary);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
   transition: 0.2s;
@@ -1701,11 +1769,35 @@ section p {
 }
 
 #customer_detail_layout .v2-btn-default.--icon-lg {
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#customer_detail_layout .v2-btn-default.--icon-lg .material-symbols-outlined {
+  font-size: 18px !important;
+  line-height: 18px !important;
 }
 
 #customer_detail_layout .v2-btn-default.--icon-sm {
   padding: 4px;
+}
+
+#customer_detail_layout .v2-btn-default.--icon-sm.btn-edit-tag {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#customer_detail_layout .v2-btn-default.--icon-sm.btn-edit-tag .material-symbols-outlined {
+  font-size: 11px;
+  line-height: 11px;
 }
 
 #customer_detail_layout .v2-btn-default.has-icon {
@@ -1730,8 +1822,30 @@ section p {
   background: var(--green);
 }
 
-#customer_detail_layout .btn-bg-purple {
-  background: var(--purple-soft);
+#customer_detail_layout .details-info__statement .btn-bg-purple {
+  background: #ffffff;
+  color: #7f40e4;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 4px;
+  font-size: 13px;
+  height: 24px !important;
+  min-height: 24px;
+  line-height: 1;
+  padding: 6px 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+#customer_detail_layout .details-info__statement .btn-bg-purple .material-symbols-outlined {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  line-height: 18px;
+  flex-shrink: 0;
+  color: #7f40e4;
 }
 
 #customer_detail_layout .svg-purple svg {
@@ -1835,6 +1949,10 @@ section p {
   min-height: 0;
 }
 
+#customer_detail_layout .details-info {
+  padding: 8px 14px !important;
+}
+
 #customer_detail_layout .details-info b {
   font-size: 16px;
 }
@@ -1844,18 +1962,16 @@ section p {
 }
 
 #customer_detail_layout .price {
-  border-top: 1px solid var(--border);
   margin-top: 14px;
-  padding-top: 14px;
 }
 
 #customer_detail_layout .price-label {
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 #customer_detail_layout .cost {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #customer_detail_layout .green-default {
