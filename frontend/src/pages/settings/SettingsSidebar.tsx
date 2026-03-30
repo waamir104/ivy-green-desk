@@ -4,9 +4,10 @@ import { SETTINGS_GROUPS } from "./settingsConfig";
 
 type SettingsSidebarProps = {
   ariaHidden?: boolean;
+  onItemSelect?: () => void;
 };
 
-export const SettingsSidebar = ({ ariaHidden }: SettingsSidebarProps) => {
+export const SettingsSidebar = ({ ariaHidden, onItemSelect }: SettingsSidebarProps) => {
   const { pathname } = useLocation();
 
   return (
@@ -29,6 +30,7 @@ export const SettingsSidebar = ({ ariaHidden }: SettingsSidebarProps) => {
                     to={item.path}
                     className={`items${isActive ? " active" : ""}`}
                     title={item.title ?? item.label}
+                    onClick={onItemSelect}
                   >
                     <span>{item.icon}</span>
                     <span className="txt-ellipsis" title={item.label}>

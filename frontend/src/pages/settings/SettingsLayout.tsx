@@ -6,6 +6,11 @@ import { SettingsHeader } from "./SettingsHeader";
 
 export const SettingsLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const handleSidebarItemSelect = () => {
+    if (window.matchMedia("(max-width: 500px)").matches) {
+      setSidebarOpen(false);
+    }
+  };
 
   return (
     <LineItemsProvider>
@@ -18,7 +23,10 @@ export const SettingsLayout = () => {
             onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
           />
         </div>
-        <SettingsSidebar ariaHidden={!sidebarOpen} />
+        <SettingsSidebar
+          ariaHidden={!sidebarOpen}
+          onItemSelect={handleSidebarItemSelect}
+        />
         <div className="settings-body">
           <div className="wrapper-columns">
             <Outlet />
