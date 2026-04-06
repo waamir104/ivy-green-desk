@@ -11998,13 +11998,15 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   position: relative;
 }
 
+/* Hidden: selected state matches first tab strip (solid --tab-active-bg) */
 #customer_detail_layout .customer-detail-tab-slide-group .slide-tab {
   position: absolute;
   top: 1px;
   left: 0;
   height: 28px;
   border-radius: 5px;
-  background-color: rgba(var(--utility-color), 0.14);
+  opacity: 0;
+  visibility: hidden;
   z-index: 0;
   pointer-events: none;
 }
@@ -12014,12 +12016,15 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   z-index: 1;
 }
 
+/* Selected: same as first strip (#customer_detail_layout .tab-items.active-tab-selector) */
 #customer_detail_layout .customer-detail-tab-slide-group .tab-items.active-tab-selector {
-  background-color: transparent !important;
-  color: rgb(107, 99, 119) !important;
+  background: var(--tab-active-bg) !important;
+  color: var(--tab-active-color) !important;
+  font-weight: 500;
 }
 
-#customer_detail_layout .customer-detail-tab-slide-group .tab-items.active-tab-selector:hover {
+/* Hover only when not selected — matches first strip behavior */
+#customer_detail_layout .customer-detail-tab-slide-group a.customer-detail-tab-item:hover:not(.active-tab-selector) {
   background-color: rgba(89, 80, 103, 0.12) !important;
   color: rgb(107, 99, 119) !important;
 }

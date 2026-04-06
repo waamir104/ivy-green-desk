@@ -34,8 +34,17 @@ const tabStripLinkStyle: React.CSSProperties = {
 const tabNavClass = ({ isActive }: { isActive: boolean }) =>
   `tab-items customer-detail-tab-item${isActive ? " active-tab-selector" : ""}`;
 
+function normalizePathname(pathname: string): string {
+  return pathname.replace(/\/$/, "") || pathname;
+}
+
+/** Notes tab: exact `/app/customers/:id` only (no account/jobs/… segment). */
+function isCustomerNotesRoute(pathname: string, customerId: string): boolean {
+  return normalizePathname(pathname) === `/app/customers/${customerId}`;
+}
+
 function getCustomerDetailPanelLabel(pathname: string, id: string): string {
-  const n = pathname.replace(/\/$/, "");
+  const n = normalizePathname(pathname);
   const labels: Record<string, string> = {
     [`/app/customers/${id}`]: "Notes",
     [`/app/customers/account/${id}`]: "Account",
@@ -60,6 +69,11 @@ export const CustomerDetailPage = () => {
 
   const panelLabel = useMemo(
     () => getCustomerDetailPanelLabel(location.pathname, id ?? ""),
+    [location.pathname, id],
+  );
+
+  const isNotesRouteActive = useMemo(
+    () => isCustomerNotesRoute(location.pathname, id ?? ""),
     [location.pathname, id],
   );
 
@@ -140,8 +154,13 @@ export const CustomerDetailPage = () => {
               marginLeft: 12,
             }}
           >
-            <div className="slide-tab" style={{ width: 64, transform: "translateX(1px)" }} />
-            <NavLink end to={`${base}/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
+            <div className="slide-tab" aria-hidden />
+            <NavLink
+              end
+              to={`${base}/${id}`}
+              className={() => tabNavClass({ isActive: isNotesRouteActive })}
+              style={tabStripLinkStyle}
+            >
               Notes
             </NavLink>
             <NavLink to={`${base}/jobs/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
