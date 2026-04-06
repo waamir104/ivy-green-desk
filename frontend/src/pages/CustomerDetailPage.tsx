@@ -19,6 +19,18 @@ const PlusIcon = () => (
   <span className="material-symbols-outlined">add_2</span>
 );
 
+const tabStripLinkStyle: React.CSSProperties = {
+  height: 28,
+  padding: "0 12px",
+  fontSize: 14,
+  borderRadius: 5,
+  textAlign: "center",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: 0,
+};
+
 export const CustomerDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const base = `/app/customers`;
@@ -27,7 +39,107 @@ export const CustomerDetailPage = () => {
   return (
     <div id="customer_detail_layout" style={{ display: "flex", flexDirection: "row", height: "100%" }}>
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-        <div style={{ backgroundColor: "blue", flex: 1 }} />
+        <div
+          style={{
+            backgroundColor: "transparent",
+            height: 72,
+            padding: "20px 16px",
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
+          <button
+            type="button"
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 4,
+              marginRight: 15,
+              border: "1px solid rgba(0, 0, 0, 0.14)",
+              backgroundColor: "#ffffff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 0,
+              cursor: "pointer",
+            }}
+          >
+            <span
+              className="material-symbols-outlined"
+              style={{ width: 24, height: 24, fontSize: 24, lineHeight: "24px" }}
+            >
+              arrow_back
+            </span>
+          </button>
+          <div
+            className="btn-item ml-0 relative"
+            style={{
+              height: 30,
+              padding: 1,
+              backgroundColor: "#ffffff",
+              border: "1px solid rgba(0, 0, 0, 0.14)",
+              borderRadius: 6,
+              display: "flex",
+              alignItems: "center",
+              gap: 0,
+            }}
+          >
+            <a className="tab-items customer-detail-tab-item" href={`${base}/account/${id}`} style={tabStripLinkStyle}>
+              Account
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/contacts/${id}`} style={tabStripLinkStyle}>
+              Contacts
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/locations/${id}`} style={tabStripLinkStyle}>
+              Locations
+            </a>
+          </div>
+          <div
+            className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group"
+            style={{
+              height: 30,
+              padding: 1,
+              backgroundColor: "#ffffff",
+              border: "1px solid rgba(0, 0, 0, 0.14)",
+              borderRadius: 6,
+              display: "flex",
+              alignItems: "center",
+              gap: 0,
+              marginLeft: 12,
+            }}
+          >
+            <div className="slide-tab" style={{ width: 64, transform: "translateX(1px)" }} />
+            <a
+              className="tab-items customer-detail-tab-item active-tab-selector"
+              href={`${base}/${id}`}
+              aria-current="page"
+              style={tabStripLinkStyle}
+            >
+              Notes
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/jobs/${id}`} style={tabStripLinkStyle}>
+              Jobs
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/invoices/${id}`} style={tabStripLinkStyle}>
+              Invoices
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/estimates/${id}`} style={tabStripLinkStyle}>
+              Estimates
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/payments/${id}`} style={tabStripLinkStyle}>
+              Payments
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/credits/${id}`} style={tabStripLinkStyle}>
+              Credits
+            </a>
+            <a className="tab-items customer-detail-tab-item" href={`${base}/documents/${id}`} style={tabStripLinkStyle}>
+              Documents
+            </a>
+          </div>
+        </div>
         <div style={{ backgroundColor: "red", flex: 1 }} />
       </div>
       <div
@@ -98,34 +210,36 @@ export const CustomerDetailPage = () => {
             </div>
           </div>
           <div
-            className={`details-info details-info--contacts${showContacts ? " is-open" : ""}`}
+            className={`details-info details-info--contacts flexcenter gap-8${showContacts ? " is-open" : ""}`}
             onClick={() => setShowContacts((prev) => !prev)}
+            id="contactsToggle"
+            role="button"
+            aria-expanded={showContacts}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setShowContacts((prev) => !prev);
+              }
+            }}
           >
-            <span className="contacts-label">Contacts</span>
-            <span className="material-symbols-outlined">keyboard_arrow_down</span>
+            <span>Contacts</span>
+            <span className="material-symbols-outlined arrow">expand_more</span>
           </div>
-          {showContacts && (
-            <div className="contacts-details wrap-collapse__details flex-column gap-6">
-              <div className="valid-name">
-                <p className="valid-name__title">Aaron Rathburn</p>
-                <div className="label-content --primary">Primary</div>
+          <div className="contacts-content" id="contactsContent">
+            <div className="contact-item">
+              <div className="contact-name">
+                Aaron Rathburn
+                <span className="badge">Primary</span>
               </div>
-              <div className="valid-phone tooltip">
-                <div className="valid-phone__number active">
-                  <div className="cursor-pointer tooltip">
-                    <p className="txt-ellipsis txt-phone-number">(678) 644-7678</p>
-                  </div>
-                </div>
-                <div className="valid-phone__btn" title="Mobile">
-                  <span className="phone-type">Mobile</span>
-                </div>
+              <div className="contact-phone">
+                <a href="tel:+16786447678">(678) 644-7678</a> <span className="muted">Mobile</span>
               </div>
-              <a href="mailto:vwabr337@yahoo.com" className="is-link">
+              <div className="contact-email">
                 vwabr337@yahoo.com
-              </a>
-              <div className="details-info flex-column gap-8" />
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
