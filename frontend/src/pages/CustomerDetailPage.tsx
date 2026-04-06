@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const EditIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,10 +31,37 @@ const tabStripLinkStyle: React.CSSProperties = {
   margin: 0,
 };
 
+const tabNavClass = ({ isActive }: { isActive: boolean }) =>
+  `tab-items customer-detail-tab-item${isActive ? " active-tab-selector" : ""}`;
+
+function getCustomerDetailPanelLabel(pathname: string, id: string): string {
+  const n = pathname.replace(/\/$/, "");
+  const labels: Record<string, string> = {
+    [`/app/customers/${id}`]: "Notes",
+    [`/app/customers/account/${id}`]: "Account",
+    [`/app/customers/contacts/${id}`]: "Contacts",
+    [`/app/customers/locations/${id}`]: "Locations",
+    [`/app/customers/jobs/${id}`]: "Jobs",
+    [`/app/customers/invoices/${id}`]: "Invoices",
+    [`/app/customers/estimates/${id}`]: "Estimates",
+    [`/app/customers/payments/${id}`]: "Payments",
+    [`/app/customers/credits/${id}`]: "Credits",
+    [`/app/customers/documents/${id}`]: "Documents",
+  };
+  return labels[n] ?? "Notes";
+}
+
 export const CustomerDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
   const base = `/app/customers`;
   const [showContacts, setShowContacts] = useState(false);
+
+  const panelLabel = useMemo(
+    () => getCustomerDetailPanelLabel(location.pathname, id ?? ""),
+    [location.pathname, id],
+  );
 
   return (
     <div id="customer_detail_layout" style={{ display: "flex", flexDirection: "row", height: "100%" }}>
@@ -53,6 +80,8 @@ export const CustomerDetailPage = () => {
         >
           <button
             type="button"
+            aria-label="Back to customers"
+            onClick={() => navigate("/app/customers")}
             style={{
               width: 32,
               height: 32,
@@ -87,15 +116,15 @@ export const CustomerDetailPage = () => {
               gap: 0,
             }}
           >
-            <a className="tab-items customer-detail-tab-item" href={`${base}/account/${id}`} style={tabStripLinkStyle}>
+            <NavLink to={`${base}/account/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Account
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/contacts/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/contacts/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Contacts
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/locations/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/locations/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Locations
-            </a>
+            </NavLink>
           </div>
           <div
             className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group"
@@ -112,35 +141,43 @@ export const CustomerDetailPage = () => {
             }}
           >
             <div className="slide-tab" style={{ width: 64, transform: "translateX(1px)" }} />
-            <a
-              className="tab-items customer-detail-tab-item active-tab-selector"
-              href={`${base}/${id}`}
-              aria-current="page"
-              style={tabStripLinkStyle}
-            >
+            <NavLink end to={`${base}/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Notes
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/jobs/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/jobs/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Jobs
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/invoices/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/invoices/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Invoices
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/estimates/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/estimates/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Estimates
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/payments/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/payments/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Payments
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/credits/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/credits/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Credits
-            </a>
-            <a className="tab-items customer-detail-tab-item" href={`${base}/documents/${id}`} style={tabStripLinkStyle}>
+            </NavLink>
+            <NavLink to={`${base}/documents/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Documents
-            </a>
+            </NavLink>
           </div>
         </div>
-        <div style={{ backgroundColor: "red", flex: 1 }} />
+        <div
+          style={{
+            flex: "1 1 0%",
+            minHeight: 0,
+            width: "100%",
+            alignSelf: "stretch",
+            boxSizing: "border-box",
+            backgroundColor: "transparent",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <span>Esta es la ventana para {panelLabel}</span>
+        </div>
       </div>
       <div
         style={{
