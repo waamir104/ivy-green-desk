@@ -12051,6 +12051,34 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   border-radius: 8px 8px 0 0 !important;
 }
 
+@media (min-width: 1256px) {
+  #customer_detail_layout .customer-detail-jobs-top-pink-strip {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1255px) {
+  #customer_detail_layout .customer-detail-jobs-tabs-compact {
+    display: none !important;
+  }
+}
+
+#customer_detail_layout .customer-detail-jobs-top-pink-strip {
+  background-color: transparent !important;
+}
+
+#customer_detail_layout .customer-detail-jobs-top-pink-strip .customer-detail-jobs-tabs-equal {
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  align-self: stretch !important;
+}
+
+#customer_detail_layout .customer-detail-jobs-top-pink-strip .customer-detail-jobs-tabs-equal button.tab-items {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+}
+
 #customer_detail_layout .customer-detail-jobs-panel {
   background-color: #ffffff !important;
   border-radius: 8px 8px 0 0 !important;

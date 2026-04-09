@@ -43,6 +43,75 @@ function isCustomerNotesRoute(pathname: string, customerId: string): boolean {
   return normalizePathname(pathname) === `/app/customers/${customerId}`;
 }
 
+type JobsStatusFilter = "all" | "active" | "completed" | "canceled";
+
+function JobsStatusTabStrip({
+  variant,
+  jobsStatusFilter,
+  onStatusChange,
+}: {
+  variant: "compact" | "fullWidth";
+  jobsStatusFilter: JobsStatusFilter;
+  onStatusChange: (v: JobsStatusFilter) => void;
+}) {
+  const isFull = variant === "fullWidth";
+  return (
+    <div
+      className={`btn-item ml-0 relative no-effect customer-detail-tab-slide-group customer-detail-jobs-tabs${isFull ? " customer-detail-jobs-tabs-equal" : " customer-detail-jobs-tabs-compact"}`}
+      style={{
+        height: 30,
+        padding: 1,
+        backgroundColor: "#ffffff",
+        border: "1px solid rgba(0, 0, 0, 0.14)",
+        borderRadius: 6,
+        display: "flex",
+        alignItems: "center",
+        gap: 0,
+        marginLeft: isFull ? 0 : 12,
+        width: isFull ? "100%" : "fit-content",
+        flexShrink: isFull ? undefined : 0,
+        flex: isFull ? 1 : undefined,
+        minWidth: isFull ? 0 : undefined,
+        boxSizing: "border-box",
+      }}
+    >
+      <div className="slide-tab" aria-hidden />
+      <button
+        type="button"
+        className={`tab-items customer-detail-tab-item${jobsStatusFilter === "all" ? " active-tab-selector" : ""}`}
+        style={tabStripLinkStyle}
+        onClick={() => onStatusChange("all")}
+      >
+        All
+      </button>
+      <button
+        type="button"
+        className={`tab-items customer-detail-tab-item${jobsStatusFilter === "active" ? " active-tab-selector" : ""}`}
+        style={tabStripLinkStyle}
+        onClick={() => onStatusChange("active")}
+      >
+        Active
+      </button>
+      <button
+        type="button"
+        className={`tab-items customer-detail-tab-item${jobsStatusFilter === "completed" ? " active-tab-selector" : ""}`}
+        style={tabStripLinkStyle}
+        onClick={() => onStatusChange("completed")}
+      >
+        Completed
+      </button>
+      <button
+        type="button"
+        className={`tab-items customer-detail-tab-item${jobsStatusFilter === "canceled" ? " active-tab-selector" : ""}`}
+        style={tabStripLinkStyle}
+        onClick={() => onStatusChange("canceled")}
+      >
+        Canceled
+      </button>
+    </div>
+  );
+}
+
 function getCustomerDetailPanelLabel(pathname: string, id: string): string {
   const n = normalizePathname(pathname);
   const labels: Record<string, string> = {
@@ -66,7 +135,7 @@ export const CustomerDetailPage = () => {
   const navigate = useNavigate();
   const base = `/app/customers`;
   const [showContacts, setShowContacts] = useState(false);
-  const [jobsStatusFilter, setJobsStatusFilter] = useState<"all" | "active" | "completed" | "canceled">("all");
+  const [jobsStatusFilter, setJobsStatusFilter] = useState<JobsStatusFilter>("all");
 
   const panelLabel = useMemo(
     () => getCustomerDetailPanelLabel(location.pathname, id ?? ""),
@@ -220,180 +289,168 @@ export const CustomerDetailPage = () => {
                   backgroundColor: "transparent",
                   boxSizing: "border-box",
                   display: "flex",
-                  alignItems: "center",
-                  gap: 4,
+                  flexDirection: "column",
+                  alignItems: "stretch",
+                  gap: 0,
                 }}
               >
                 <div
                   style={{
-                    width: 115,
-                    height: 32,
+                    width: "100%",
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
+                    gap: 4,
+                    boxSizing: "border-box",
+                    flexShrink: 0,
                   }}
                 >
                   <div
                     style={{
-                      width: 27,
+                      width: 115,
                       height: 32,
                       display: "flex",
+                      flexDirection: "row",
                       alignItems: "center",
-                      justifyContent: "flex-start",
                     }}
                   >
-                    <input
-                      type="checkbox"
-                      readOnly
+                    <div
                       style={{
-                        width: 16,
-                        height: 16,
-                        margin: 0,
+                        width: 27,
+                        height: 32,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
                       }}
-                    />
+                    >
+                      <input
+                        type="checkbox"
+                        readOnly
+                        style={{
+                          width: 16,
+                          height: 16,
+                          margin: 0,
+                        }}
+                      />
+                    </div>
+                    <span style={{ fontSize: 14, lineHeight: "20px" }}>0/1</span>
                   </div>
-                  <span style={{ fontSize: 14, lineHeight: "20px" }}>0/1</span>
-                </div>
-                <button
-                  type="button"
-                  disabled
-                  aria-disabled="true"
-                  style={{
-                    height: 30,
-                    borderRadius: 4,
-                    border: "1px solid rgba(0, 0, 0, 0.14)",
-                    backgroundColor: "#ffffff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "4px 8px 4px 4px",
-                    cursor: "not-allowed",
-                    opacity: 0.5,
-                    color: "rgba(0, 0, 0, 0.14)",
-                  }}
-                >
-                  <span
-                    className="material-symbols-outlined"
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled="true"
                     style={{
-                      width: 13,
-                      height: 13,
-                      fontSize: 13,
-                      lineHeight: "13px",
-                      marginRight: 4,
+                      height: 30,
+                      borderRadius: 4,
+                      border: "1px solid rgba(0, 0, 0, 0.14)",
+                      backgroundColor: "#ffffff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "4px 8px 4px 4px",
+                      cursor: "not-allowed",
+                      opacity: 0.5,
                       color: "rgba(0, 0, 0, 0.14)",
                     }}
                   >
-                    delete
-                  </span>
-                  <span style={{ color: "rgba(0, 0, 0, 0.14)" }}>Delete</span>
-                </button>
-                <div
-                  className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group customer-detail-jobs-tabs"
-                  style={{
-                    height: 30,
-                    padding: 1,
-                    backgroundColor: "#ffffff",
-                    border: "1px solid rgba(0, 0, 0, 0.14)",
-                    borderRadius: 6,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 0,
-                    marginLeft: 12,
-                    width: "fit-content",
-                    flexShrink: 0,
-                  }}
-                >
-                  <div className="slide-tab" aria-hidden />
-                  <button
-                    type="button"
-                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "all" ? " active-tab-selector" : ""}`}
-                    style={tabStripLinkStyle}
-                    onClick={() => setJobsStatusFilter("all")}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "active" ? " active-tab-selector" : ""}`}
-                    style={tabStripLinkStyle}
-                    onClick={() => setJobsStatusFilter("active")}
-                  >
-                    Active
-                  </button>
-                  <button
-                    type="button"
-                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "completed" ? " active-tab-selector" : ""}`}
-                    style={tabStripLinkStyle}
-                    onClick={() => setJobsStatusFilter("completed")}
-                  >
-                    Completed
-                  </button>
-                  <button
-                    type="button"
-                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "canceled" ? " active-tab-selector" : ""}`}
-                    style={tabStripLinkStyle}
-                    onClick={() => setJobsStatusFilter("canceled")}
-                  >
-                    Canceled
-                  </button>
-                </div>
-                <div
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    minHeight: 32,
-                    alignSelf: "stretch",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-end",
-                    gap: 8,
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  <div className="search-form relative" style={{ position: "relative" }}>
                     <span
-                      className="svg-search-absolute"
+                      className="material-symbols-outlined"
                       style={{
-                        position: "absolute",
-                        left: 15,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        opacity: 0.6,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        pointerEvents: "none",
+                        width: 13,
+                        height: 13,
+                        fontSize: 13,
+                        lineHeight: "13px",
+                        marginRight: 4,
+                        color: "rgba(0, 0, 0, 0.14)",
                       }}
                     >
-                      <span className="material-symbols-outlined" style={{ fontSize: 16, width: 16, height: 16, lineHeight: "16px" }}>search</span>
+                      delete
                     </span>
-                    <input
-                      className="search-ip"
-                      type="text"
-                      name="term"
-                      placeholder="Search ..."
-                      autoComplete="off"
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    className="customer-detail-jobs-new-job-btn"
+                    <span style={{ color: "rgba(0, 0, 0, 0.14)" }}>Delete</span>
+                  </button>
+                  <JobsStatusTabStrip
+                    variant="compact"
+                    jobsStatusFilter={jobsStatusFilter}
+                    onStatusChange={setJobsStatusFilter}
+                  />
+                  <div
                     style={{
-                      padding: "6px 14px",
-                      borderRadius: 4,
-                      border: "none",
-                      backgroundColor: "var(--primary-btn-bg)",
-                      color: "#fff",
-                      cursor: "pointer",
-                      fontSize: 14,
-                      fontWeight: 500,
-                      display: "inline-flex",
+                      flex: 1,
+                      minWidth: 0,
+                      minHeight: 32,
+                      alignSelf: "stretch",
+                      display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      justifyContent: "flex-end",
+                      gap: 8,
+                      backgroundColor: "transparent",
                     }}
                   >
-                    New Job
-                  </button>
+                    <div className="search-form relative" style={{ position: "relative" }}>
+                      <span
+                        className="svg-search-absolute"
+                        style={{
+                          position: "absolute",
+                          left: 15,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          opacity: 0.6,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: 16, width: 16, height: 16, lineHeight: "16px" }}>search</span>
+                      </span>
+                      <input
+                        className="search-ip"
+                        type="text"
+                        name="term"
+                        placeholder="Search ..."
+                        autoComplete="off"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="customer-detail-jobs-new-job-btn"
+                      style={{
+                        padding: "6px 14px",
+                        borderRadius: 4,
+                        border: "none",
+                        backgroundColor: "var(--primary-btn-bg)",
+                        color: "#fff",
+                        cursor: "pointer",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      New Job
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="customer-detail-jobs-top-pink-strip"
+                  style={{
+                    width: "100%",
+                    minHeight: 32,
+                    height: 32,
+                    marginTop: 8,
+                    backgroundColor: "transparent",
+                    boxSizing: "border-box",
+                    flexShrink: 0,
+                    display: "flex",
+                    alignItems: "stretch",
+                  }}
+                >
+                  <JobsStatusTabStrip
+                    variant="fullWidth"
+                    jobsStatusFilter={jobsStatusFilter}
+                    onStatusChange={setJobsStatusFilter}
+                  />
                 </div>
               </div>
               <div
