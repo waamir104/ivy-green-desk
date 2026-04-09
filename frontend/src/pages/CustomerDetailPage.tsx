@@ -66,6 +66,7 @@ export const CustomerDetailPage = () => {
   const navigate = useNavigate();
   const base = `/app/customers`;
   const [showContacts, setShowContacts] = useState(false);
+  const [jobsStatusFilter, setJobsStatusFilter] = useState<"all" | "active" | "completed" | "canceled">("all");
 
   const panelLabel = useMemo(
     () => getCustomerDetailPanelLabel(location.pathname, id ?? ""),
@@ -193,9 +194,230 @@ export const CustomerDetailPage = () => {
             backgroundColor: "transparent",
             display: "flex",
             flexDirection: "column",
+            padding: "0 16px",
           }}
         >
-          <span>Esta es la ventana para {panelLabel}</span>
+          {panelLabel === "Jobs" ? (
+            <div
+              className="customer-detail-jobs-panel"
+              style={{
+                width: "100%",
+                height: "100%",
+                flex: 1,
+                minHeight: 0,
+                display: "flex",
+                flexDirection: "column",
+                border: "1px solid rgba(0, 0, 0, 0.14)",
+              }}
+            >
+              <div
+                className="customer-detail-jobs-top"
+                style={{
+                  width: "100%",
+                  minHeight: 48,
+                  height: "auto",
+                  padding: "8px 16px",
+                  backgroundColor: "transparent",
+                  boxSizing: "border-box",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                <div
+                  style={{
+                    width: 115,
+                    height: 32,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 27,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      readOnly
+                      style={{
+                        width: 16,
+                        height: 16,
+                        margin: 0,
+                      }}
+                    />
+                  </div>
+                  <span style={{ fontSize: 14, lineHeight: "20px" }}>0/1</span>
+                </div>
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  style={{
+                    height: 30,
+                    borderRadius: 4,
+                    border: "1px solid rgba(0, 0, 0, 0.14)",
+                    backgroundColor: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "4px 8px 4px 4px",
+                    cursor: "not-allowed",
+                    opacity: 0.5,
+                    color: "rgba(0, 0, 0, 0.14)",
+                  }}
+                >
+                  <span
+                    className="material-symbols-outlined"
+                    style={{
+                      width: 13,
+                      height: 13,
+                      fontSize: 13,
+                      lineHeight: "13px",
+                      marginRight: 4,
+                      color: "rgba(0, 0, 0, 0.14)",
+                    }}
+                  >
+                    delete
+                  </span>
+                  <span style={{ color: "rgba(0, 0, 0, 0.14)" }}>Delete</span>
+                </button>
+                <div
+                  className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group customer-detail-jobs-tabs"
+                  style={{
+                    height: 30,
+                    padding: 1,
+                    backgroundColor: "#ffffff",
+                    border: "1px solid rgba(0, 0, 0, 0.14)",
+                    borderRadius: 6,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0,
+                    marginLeft: 12,
+                    width: "fit-content",
+                    flexShrink: 0,
+                  }}
+                >
+                  <div className="slide-tab" aria-hidden />
+                  <button
+                    type="button"
+                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "all" ? " active-tab-selector" : ""}`}
+                    style={tabStripLinkStyle}
+                    onClick={() => setJobsStatusFilter("all")}
+                  >
+                    All
+                  </button>
+                  <button
+                    type="button"
+                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "active" ? " active-tab-selector" : ""}`}
+                    style={tabStripLinkStyle}
+                    onClick={() => setJobsStatusFilter("active")}
+                  >
+                    Active
+                  </button>
+                  <button
+                    type="button"
+                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "completed" ? " active-tab-selector" : ""}`}
+                    style={tabStripLinkStyle}
+                    onClick={() => setJobsStatusFilter("completed")}
+                  >
+                    Completed
+                  </button>
+                  <button
+                    type="button"
+                    className={`tab-items customer-detail-tab-item${jobsStatusFilter === "canceled" ? " active-tab-selector" : ""}`}
+                    style={tabStripLinkStyle}
+                    onClick={() => setJobsStatusFilter("canceled")}
+                  >
+                    Canceled
+                  </button>
+                </div>
+                <div
+                  style={{
+                    flex: 1,
+                    minWidth: 0,
+                    minHeight: 32,
+                    alignSelf: "stretch",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                    gap: 8,
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  <div className="search-form relative" style={{ position: "relative" }}>
+                    <span
+                      className="svg-search-absolute"
+                      style={{
+                        position: "absolute",
+                        left: 15,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        opacity: 0.6,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: 16, width: 16, height: 16, lineHeight: "16px" }}>search</span>
+                    </span>
+                    <input
+                      className="search-ip"
+                      type="text"
+                      name="term"
+                      placeholder="Search ..."
+                      autoComplete="off"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    className="customer-detail-jobs-new-job-btn"
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: 4,
+                      border: "none",
+                      backgroundColor: "var(--primary-btn-bg)",
+                      color: "#fff",
+                      cursor: "pointer",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    New Job
+                  </button>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  flex: 1,
+                  minHeight: 0,
+                  backgroundColor: "red",
+                }}
+              />
+              <div
+                style={{
+                  width: "100%",
+                  minHeight: 64,
+                  height: 64,
+                  padding: "16px 16px",
+                  backgroundColor: "blue",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+          ) : (
+            <span>Esta es la ventana para {panelLabel}</span>
+          )}
         </div>
       </div>
       <div

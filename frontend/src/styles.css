@@ -12016,15 +12016,82 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   z-index: 1;
 }
 
-/* Selected: same as first strip (#customer_detail_layout .tab-items.active-tab-selector) */
-#customer_detail_layout .customer-detail-tab-slide-group .tab-items.active-tab-selector {
-  background: var(--tab-active-bg) !important;
-  color: var(--tab-active-color) !important;
+/* Selected tab: mismo fondo y texto que sidebar .menu-item.is-active .menu-item__icon */
+#customer_detail_layout .btn-item.relative .tab-items.active-tab-selector {
+  background: var(--selected-bg) !important;
+  color: var(--selected-color) !important;
   font-weight: 500;
+}
+
+.theme-dark #customer_detail_layout .btn-item.relative .tab-items.active-tab-selector {
+  background: rgb(176, 168, 181) !important;
+  color: rgb(10, 12, 13) !important;
 }
 
 /* Hover only when not selected — matches first strip behavior */
 #customer_detail_layout .customer-detail-tab-slide-group a.customer-detail-tab-item:hover:not(.active-tab-selector) {
   background-color: rgba(89, 80, 103, 0.12) !important;
   color: rgb(107, 99, 119) !important;
+}
+
+#customer_detail_layout .customer-detail-jobs-tabs button.tab-items {
+  border: none;
+  outline: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+#customer_detail_layout .customer-detail-jobs-tabs button.customer-detail-tab-item:hover:not(.active-tab-selector) {
+  background-color: rgba(89, 80, 103, 0.12) !important;
+  color: rgb(107, 99, 119) !important;
+}
+
+#customer_detail_layout .customer-detail-jobs-top {
+  background-color: transparent !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+#customer_detail_layout .customer-detail-jobs-panel {
+  background-color: #ffffff !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+#customer_detail_layout .customer-detail-jobs-top .search-form.relative {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#customer_detail_layout .customer-detail-jobs-top .search-form .search-ip {
+  width: 220px;
+  max-width: 220px;
+  height: 28px;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  font-size: 0.875rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  outline: none;
+  background: #f9fafb;
+}
+
+#customer_detail_layout .customer-detail-jobs-top .search-form .search-ip::placeholder {
+  color: #9ca3af;
+}
+
+#customer_detail_layout .customer-detail-jobs-top .search-form .search-ip:focus {
+  border-color: #7c3aed;
+  background: #fff;
+}
+
+#customer_detail_layout .customer-detail-jobs-top .svg-search-absolute {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-icon);
+  pointer-events: none;
+}
+
+#customer_detail_layout .customer-detail-jobs-new-job-btn:hover {
+  background: var(--primary-btn-hover-bg) !important;
 }
