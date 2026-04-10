@@ -12034,6 +12034,84 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   color: rgb(107, 99, 119) !important;
 }
 
+#customer_detail_layout .customer-detail-header-select {
+  min-width: 170px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  background: #ffffff;
+  color: rgb(107, 99, 119);
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+#customer_detail_layout .customer-detail-header-dropdown {
+  position: relative;
+  z-index: 40;
+}
+
+#customer_detail_layout .customer-detail-header-select-menu {
+  min-width: 180px;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 9999;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+}
+
+#customer_detail_layout .customer-detail-header-select-menu button {
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  color: rgb(107, 99, 119);
+  padding: 10px 14px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+#customer_detail_layout .customer-detail-header-select-menu button:hover:not(.is-selected) {
+  background-color: rgba(89, 80, 103, 0.12);
+}
+
+#customer_detail_layout .customer-detail-header-select-menu button.is-selected {
+  background: var(--selected-bg) !important;
+  color: var(--selected-color) !important;
+  font-weight: 500;
+}
+
+.theme-dark #customer_detail_layout .customer-detail-header-select-menu button.is-selected {
+  background: rgb(176, 168, 181) !important;
+  color: rgb(10, 12, 13) !important;
+}
+
+#customer_detail_layout .customer-detail-header-select-menu hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  margin: 4px 10px;
+}
+
+@media (max-width: 982px) {
+  #customer_detail_layout .customer-detail-header-strip-primary,
+  #customer_detail_layout .customer-detail-header-strip-secondary {
+    display: none !important;
+  }
+}
+
+@media (min-width: 983px) {
+  #customer_detail_layout .customer-detail-header-dropdown {
+    display: none !important;
+  }
+}
+
 @media (max-width: 1235px) {
   #customer_detail_layout .customer-detail-page-header {
     height: auto !important;

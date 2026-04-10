@@ -129,6 +129,32 @@ function getCustomerDetailPanelLabel(pathname: string, id: string): string {
   return labels[n] ?? "Notes";
 }
 
+type CustomerHeaderTabKey =
+  | "account"
+  | "contacts"
+  | "locations"
+  | "notes"
+  | "jobs"
+  | "invoices"
+  | "estimates"
+  | "payments"
+  | "credits"
+  | "documents";
+
+function getCustomerHeaderTabKey(pathname: string, id: string): CustomerHeaderTabKey {
+  const n = normalizePathname(pathname);
+  if (n === `/app/customers/account/${id}`) return "account";
+  if (n === `/app/customers/contacts/${id}`) return "contacts";
+  if (n === `/app/customers/locations/${id}`) return "locations";
+  if (n === `/app/customers/jobs/${id}`) return "jobs";
+  if (n === `/app/customers/invoices/${id}`) return "invoices";
+  if (n === `/app/customers/estimates/${id}`) return "estimates";
+  if (n === `/app/customers/payments/${id}`) return "payments";
+  if (n === `/app/customers/credits/${id}`) return "credits";
+  if (n === `/app/customers/documents/${id}`) return "documents";
+  return "notes";
+}
+
 export const CustomerDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
@@ -136,6 +162,7 @@ export const CustomerDetailPage = () => {
   const base = `/app/customers`;
   const [showContacts, setShowContacts] = useState(false);
   const [jobsStatusFilter, setJobsStatusFilter] = useState<JobsStatusFilter>("all");
+  const [isHeaderTabDropdownOpen, setIsHeaderTabDropdownOpen] = useState(false);
 
   const panelLabel = useMemo(
     () => getCustomerDetailPanelLabel(location.pathname, id ?? ""),
@@ -146,6 +173,41 @@ export const CustomerDetailPage = () => {
     () => isCustomerNotesRoute(location.pathname, id ?? ""),
     [location.pathname, id],
   );
+
+  const currentHeaderTabKey = useMemo(
+    () => getCustomerHeaderTabKey(location.pathname, id ?? ""),
+    [location.pathname, id],
+  );
+
+  const handleHeaderTabSelectChange = (value: string) => {
+    if (!id || value === "__divider__") return;
+    const routes: Record<CustomerHeaderTabKey, string> = {
+      account: `${base}/account/${id}`,
+      contacts: `${base}/contacts/${id}`,
+      locations: `${base}/locations/${id}`,
+      notes: `${base}/${id}`,
+      jobs: `${base}/jobs/${id}`,
+      invoices: `${base}/invoices/${id}`,
+      estimates: `${base}/estimates/${id}`,
+      payments: `${base}/payments/${id}`,
+      credits: `${base}/credits/${id}`,
+      documents: `${base}/documents/${id}`,
+    };
+    navigate(routes[value as CustomerHeaderTabKey]);
+  };
+
+  const headerTabLabel: Record<CustomerHeaderTabKey, string> = {
+    account: "Account",
+    contacts: "Contacts",
+    locations: "Locations",
+    notes: "Notes",
+    jobs: "Jobs",
+    invoices: "Invoices",
+    estimates: "Estimates",
+    payments: "Payments",
+    credits: "Credits",
+    documents: "Documents",
+  };
 
   return (
     <div id="customer_detail_layout" style={{ display: "flex", flexDirection: "row", height: "100%" }}>
@@ -200,7 +262,71 @@ export const CustomerDetailPage = () => {
             }}
           >
             <div
-              className="btn-item ml-0 relative"
+              className={`v2-dropdown calendar-dropdown customer-detail-header-dropdown${isHeaderTabDropdownOpen ? " is-open" : ""}`}
+            >
+              <button
+                type="button"
+                className="dropbtn v2-btn-default nav customer-detail-header-select"
+                aria-expanded={isHeaderTabDropdownOpen}
+                aria-haspopup="true"
+                onClick={() => setIsHeaderTabDropdownOpen((prev) => !prev)}
+              >
+                {headerTabLabel[currentHeaderTabKey]}
+              </button>
+              {isHeaderTabDropdownOpen && (
+                <div className="v2-dropdown__menu customer-detail-header-select-menu" role="listbox" aria-label="Customer detail tabs">
+                  {(
+                    [
+                      ["account", "Account"],
+                      ["contacts", "Contacts"],
+                      ["locations", "Locations"],
+                    ] as const
+                  ).map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      role="option"
+                      aria-selected={currentHeaderTabKey === key}
+                      className={currentHeaderTabKey === key ? "is-selected" : undefined}
+                      onClick={() => {
+                        handleHeaderTabSelectChange(key);
+                        setIsHeaderTabDropdownOpen(false);
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                  <hr />
+                  {(
+                    [
+                      ["notes", "Notes"],
+                      ["jobs", "Jobs"],
+                      ["invoices", "Invoices"],
+                      ["estimates", "Estimates"],
+                      ["payments", "Payments"],
+                      ["credits", "Credits"],
+                      ["documents", "Documents"],
+                    ] as const
+                  ).map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      role="option"
+                      aria-selected={currentHeaderTabKey === key}
+                      className={currentHeaderTabKey === key ? "is-selected" : undefined}
+                      onClick={() => {
+                        handleHeaderTabSelectChange(key);
+                        setIsHeaderTabDropdownOpen(false);
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div
+              className="btn-item ml-0 relative customer-detail-header-strip-primary"
               style={{
                 height: 30,
                 padding: 1,
@@ -224,7 +350,7 @@ export const CustomerDetailPage = () => {
               </NavLink>
             </div>
             <div
-              className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group"
+              className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group customer-detail-header-strip-secondary"
               style={{
                 height: 30,
                 padding: 1,
