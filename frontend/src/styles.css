@@ -12034,6 +12034,20 @@ html:not(.theme-dark) .container-setting .page-wrapper.bg-white .rows.has-divide
   color: rgb(107, 99, 119) !important;
 }
 
+@media (max-width: 1235px) {
+  #customer_detail_layout .customer-detail-page-header {
+    height: auto !important;
+    min-height: 72px;
+    align-items: flex-start !important;
+  }
+
+  #customer_detail_layout .customer-detail-header-tab-strips {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+}
+
 #customer_detail_layout .customer-detail-jobs-tabs button.tab-items {
   border: none;
   outline: none;

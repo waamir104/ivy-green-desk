@@ -151,6 +151,7 @@ export const CustomerDetailPage = () => {
     <div id="customer_detail_layout" style={{ display: "flex", flexDirection: "row", height: "100%" }}>
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
         <div
+          className="customer-detail-page-header"
           style={{
             backgroundColor: "transparent",
             height: 72,
@@ -188,42 +189,55 @@ export const CustomerDetailPage = () => {
             </span>
           </button>
           <div
-            className="btn-item ml-0 relative"
+            className="customer-detail-header-tab-strips"
             style={{
-              height: 30,
-              padding: 1,
-              backgroundColor: "#ffffff",
-              border: "1px solid rgba(0, 0, 0, 0.14)",
-              borderRadius: 6,
+              flex: 1,
+              minWidth: 0,
               display: "flex",
+              flexDirection: "row",
               alignItems: "center",
-              gap: 0,
+              gap: 12,
             }}
           >
-            <NavLink to={`${base}/account/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
-              Account
-            </NavLink>
-            <NavLink to={`${base}/contacts/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
-              Contacts
-            </NavLink>
-            <NavLink to={`${base}/locations/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
-              Locations
-            </NavLink>
-          </div>
-          <div
-            className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group"
-            style={{
-              height: 30,
-              padding: 1,
-              backgroundColor: "#ffffff",
-              border: "1px solid rgba(0, 0, 0, 0.14)",
-              borderRadius: 6,
-              display: "flex",
-              alignItems: "center",
-              gap: 0,
-              marginLeft: 12,
-            }}
-          >
+            <div
+              className="btn-item ml-0 relative"
+              style={{
+                height: 30,
+                padding: 1,
+                backgroundColor: "#ffffff",
+                border: "1px solid rgba(0, 0, 0, 0.14)",
+                borderRadius: 6,
+                display: "flex",
+                alignItems: "center",
+                gap: 0,
+                flexShrink: 0,
+              }}
+            >
+              <NavLink to={`${base}/account/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
+                Account
+              </NavLink>
+              <NavLink to={`${base}/contacts/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
+                Contacts
+              </NavLink>
+              <NavLink to={`${base}/locations/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
+                Locations
+              </NavLink>
+            </div>
+            <div
+              className="btn-item ml-0 relative no-effect customer-detail-tab-slide-group"
+              style={{
+                height: 30,
+                padding: 1,
+                backgroundColor: "#ffffff",
+                border: "1px solid rgba(0, 0, 0, 0.14)",
+                borderRadius: 6,
+                display: "flex",
+                alignItems: "center",
+                gap: 0,
+                width: "fit-content",
+                flexShrink: 0,
+              }}
+            >
             <div className="slide-tab" aria-hidden />
             <NavLink
               end
@@ -251,6 +265,7 @@ export const CustomerDetailPage = () => {
             <NavLink to={`${base}/documents/${id}`} className={tabNavClass} style={tabStripLinkStyle}>
               Documents
             </NavLink>
+            </div>
           </div>
         </div>
         <div
